@@ -1,8 +1,9 @@
 #include "Game.h"
+#include "Player.h"
 #include "TextureManager.h"
 #include <iostream>
 
-Game::Game() : window(nullptr), renderer(nullptr), isRunning(false) {}
+Game::Game() : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr) {}
 
 Game::~Game() {
     clean();
@@ -28,33 +29,38 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    player = new Player(renderer, 100, 100); // create player
     isRunning = true;
     return true;
 }
 
 void Game::handleEvents() {
     SDL_Event event;
-    SDL_PollEvent(&event);
-
-    if (event.type == SDL_QUIT) {
-        isRunning = false;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            isRunning = false;
+        }
+        player->handleInput(event); // pass event to player
     }
+
+    
 }
 
 void Game::update() {
-    // Game logic here
+    player->update(); // update movement
 }
 
 void Game::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    // Draw elements here
+    player->render(); // render player
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
+    delete player; // free mem
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

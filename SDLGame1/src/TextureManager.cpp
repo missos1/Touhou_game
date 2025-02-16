@@ -1,8 +1,8 @@
 #include "TextureManager.h"
 #include <iostream>
 
-SDL_Texture* TextureManager::loadTexture(const std::string& fileName, SDL_Renderer* renderer) {
-    SDL_Surface* tempSurface = IMG_Load(fileName.c_str());
+SDL_Texture* TextureManager::LoadTexture(const char* fileName, SDL_Renderer* renderer) {
+    SDL_Surface* tempSurface = IMG_Load(fileName);
     if (!tempSurface) {
         std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
         return nullptr;
@@ -12,3 +12,5 @@ SDL_Texture* TextureManager::loadTexture(const std::string& fileName, SDL_Render
     SDL_FreeSurface(tempSurface);
     return texture;
 }
+
+

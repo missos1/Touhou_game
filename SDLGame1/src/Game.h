@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+class Player;
+
 class Game {
 public:
     Game();
@@ -19,6 +21,8 @@ private:
     bool isRunning;
     SDL_Window* window;
     SDL_Renderer* renderer;
+
+    Player* player;
 };
 
 #endif
