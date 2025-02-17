@@ -1,11 +1,16 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(SDL_Renderer* renderer, int x, int y) : renderer(renderer), speed(1), dx(0), dy(0) {
-    texture = TextureManager::LoadTexture("res/player/reimusprite_test.png", renderer);
+Player::Player(SDL_Renderer* renderer, int x, int y) : renderer(renderer), speed(10), dx(0), dy(0) {
+    texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
 
-    srcRect = { 0, 0, 23, 43 }; // Sprite size
-    destRect = { x, y, 23, 43 }; // Display size (scaled up)
+    totalFrames = 4;
+    Ani_speed = 0.1f;
+    frameTime = 0.0;
+    currentFrame = 0;
+
+    srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // Sprite size
+    destRect = { x, y, PLAYER_WIDTH, PLAYER_HEIGHT }; // Display size (scaled up)
 }
 
 Player::~Player() {
@@ -32,6 +37,15 @@ void Player::handleInput(SDL_Event& event) {
 }
 
 void Player::update() {
+    frameTime += Ani_speed;
+
+    if (frameTime >= 1.0f) {
+        frameTime = 0.0f;
+        currentFrame = (currentFrame + 1) % totalFrames;
+    }
+
+    srcRect.x = currentFrame * PLAYER_WIDTH;
+
     destRect.x += dx;
     destRect.y += dy;
 }

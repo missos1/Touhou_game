@@ -21,6 +21,14 @@ private:
 
     int speed;
     int dx, dy;  // Movement deltas
+    
+    const int PLAYER_HEIGHT = 48;
+    const int PLAYER_WIDTH = 32;
+
+    int currentFrame;
+    int totalFrames;
+    float Ani_speed;
+    float frameTime;
 };
 
 #endif

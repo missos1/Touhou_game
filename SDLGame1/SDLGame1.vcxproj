@@ -30,7 +30,8 @@
     <ClInclude Include="src\TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\player\reimusprite_test.png" />
+    <Image Include="res\bg.png" />
+    <Image Include="res\player\Reimu_sprite.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -40,7 +40,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\player\reimusprite_test.png">
+    <Image Include="res\player\Reimu_sprite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bg.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

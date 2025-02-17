@@ -15,6 +15,8 @@ public:
     void update();
     void render();
     void clean();
+    void run();
+
     bool running() { return isRunning; }
 
 private:
@@ -23,6 +25,11 @@ private:
     SDL_Renderer* renderer;
 
     Player* player;
+
+    const int FPS = 60;
+    const int frameDelay = 1000 / FPS;  // frame stuff
+    Uint32 frameStart;
+    int frameTime;
 };
 
 #endif

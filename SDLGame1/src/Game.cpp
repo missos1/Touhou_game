@@ -34,6 +34,21 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     return true;
 }
 
+void Game::run() {
+    while (isRunning) {
+        frameStart = SDL_GetTicks();
+
+        handleEvents();
+        update();
+        render();
+
+        frameTime = SDL_GetTicks() - frameStart;     // fps limiter
+        if (frameDelay > frameTime) {
+            SDL_Delay(frameDelay - frameTime);
+        }
+    }
+}
+
 void Game::handleEvents() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -42,8 +57,6 @@ void Game::handleEvents() {
         }
         player->handleInput(event); // pass event to player
     }
-
-    
 }
 
 void Game::update() {
