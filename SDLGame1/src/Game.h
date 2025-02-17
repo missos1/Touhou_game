@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL.h>
+#include "Player.h"
 
 class Game {
 public:

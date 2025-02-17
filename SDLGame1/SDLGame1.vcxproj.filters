@@ -43,8 +43,5 @@
     <Image Include="res\player\Reimu_sprite.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bg.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>
