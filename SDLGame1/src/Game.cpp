@@ -29,7 +29,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    player = new Player(renderer, 100, 100); // create player
+    player = new Player(renderer, 400, 500); // create player
     isRunning = true;
     return true;
 }

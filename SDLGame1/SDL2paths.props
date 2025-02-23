@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <SDL2include>C:\Users\admin\source\repos\SDLGame1\SDLGame1\include</SDL2include>
+    <SDL2lib>C:\Users\admin\source\repos\SDLGame1\SDLGame1\lib</SDL2lib>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="SDL2include">
+      <Value>$(SDL2include)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SDL2lib">
+      <Value>$(SDL2lib)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

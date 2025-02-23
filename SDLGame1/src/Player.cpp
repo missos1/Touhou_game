@@ -1,7 +1,9 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(SDL_Renderer* renderer, int x, int y) : renderer(renderer), speed(10), dx(0), dy(0) {
+Player::Player(SDL_Renderer* renderer, int x, int y)
+    : renderer(renderer), dx(0), dy(0), speed(5) {
+
     texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
 
     totalFrames = 4;
@@ -19,6 +21,11 @@ Player::~Player() {
 
 void Player::handleInput(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
+            isFocusing = true;
+            speed = focusSpeed;
+        }
+
         switch (event.key.keysym.sym) {
         case SDLK_w: dy = -speed; break; // Move up
         case SDLK_s: dy = speed; break;  // Move down
@@ -26,7 +33,13 @@ void Player::handleInput(SDL_Event& event) {
         case SDLK_d: dx = speed; break;  // Move right
         }
     }
+
     if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
+            isFocusing = false;
+            speed = baseSpeed;
+        }
+
         switch (event.key.keysym.sym) {
         case SDLK_w:
         case SDLK_s: dy = 0; break;

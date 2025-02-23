@@ -19,9 +19,12 @@ private:
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
 
+    int baseSpeed = 10;   
+    int focusSpeed = 3; 
     int speed;
     int dx, dy;  // Movement deltas
-    
+    bool isFocusing = false;  
+
     const int PLAYER_HEIGHT = 48;
     const int PLAYER_WIDTH = 32;
 
