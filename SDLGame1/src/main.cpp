@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Game.hpp"
 #include <SDL_image.h>
 
 Game* game = nullptr;
