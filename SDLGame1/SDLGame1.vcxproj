@@ -22,7 +22,6 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\testfetch.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -123,7 +122,9 @@
     <ClInclude Include="src\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\player\Reimu_sprite.png" />
+    <Image Include="res\sidebar.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player(SDL_Renderer* renderer, int x, int y)
-    : renderer(renderer), dx(0), dy(0), speed(5) {
+    : renderer(renderer), dx(0), dy(0), speed(9) {
 
     texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
 
@@ -12,7 +12,7 @@ Player::Player(SDL_Renderer* renderer, int x, int y)
     currentFrame = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // Sprite size
-    destRect = { x, y, PLAYER_WIDTH, PLAYER_HEIGHT }; // Display size (scaled up)
+    destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // Display size (scaled up)
 }
 
 Player::~Player() {
@@ -22,7 +22,7 @@ Player::~Player() {
 void Player::handleInput(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
-            isFocusing = true;
+            isFocusing = true;  // shift to slow
             speed = focusSpeed;
         }
 
@@ -36,7 +36,7 @@ void Player::handleInput(SDL_Event& event) {
 
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
-            isFocusing = false;
+            isFocusing = false; // return to normal speed
             speed = baseSpeed;
         }
 

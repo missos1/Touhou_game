@@ -18,8 +18,8 @@ private:
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
 
-    int baseSpeed = 10;   
-    int focusSpeed = 3; 
+    int baseSpeed = 9;   
+    int focusSpeed = 4; 
     int speed;
     int dx, dy;  // Movement deltas
     bool isFocusing = false;  

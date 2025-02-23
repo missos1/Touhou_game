@@ -16,7 +16,7 @@ public:
     void clean();
     void run();
 
-    bool running() { return isRunning; }
+    bool running() const { return isRunning; }
 
 private:
     bool isRunning;
@@ -24,6 +24,9 @@ private:
     SDL_Renderer* renderer;
 
     Player* player;
+
+    SDL_Texture* bgtexture;
+    int tileSize;
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;  // frame stuff
