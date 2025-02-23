@@ -3,7 +3,7 @@
 #define PLAYER_H
 
 #include <SDL.h>
-#include "TextureManager.h"
+#include "TextureManager.hpp"
 
 class Player {
 public:

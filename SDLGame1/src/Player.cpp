@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Player.hpp"
 #include <iostream>
 
 Player::Player(SDL_Renderer* renderer, int x, int y)

@@ -2,11 +2,19 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <SDL2include>C:\Users\admin\source\repos\SDLGame1\SDLGame1\include</SDL2include>
-    <SDL2lib>C:\Users\admin\source\repos\SDLGame1\SDLGame1\lib</SDL2lib>
+    <SDL2include>C:\Users\admin\source\repos\missos1\Touhou_game\SDLGame1\include</SDL2include>
+    <SDL2lib>C:\Users\admin\source\repos\missos1\Touhou_game\SDLGame1\lib</SDL2lib>
   </PropertyGroup>
   <PropertyGroup />
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SDL2include);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SDL2lib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="SDL2include">
       <Value>$(SDL2include)</Value>

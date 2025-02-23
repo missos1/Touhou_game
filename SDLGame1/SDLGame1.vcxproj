@@ -117,9 +117,9 @@
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
-    <ClInclude Include="src\Game.h" />
-    <ClInclude Include="src\Player.h" />
-    <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\Game.hpp" />
+    <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png" />

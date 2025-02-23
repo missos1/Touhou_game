@@ -1,6 +1,4 @@
-#include "Game.h"
-#include "Player.h"
-#include "TextureManager.h"
+#include "Game.hpp"
 #include <iostream>
 
 Game::Game() : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr) {}
