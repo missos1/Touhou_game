@@ -22,6 +22,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\sidebar.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +120,7 @@
     <ClInclude Include="include\SDL_vulkan.h" />
     <ClInclude Include="src\Game.hpp" />
     <ClInclude Include="src\Player.hpp" />
+    <ClInclude Include="src\sidebar.hpp" />
     <ClInclude Include="src\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@
     <ClCompile Include="src\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\testfetch.cpp">
+    <ClCompile Include="src\sidebar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,9 +317,18 @@
     <ClInclude Include="include\SDL_vulkan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\sidebar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\BGTEXTURE.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sidebar.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

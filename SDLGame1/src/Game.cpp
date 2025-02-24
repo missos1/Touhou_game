@@ -2,7 +2,8 @@
 #include <iostream>
 #define endl "\n";
 
-Game::Game() : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr), frameStart(0), frameTime(0), bgtexture(nullptr), tileSize(0) {}
+Game::Game()
+    : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr), frameStart(0), frameTime(0), bgtexture(nullptr), tileSize(0) {}
 
 Game::~Game() {
     clean();
@@ -28,18 +29,13 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-
-    bgtexture = TextureManager::LoadTexture("res/BGTEXTURE.png", renderer);
+    bgtexture = new Sidebar(renderer);
     if (!bgtexture) {
         std::cout << "Background Creation Failed! Error: " << SDL_GetError() << endl;
         return false;
     }
 
-    int w, h;
-    SDL_QueryTexture(bgtexture, nullptr, nullptr, &w, &h);
-    tileSize = w;
-
-    player = new Player(renderer, 140, 380); // create player
+    player = new Player(renderer, 410, 680); // create player
     isRunning = true;
     return true;
 }
@@ -70,7 +66,9 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    player->update(); // update movement
+    int winW, winH;
+    SDL_GetRendererOutputSize(renderer, &winW, &winH);
+    player->update(winW, winH); // update movement
 }
 
 void Game::render() {
@@ -82,25 +80,14 @@ void Game::render() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
 
-    SDL_Rect destRect;
-    for (int y = 0; y < winH; y += tileSize) {
-        for (int x = 0; x < winW; x += tileSize) {
-            if ((x < tileSize * 2) || (x > tileSize * 26)) {
-                //if ((x < tileSize) || (x > tileSize * 5)) {
-                destRect = { x ,y , tileSize, tileSize };
-                SDL_RenderCopy(renderer, bgtexture, nullptr, &destRect); //render background
-                //}
-            }
-        }
-    }
-
+    bgtexture->render(winW, winH); // render sidebar
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
     delete player; // free mem
-    SDL_DestroyTexture(bgtexture);
+    delete bgtexture; 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

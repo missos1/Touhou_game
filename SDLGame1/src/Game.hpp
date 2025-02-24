@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "Player.hpp"
+#include "sidebar.hpp"
 
 class Game {
 public:
@@ -25,7 +26,7 @@ private:
 
     Player* player;
 
-    SDL_Texture* bgtexture;
+    Sidebar* bgtexture;
     int tileSize;
 
     const int FPS = 60;
