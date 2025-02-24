@@ -26,8 +26,7 @@ private:
 
     Player* player;
 
-    Sidebar* bgtexture;
-    int tileSize;
+    Sidebar* sidebar;
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;  // frame stuff

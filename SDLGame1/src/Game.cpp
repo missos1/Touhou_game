@@ -3,7 +3,7 @@
 #define endl "\n";
 
 Game::Game()
-    : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr), frameStart(0), frameTime(0), bgtexture(nullptr), tileSize(0) {}
+    : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr), frameStart(0), frameTime(0), sidebar(nullptr) {}
 
 Game::~Game() {
     clean();
@@ -29,8 +29,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    bgtexture = new Sidebar(renderer);
-    if (!bgtexture) {
+    sidebar = new Sidebar(renderer);
+    if (!sidebar) {
         std::cout << "Background Creation Failed! Error: " << SDL_GetError() << endl;
         return false;
     }
@@ -68,7 +68,7 @@ void Game::handleEvents() {
 void Game::update() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
-    player->update(winW, winH); // update movement
+    player->update(); // update movement
 }
 
 void Game::render() {
@@ -80,14 +80,14 @@ void Game::render() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
 
-    bgtexture->render(winW, winH); // render sidebar
+    sidebar->render(winW, winH); // render sidebar
 
     SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
     delete player; // free mem
-    delete bgtexture; 
+    delete sidebar; 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

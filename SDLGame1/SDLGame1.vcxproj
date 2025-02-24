@@ -127,6 +127,7 @@
     <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\sidebar.png" />
+    <Image Include="res\SIDEBAR_TITLE.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

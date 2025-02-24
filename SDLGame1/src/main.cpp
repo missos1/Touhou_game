@@ -6,7 +6,7 @@ Game* game = nullptr;
 int main(int argc, char* argv[]) {
     game = new Game();
 
-    if (!game->init("SDL2 Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, false)) {
+    if (!game->init("Touhou", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, false)) {
         return -1;
     }
 

@@ -12,8 +12,12 @@ public:
 
 private:
 	SDL_Renderer* renderer;
-	SDL_Texture* bgtexture_0;
+	SDL_Texture* bg_texture;
+	SDL_Texture* title_texture;
+
 	SDL_Rect destRect;
+	SDL_Rect desRect_title;
+
 	int tileSize;
 
 };

@@ -331,6 +331,9 @@
     <Image Include="res\sidebar.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\SIDEBAR_TITLE.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
