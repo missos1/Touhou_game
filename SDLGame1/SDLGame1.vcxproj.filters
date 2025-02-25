@@ -30,15 +30,18 @@
     <ClCompile Include="src\sidebar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Bullets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game.hpp">
+    <ClInclude Include="src\headers\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Player.hpp">
+    <ClInclude Include="src\headers\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TextureManager.hpp">
+    <ClInclude Include="src\headers\TextureManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\begin_code.h">
@@ -317,7 +320,10 @@
     <ClInclude Include="include\SDL_vulkan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\sidebar.hpp">
+    <ClInclude Include="src\headers\sidebar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Bullets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

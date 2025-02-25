@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include <SDL.h>
 #include "TextureManager.hpp"
@@ -21,8 +21,9 @@ private:
     int baseSpeed = 9;   
     int focusSpeed = 4; 
     int speed;
-    int dx, dy;  // Movement deltas
+    int dx, dy;  // movement deltas
     bool isFocusing = false;  
+    bool isFiring = false;
 
     const int PLAYER_HEIGHT = 48;
     const int PLAYER_WIDTH = 32;

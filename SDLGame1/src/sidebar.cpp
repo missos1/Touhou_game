@@ -1,7 +1,8 @@
-#include "sidebar.hpp"
+#include "headers/sidebar.hpp"
 
 Sidebar::Sidebar(SDL_Renderer* renderer)
-    : renderer(renderer), tileSize(0), bg_texture(nullptr), title_texture(nullptr) {
+    : renderer(renderer), tileSize(0), bg_texture(nullptr), title_texture(nullptr),
+    destRect{ 0, 0, 0, 0 }, desRect_title{ 0, 0, 0, 0 } {
 
 	bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png", renderer);
 	title_texture = TextureManager::LoadTexture("res/SIDEBAR_TITLE.png", renderer);
@@ -40,6 +41,5 @@ void Sidebar::render(int winW, int winH) {
 	int TITLE_WIDTH, TITLE_HEIGHT;
     SDL_QueryTexture(title_texture, nullptr, nullptr, &TITLE_WIDTH, &TITLE_HEIGHT);
 	desRect_title = { 910, 590, TITLE_WIDTH * 2, TITLE_HEIGHT * 2 };
-	SDL_RenderCopy(renderer, title_texture, nullptr, &desRect_title);
-    
+	SDL_RenderCopy(renderer, title_texture, nullptr, &desRect_title);   
 }

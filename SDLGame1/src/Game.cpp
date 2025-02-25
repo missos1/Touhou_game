@@ -1,9 +1,10 @@
-#include "Game.hpp"
+#include "headers/Game.hpp"
 #include <iostream>
 #define endl "\n";
 
 Game::Game()
-    : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr), frameStart(0), frameTime(0), sidebar(nullptr) {}
+    : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr),
+    frameStart(0), frameTime(0), sidebar(nullptr) {}
 
 Game::~Game() {
     clean();
