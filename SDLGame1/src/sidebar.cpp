@@ -39,7 +39,7 @@ void Sidebar::render(int winW, int winH) {
 
 	// render title
 	int TITLE_WIDTH, TITLE_HEIGHT;
-    SDL_QueryTexture(title_texture, nullptr, nullptr, &TITLE_WIDTH, &TITLE_HEIGHT);
+   	SDL_QueryTexture(title_texture, nullptr, nullptr, &TITLE_WIDTH, &TITLE_HEIGHT);
 	desRect_title = { 910, 590, TITLE_WIDTH * 2, TITLE_HEIGHT * 2 };
 	SDL_RenderCopy(renderer, title_texture, nullptr, &desRect_title);   
 }
