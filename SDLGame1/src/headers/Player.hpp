@@ -25,13 +25,17 @@ private:
     bool isFocusing = false;  
     bool isFiring = false;
 
-    const int PLAYER_HEIGHT = 48;
+    const int PLAYER_HEIGHT = 50;
     const int PLAYER_WIDTH = 32;
 
     int currentFrame;
     int totalFrames;
     float Ani_speed;
     float frameTime;
+    bool isMoving;
+    bool reverseAnimation;
+    float holdTime;
+    bool isIdle;
 };
 
 #endif
