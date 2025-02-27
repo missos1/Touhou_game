@@ -12,7 +12,6 @@ public:
     void handleInput(SDL_Event& event);
     void update();
     void render();
-
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;
@@ -23,7 +22,7 @@ private:
     int speed;
     int dx, dy;  // movement deltas
     bool isFocusing = false;  
-    bool isFiring = false;
+    bool isIdle = true;
 
     const int PLAYER_HEIGHT = 50;
     const int PLAYER_WIDTH = 32;
@@ -35,7 +34,7 @@ private:
     bool isMoving;
     bool reverseAnimation;
     float holdTime;
-    bool isIdle;
+    //bool isIdle;
 };
 
 #endif
