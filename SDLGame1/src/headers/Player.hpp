@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 
 #include <SDL.h>
 #include "TextureManager.hpp"
@@ -18,19 +18,24 @@ private:
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
 
-    int baseSpeed = 10;   
-    int focusSpeed = 3; 
+    int baseSpeed = 9;   
+    int focusSpeed = 4; 
     int speed;
-    int dx, dy;  // Movement deltas
+    int dx, dy;  // movement deltas
     bool isFocusing = false;  
+    bool isFiring = false;
 
-    const int PLAYER_HEIGHT = 48;
+    const int PLAYER_HEIGHT = 50;
     const int PLAYER_WIDTH = 32;
 
     int currentFrame;
     int totalFrames;
     float Ani_speed;
     float frameTime;
+    bool isMoving;
+    bool reverseAnimation;
+    float holdTime;
+    bool isIdle;
 };
 
 #endif

@@ -1,8 +1,9 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include <SDL.h>
 #include "Player.hpp"
+#include "sidebar.hpp"
 
 class Game {
 public:
@@ -16,7 +17,7 @@ public:
     void clean();
     void run();
 
-    bool running() { return isRunning; }
+    bool running() const { return isRunning; }
 
 private:
     bool isRunning;
@@ -24,6 +25,8 @@ private:
     SDL_Renderer* renderer;
 
     Player* player;
+
+    Sidebar* sidebar;
 
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;  // frame stuff

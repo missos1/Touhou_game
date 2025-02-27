@@ -2,8 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
-    <SDL2include>C:\Users\Hoang Minh Duc\source\repos\missos1\Touhou_game\SDLGame1\include</SDL2include>
-    <SDL2lib>C:\Users\Hoang Minh Duc\source\repos\missos1\Touhou_game\SDLGame1\lib</SDL2lib>
+    <SDL2include>C:\Users\admin\source\repos\missos1\Touhou_game\SDLGame1\include</SDL2include>
+    <SDL2lib>C:\Users\admin\source\repos\missos1\Touhou_game\SDLGame1\lib</SDL2lib>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup>

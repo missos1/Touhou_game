@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "headers/Game.hpp"
 #include <SDL_image.h>
 
 Game* game = nullptr;
@@ -6,7 +6,7 @@ Game* game = nullptr;
 int main(int argc, char* argv[]) {
     game = new Game();
 
-    if (!game->init("SDL2 Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false)) {
+    if (!game->init("Touhou_6_alpha", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, false)) {
         return -1;
     }
 

@@ -1,8 +1,9 @@
-#include "Player.hpp"
+#include "headers/Player.hpp"
 #include <iostream>
+#include <unordered_set>
 
 Player::Player(SDL_Renderer* renderer, int x, int y)
-    : renderer(renderer), dx(0), dy(0), speed(5) {
+    : renderer(renderer), dx(0), dy(0), speed(9), holdTime(0.0f) {
 
     texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
 
@@ -11,8 +12,8 @@ Player::Player(SDL_Renderer* renderer, int x, int y)
     frameTime = 0.0;
     currentFrame = 0;
 
-    srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // Sprite size
-    destRect = { x, y, PLAYER_WIDTH, PLAYER_HEIGHT }; // Display size (scaled up)
+    srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
+    destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
 }
 
 Player::~Player() {
@@ -20,49 +21,80 @@ Player::~Player() {
 }
 
 void Player::handleInput(SDL_Event& event) {
+    static std::unordered_set<SDL_Scancode> heldKeys; // smooth movement
+
     if (event.type == SDL_KEYDOWN) {
-        if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
-            isFocusing = true;
+		SDL_Scancode scancode = event.key.keysym.scancode;
+		heldKeys.insert(scancode);
+        // shift to slow
+        if (event.key.keysym.scancode == SDL_SCANCODE_LSHIFT || event.key.keysym.sym == SDL_SCANCODE_RSHIFT) {
+            isFocusing = true;  
             speed = focusSpeed;
         }
-
-        switch (event.key.keysym.sym) {
-        case SDLK_w: dy = -speed; break; // Move up
-        case SDLK_s: dy = speed; break;  // Move down
-        case SDLK_a: dx = -speed; break; // Move left
-        case SDLK_d: dx = speed; break;  // Move right
-        }
     }
 
-    if (event.type == SDL_KEYUP) {
-        if (event.key.keysym.sym == SDLK_LSHIFT || event.key.keysym.sym == SDLK_RSHIFT) {
-            isFocusing = false;
+    else if (event.type == SDL_KEYUP) {
+        SDL_Scancode scancode = event.key.keysym.scancode;
+		heldKeys.erase(scancode);       
+        // return to normal speed
+        if (event.key.keysym.scancode == SDL_SCANCODE_LSHIFT || event.key.keysym.sym == SDL_SCANCODE_RSHIFT) {
+            isFocusing = false; 
             speed = baseSpeed;
         }
-
-        switch (event.key.keysym.sym) {
-        case SDLK_w:
-        case SDLK_s: dy = 0; break;
-        case SDLK_a:
-        case SDLK_d: dx = 0; break;
-        }
     }
+
+    dx = dy = 0;
+
+    if (heldKeys.count(SDL_SCANCODE_W)) dy = -speed; // move up
+    if (heldKeys.count(SDL_SCANCODE_S)) dy = speed;// move down
+    if (heldKeys.count(SDL_SCANCODE_D)) {
+        dx = speed;// move right
+        isMoving = true;
+    }
+
+    if (heldKeys.count(SDL_SCANCODE_A)) {
+        dx = -speed; // move left
+        isMoving = true;
+    }
+    else if (!heldKeys.count(SDL_SCANCODE_A) && !heldKeys.count(SDL_SCANCODE_D)) isMoving = false;
 }
 
 void Player::update() {
     frameTime += Ani_speed;
 
-    if (frameTime >= 1.0f) {
-        frameTime = 0.0f;
-        currentFrame = (currentFrame + 1) % totalFrames;
-    }
+    //srcRect.y = isMoving ? PLAYER_HEIGHT : 0;
 
-    srcRect.x = currentFrame * PLAYER_WIDTH;
+    /*if (isMoving) {
+        holdTime += Ani_speed;
+        if (holdTime <= 0.4f) {
+            if (frameTime >= 1.2f && currentFrame <= 2) {
+                frameTime = 0.0f;
+                currentFrame++;
+            }
+        }
+        else {
+            if (frameTime >= 1.2f && currentFrame <= 3) {
+                frameTime = 0.0f;
+                currentFrame++;
+            }
+        }
+    }*/
 
-    destRect.x += dx;
-    destRect.y += dy;
+    //else {
+        if (frameTime >= 1.0f) {
+            frameTime = 0.0f;
+            currentFrame = (currentFrame + 1) % totalFrames;
+        }
+    //}
+
+        srcRect.x = currentFrame * PLAYER_WIDTH;
+
+        destRect.x += dx;
+        destRect.y += dy;
+     
 }
 
 void Player::render() {
     SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 }
+
