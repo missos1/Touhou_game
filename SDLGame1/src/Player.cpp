@@ -21,43 +21,14 @@ Player::~Player() {
     SDL_DestroyTexture(texture);
 }
 
-void Player::handleInput(SDL_Event& event) {
-    static std::unordered_set<SDL_Scancode> heldKeys; // smooth movement
-
-    if (event.type == SDL_KEYDOWN) {
-		SDL_Scancode scancode = event.key.keysym.scancode;
-		heldKeys.insert(scancode);
-        // shift to slow
-        if (event.key.keysym.scancode == SDL_SCANCODE_LSHIFT || event.key.keysym.sym == SDL_SCANCODE_RSHIFT) {
-            isFocusing = true;  
-            speed = focusSpeed;
-        }
-    }
-
-    else if (event.type == SDL_KEYUP) {
-        SDL_Scancode scancode = event.key.keysym.scancode;
-		heldKeys.erase(scancode);       
-        // return to normal speed
-        if (event.key.keysym.scancode == SDL_SCANCODE_LSHIFT || event.key.keysym.sym == SDL_SCANCODE_RSHIFT) {
-            isFocusing = false; 
-            speed = baseSpeed;
-        }
-    }
-
+void Player::handleInput(const Uint8* keys) {
     dx = dy = 0;
-
-    if (heldKeys.count(SDL_SCANCODE_W)) dy = -speed; // move up
-    if (heldKeys.count(SDL_SCANCODE_S)) dy = speed;// move down
-    if (heldKeys.count(SDL_SCANCODE_D)) {
-        dx = speed;// move right
-        isMoving = true;
-    }
-
-    if (heldKeys.count(SDL_SCANCODE_A)) {
-        dx = -speed; // move left
-        isMoving = true;
-    }
-    else if (!heldKeys.count(SDL_SCANCODE_A) && !heldKeys.count(SDL_SCANCODE_D)) isMoving = false;
+    if (keys[SDL_SCANCODE_LSHIFT]) speed = focusSpeed;
+    else speed = baseSpeed;
+    if (keys[SDL_SCANCODE_W]) dy = -speed;
+    if (keys[SDL_SCANCODE_S]) dy = speed;
+    if (keys[SDL_SCANCODE_A]) dx = -speed;
+    if (keys[SDL_SCANCODE_D]) dx = speed;
 }
 
 void Player::update() {

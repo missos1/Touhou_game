@@ -12,7 +12,7 @@ public:
     Player(SDL_Renderer* renderer, int x, int y);
     ~Player();
 
-    void handleInput(SDL_Event& event);
+    void handleInput(const Uint8* keys);
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);

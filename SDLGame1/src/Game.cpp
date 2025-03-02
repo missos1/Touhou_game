@@ -51,6 +51,7 @@ void Game::run() {
         update();
         render();
 
+
         frameTime = SDL_GetTicks() - frameStart;     // fps limiter
         if (frameDelay > frameTime) {
             SDL_Delay(frameDelay - frameTime);
@@ -64,9 +65,14 @@ void Game::handleEvents() {
         if (event.type == SDL_QUIT) {
             isRunning = false;
         }
-        player->handleInput(event); // pass event to player
-        if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-            player->playerShoot(bullets); // bullets shoot
+    }
+
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    player->handleInput(keys);
+
+    if (keys[SDL_SCANCODE_SPACE]) {
+        if (SDL_GetTicks() % 200 < 16) {
+            player->playerShoot(bullets);
         }
     }
 }
