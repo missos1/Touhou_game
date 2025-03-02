@@ -2,8 +2,11 @@
 #define GAME_HPP
 
 #include <SDL.h>
-#include "Player.hpp"
+#include <vector>
 #include "sidebar.hpp"
+
+class Bullet;
+class Player;
 
 class Game {
 public:
@@ -25,7 +28,7 @@ private:
     SDL_Renderer* renderer;
 
     Player* player;
-
+    std::vector<Bullet*> bullets;
     Sidebar* sidebar;
 
     const int FPS = 60;

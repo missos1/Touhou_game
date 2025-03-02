@@ -1,4 +1,5 @@
 #include "headers/Player.hpp"
+#include "headers/Bullets.hpp"
 #include <iostream>
 #include <unordered_set>
 
@@ -96,5 +97,9 @@ void Player::update() {
 
 void Player::render() {
     SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+}
+
+void Player::playerShoot(std::vector<Bullet*>& bullets) {
+    bullets.push_back(new Bullet(renderer, destRect.x + 16, destRect.y, 0, -20, Bullettype::PLAYER_0)); // shooting function
 }
 

@@ -1,4 +1,6 @@
 #include "headers/Game.hpp"
+#include "headers/Bullets.hpp"
+#include "headers/Player.hpp"
 #include <iostream>
 #define endl "\n";
 
@@ -63,6 +65,9 @@ void Game::handleEvents() {
             isRunning = false;
         }
         player->handleInput(event); // pass event to player
+        if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+            player->playerShoot(bullets); // bullets shoot
+        }
     }
 }
 
@@ -70,6 +75,15 @@ void Game::update() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
     player->update(); // update movement
+
+    for (size_t i = 0; i < bullets.size(); i++) {
+        bullets[i]->update();                       // bullets update
+        if (bullets[i]->getY() < 0) {
+            bullets.erase(bullets.begin() + i);
+            i--;
+        }
+    }
+
 }
 
 void Game::render() {
@@ -82,13 +96,20 @@ void Game::render() {
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
 
     sidebar->render(winW, winH); // render sidebar
-
+    for (Bullet* bullet : bullets) {
+        bullet->render();
+    }
     SDL_RenderPresent(renderer);
+   
 }
 
 void Game::clean() {
     delete player; // free mem
     delete sidebar; 
+    for (Bullet* bullet : bullets) {
+        delete bullet; 
+    }
+    bullets.clear();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

@@ -2,7 +2,10 @@
 #define PLAYER_HPP
 
 #include <SDL.h>
+#include <vector>
 #include "TextureManager.hpp"
+
+class Bullet;
 
 class Player {
 public:
@@ -12,6 +15,7 @@ public:
     void handleInput(SDL_Event& event);
     void update();
     void render();
+    void playerShoot(std::vector<Bullet*>& bullets);
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;
@@ -32,6 +36,7 @@ private:
     float Ani_speed;
     float frameTime;
     bool isMoving;
+    bool isShooting;
     bool reverseAnimation;
     float holdTime;
     //bool isIdle;

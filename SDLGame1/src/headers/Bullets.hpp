@@ -3,17 +3,25 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include "Player.hpp"
-#include "Game.hpp"
-#include "sidebar.hpp"
 #include "TextureManager.hpp"
 
-class Bullets {
+enum class Bullettype {
+	PLAYER_0,
+	PLAYER_1,
+	ENEMY_0,	// types of bullet
+	ENEMY_1,
+	ENEMY_2,
+	ENEMY_3,
+};
+
+
+class Bullet {
 public:
-	Bullets(SDL_Renderer* renderer, int x, int y, int velx, int vely);
-	~Bullets();
+	Bullet(SDL_Renderer* renderer, int x, int y, int velx, int vely, Bullettype type);
+	~Bullet();
 	void update();
 	void render();
+	int getY() const;
 
 private:
 	SDL_Renderer* renderer;
@@ -22,8 +30,7 @@ private:
 
 	int vx, vy;
 	int savedVx, savedVy;
-	SDL_Rect srcRect;
-	SDL_Rect destRect;
+	Bullettype type;
 };
 
 #endif
