@@ -71,7 +71,7 @@ void Game::handleEvents() {
     player->handleInput(keys);
 
     if (keys[SDL_SCANCODE_SPACE]) {
-        if (SDL_GetTicks() % 200 < 16) {
+        if (SDL_GetTicks() % 100 < 16) {
             player->playerShoot(bullets);
         }
     }
@@ -96,17 +96,16 @@ void Game::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    player->render(); // render player
-
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
 
-    sidebar->render(winW, winH); // render sidebar
     for (Bullet* bullet : bullets) {
         bullet->render();
     }
+    player->render(); // render player
+    sidebar->render(winW, winH); // render sidebar
+
     SDL_RenderPresent(renderer);
-   
 }
 
 void Game::clean() {

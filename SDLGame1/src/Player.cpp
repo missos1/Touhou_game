@@ -23,8 +23,10 @@ Player::~Player() {
 
 void Player::handleInput(const Uint8* keys) {
     dx = dy = 0;
+
     if (keys[SDL_SCANCODE_LSHIFT]) speed = focusSpeed;
     else speed = baseSpeed;
+
     if (keys[SDL_SCANCODE_W]) dy = -speed;
     if (keys[SDL_SCANCODE_S]) dy = speed;
     if (keys[SDL_SCANCODE_A]) dx = -speed;
@@ -71,6 +73,6 @@ void Player::render() {
 }
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
-    bullets.push_back(new Bullet(renderer, destRect.x + 16, destRect.y, 0, -20, Bullettype::PLAYER_0)); // shooting function
+    bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 0, -20, Bullettype::PLAYER_0)); // shooting function
 }
 
