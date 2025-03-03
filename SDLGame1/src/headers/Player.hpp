@@ -16,6 +16,8 @@ public:
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
+    int getY();
+    int getX();
 private:
     SDL_Renderer* renderer;
     SDL_Texture* texture;

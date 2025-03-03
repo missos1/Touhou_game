@@ -100,37 +100,28 @@ void Player::render() {
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
+    std::vector<int> angle;
     switch (powerlv) {
         case 1:
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 0, -90, Bullettype::PLAYER_0)); 
+            angle = { 0 };
             break;
         case 2:
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -2, -90, Bullettype::PLAYER_0)); 
-            bullets.push_back(new Bullet(renderer, destRect.x + 1, destRect.y + 12, 2, -90, Bullettype::PLAYER_0)); 
+            angle = { 2, -2 };
             break;
         case 3:
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 7, -90, Bullettype::PLAYER_0)); 
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -7, -90, Bullettype::PLAYER_0)); 
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 0, -90, Bullettype::PLAYER_0)); 
+            angle = { 7, 0, -7 }; 
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, -90, Bullettype::PLAYER_1)); 
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, -90, Bullettype::PLAYER_1));
             break;
         case 4:
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 9, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -9, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 3, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -3, -90, Bullettype::PLAYER_0));
+            angle = { 9, 3, -3, -9 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
             break;
         case 5:
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 12, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -12, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 6, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, -6, -90, Bullettype::PLAYER_0));
-            bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, 0, -90, Bullettype::PLAYER_0));
+            angle = { 12, 6, 0, -6, -12 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
@@ -139,5 +130,18 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, -90, Bullettype::PLAYER_1));
             break;
     }
+    for (int angle : angle) {
+        int vx = angle;
+        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, vx, -90, Bullettype::PLAYER_0));
+    }
+
+}
+
+int Player::getY() {
+    return destRect.y;
+}
+
+int Player::getY() {
+    return destRect.x;
 }
 
