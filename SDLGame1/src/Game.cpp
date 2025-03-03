@@ -71,8 +71,8 @@ void Game::handleEvents() {
     player->handleInput(keys);
 
     if (keys[SDL_SCANCODE_SPACE]) {
-        if (SDL_GetTicks() % 100 < 16) {
-            player->playerShoot(bullets);
+        if (SDL_GetTicks() % 100 < 32) {
+            player->playerShoot(player_bullets);
         }
     }
 }
@@ -82,10 +82,10 @@ void Game::update() {
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
     player->update(); // update movement
 
-    for (size_t i = 0; i < bullets.size(); i++) {
-        bullets[i]->update();                       // bullets update
-        if (bullets[i]->getY() < 0) {
-            bullets.erase(bullets.begin() + i);
+    for (size_t i = 0; i < player_bullets.size(); i++) {
+        player_bullets[i]->update();                       // bullets update
+        if (player_bullets[i]->getY() < 0) {
+            player_bullets.erase(player_bullets.begin() + i);
             i--;
         }
     }
@@ -99,7 +99,7 @@ void Game::render() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
 
-    for (Bullet* bullet : bullets) {
+    for (Bullet* bullet : player_bullets) {
         bullet->render();
     }
     player->render(); // render player
@@ -111,10 +111,10 @@ void Game::render() {
 void Game::clean() {
     delete player; // free mem
     delete sidebar; 
-    for (Bullet* bullet : bullets) {
+    for (Bullet* bullet : player_bullets) {
         delete bullet; 
     }
-    bullets.clear();
+    player_bullets.clear();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

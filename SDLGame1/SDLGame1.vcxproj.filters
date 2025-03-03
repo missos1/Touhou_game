@@ -354,5 +354,8 @@
     <None Include="include\cmake\SDL2\cmake\sdl2-config-version.cmake" />
     <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config.cmake" />
     <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config-version.cmake" />
+    <None Include="SDL2_mixer.dll" />
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
   </ItemGroup>
 </Project>

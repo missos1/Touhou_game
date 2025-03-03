@@ -28,7 +28,8 @@ private:
     SDL_Renderer* renderer;
 
     Player* player;
-    std::vector<Bullet*> bullets;
+    std::vector<Bullet*> player_bullets;
+    std::vector<Bullet*> enemy_bullets;
     Sidebar* sidebar;
 
     const int FPS = 60;

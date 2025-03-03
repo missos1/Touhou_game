@@ -144,6 +144,9 @@
     <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config.cmake" />
     <None Include="lib\SDL2.pdb" />
     <None Include="lib\SDL2_image.pdb" />
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="SDL2_mixer.dll" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
