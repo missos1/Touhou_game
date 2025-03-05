@@ -33,6 +33,9 @@
     <ClCompile Include="src\sidebar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Boss_0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Game.hpp">
@@ -326,6 +329,9 @@
     <ClInclude Include="src\headers\Bullets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\Boss_0.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -338,6 +344,27 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\SIDEBAR_TITLE.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bigbullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Knife.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Kunai.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Projectiles &amp; Items.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\points.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Tinybullet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -357,5 +384,105 @@
     <None Include="SDL2_mixer.dll" />
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\sound\cancel00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\cat00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\damage00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\enep00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\enep01.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\extend.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\graze.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\gun00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\item00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\kira00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\kira01.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\kira02.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\lazer00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\lazer01.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\nep00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\ok00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\pldead00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\plst00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\power0.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\power1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\powerup.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\select00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\tan00.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\tan01.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\tan02.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\timeout.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />
+    <Media Include="res\OST\A Soul as Red as a Ground Cherry.mp3" />
+    <Media Include="res\OST\An Eternity that is More Transient than Scarlet.mp3" />
+    <Media Include="res\OST\Apparitions Stalk the Night.mp3" />
+    <Media Include="res\OST\Crimson Tower ~ Eastern Dream....mp3" />
+    <Media Include="res\OST\Locked Girl ~ The Girl%27s Secret Room.mp3" />
+    <Media Include="res\OST\Lunar Clock ~ Luna Dial.mp3" />
+    <Media Include="res\OST\Lunate Elf.mp3" />
+    <Media Include="res\OST\Septette for the Dead Princess.mp3" />
+    <Media Include="res\OST\Shanghai Alice of Meiji 17.mp3" />
+    <Media Include="res\OST\Shanghai Teahouse ~ Chinese Tea.mp3" />
+    <Media Include="res\OST\The Centennial Festival for Magical Girls.mp3" />
+    <Media Include="res\OST\The Maid and the Pocket Watch of Blood.mp3" />
+    <Media Include="res\OST\The Young Descendant of Tepes.mp3" />
+    <Media Include="res\OST\Tomboyish Girl in Love.mp3" />
+    <Media Include="res\OST\U.N. Owen was Her.mp3" />
+    <Media Include="res\OST\Voile, the Magic Library.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\sound\Read me!.txt" />
   </ItemGroup>
 </Project>

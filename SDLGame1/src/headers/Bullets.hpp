@@ -8,7 +8,7 @@
 enum class Bullettype {
 	PLAYER_0,
 	PLAYER_1,
-	ENEMY_0,	// types of bullet
+	ENEMY_0,	// types of bullets/bullet patterns
 	ENEMY_1,
 	ENEMY_2,
 	ENEMY_3,
@@ -17,7 +17,7 @@ enum class Bullettype {
 
 class Bullet {
 public:
-	Bullet(SDL_Renderer* renderer, int x, int y, int velx, int vely, Bullettype type);
+	Bullet(SDL_Renderer* renderer, double x, double y, double velx, double vely, Bullettype type);
 	~Bullet();
 	void update();
 	void render();
@@ -28,8 +28,8 @@ private:
 	SDL_Texture* playerbullet_text;
 	SDL_Rect srcRect, destRect;
 
-	int vx, vy;
-	int savedVx, savedVy;
+	double vx, vy;
+	double savedVx, savedVy;
 	Bullettype type;
 };
 

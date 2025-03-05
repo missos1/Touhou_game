@@ -30,7 +30,7 @@ private:
     int focusSpeed = 4; 
     int speed;
     int dx, dy;  // movement deltas
-    int powerlv = 5;
+    int powerlv = 6;
     bool isFocusing;
     /*bool isFocusing = false;  
     bool isIdle = true;*/

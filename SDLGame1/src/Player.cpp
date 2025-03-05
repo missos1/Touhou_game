@@ -4,7 +4,7 @@
 #include <unordered_set>
 
 Player::Player(SDL_Renderer* renderer, int x, int y)
-    : renderer(renderer), dx(0), dy(0), speed(9) {
+    : renderer(renderer), dx(0), dy(0), speed(9), isFocusing(false) {
 
     texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
     amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
@@ -79,13 +79,13 @@ void Player::update() {
         if (isFocusing) {
             destRect_amu_0.x = destRect.x - 5;
             destRect_amu_0.y = destRect.y - 20;
-            destRect_amu_1.x = destRect.x + 30;
+            destRect_amu_1.x = destRect.x + 24;
             destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
         }
         else {
             destRect_amu_0.x = destRect.x - 45;
             destRect_amu_1.x = destRect.x + PLAYER_WIDTH + 32;
-            destRect_amu_0.y = destRect.y + 30;
+            destRect_amu_0.y = destRect.y + 24;
             destRect_amu_1.y = destRect_amu_0.y;
         }
 }
@@ -100,6 +100,7 @@ void Player::render() {
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
+    double bulletspeed = -60.0;
     std::vector<int> angle;
     switch (powerlv) {
         case 1:
@@ -109,39 +110,41 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             angle = { 2, -2 };
             break;
         case 3:
-            angle = { 7, 0, -7 }; 
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, -90, Bullettype::PLAYER_1)); 
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, -90, Bullettype::PLAYER_1));
+            angle = { 7, 0, -7 };
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 4:
-            angle = { 9, 3, -3, -9 };
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
+            angle = { 9, 4, -4, -9 };
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 5:
-            angle = { 12, 6, 0, -6, -12 };
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 30, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, -90, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, -90, Bullettype::PLAYER_1));
+            angle = { 14, 7, 0, -7, -14 };
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
+        case 6:
+            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, bulletspeed, bulletspeed, Bullettype::PLAYER_1));
     }
+    
     for (int angle : angle) {
-        int vx = angle;
-        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 12, vx, -90, Bullettype::PLAYER_0));
+        double vx = angle;
+        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 80, vx, bulletspeed, Bullettype::PLAYER_0));
     }
-
 }
 
 int Player::getY() {
     return destRect.y;
 }
 
-int Player::getY() {
+int Player::getX() {
     return destRect.x;
 }
 

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Boss_0.cpp" />
     <ClCompile Include="src\Bullets.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
+    <ClInclude Include="src\headers\Boss_0.hpp" />
     <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
@@ -127,9 +129,16 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\BGTEXTURE.png" />
+    <Image Include="res\bigbullet.png" />
+    <Image Include="res\Knife.png" />
+    <Image Include="res\Kunai.png" />
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Projectiles &amp; Items.png" />
     <Image Include="res\player\Reimu_sprite.png" />
+    <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />
+    <Image Include="res\Tinybullet.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
@@ -147,6 +156,54 @@
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_mixer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />
+    <Media Include="res\OST\A Soul as Red as a Ground Cherry.mp3" />
+    <Media Include="res\OST\An Eternity that is More Transient than Scarlet.mp3" />
+    <Media Include="res\OST\Apparitions Stalk the Night.mp3" />
+    <Media Include="res\OST\Crimson Tower ~ Eastern Dream....mp3" />
+    <Media Include="res\OST\Locked Girl ~ The Girl%27s Secret Room.mp3" />
+    <Media Include="res\OST\Lunar Clock ~ Luna Dial.mp3" />
+    <Media Include="res\OST\Lunate Elf.mp3" />
+    <Media Include="res\OST\Septette for the Dead Princess.mp3" />
+    <Media Include="res\OST\Shanghai Alice of Meiji 17.mp3" />
+    <Media Include="res\OST\Shanghai Teahouse ~ Chinese Tea.mp3" />
+    <Media Include="res\OST\The Centennial Festival for Magical Girls.mp3" />
+    <Media Include="res\OST\The Maid and the Pocket Watch of Blood.mp3" />
+    <Media Include="res\OST\The Young Descendant of Tepes.mp3" />
+    <Media Include="res\OST\Tomboyish Girl in Love.mp3" />
+    <Media Include="res\OST\U.N. Owen was Her.mp3" />
+    <Media Include="res\OST\Voile, the Magic Library.mp3" />
+    <Media Include="res\sound\cancel00.wav" />
+    <Media Include="res\sound\cat00.wav" />
+    <Media Include="res\sound\damage00.wav" />
+    <Media Include="res\sound\enep00.wav" />
+    <Media Include="res\sound\enep01.wav" />
+    <Media Include="res\sound\extend.wav" />
+    <Media Include="res\sound\graze.wav" />
+    <Media Include="res\sound\gun00.wav" />
+    <Media Include="res\sound\item00.wav" />
+    <Media Include="res\sound\kira00.wav" />
+    <Media Include="res\sound\kira01.wav" />
+    <Media Include="res\sound\kira02.wav" />
+    <Media Include="res\sound\lazer00.wav" />
+    <Media Include="res\sound\lazer01.wav" />
+    <Media Include="res\sound\nep00.wav" />
+    <Media Include="res\sound\ok00.wav" />
+    <Media Include="res\sound\pldead00.wav" />
+    <Media Include="res\sound\plst00.wav" />
+    <Media Include="res\sound\power0.wav" />
+    <Media Include="res\sound\power1.wav" />
+    <Media Include="res\sound\powerup.wav" />
+    <Media Include="res\sound\select00.wav" />
+    <Media Include="res\sound\tan00.wav" />
+    <Media Include="res\sound\tan01.wav" />
+    <Media Include="res\sound\tan02.wav" />
+    <Media Include="res\sound\timeout.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\sound\Read me!.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

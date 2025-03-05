@@ -2,19 +2,21 @@
 #include <iostream>
 #include <cmath>
 
-Bullet::Bullet(SDL_Renderer* renderer, int x, int y, int velx, int vely, Bullettype type)
+Bullet::Bullet(SDL_Renderer* renderer, double x, double y, double velx, double vely, Bullettype type)
 	: renderer(renderer), vx(velx), vy(vely), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
 	playerbullet_text(nullptr), savedVx(0), savedVy(0){
 	switch (type) {
 		case Bullettype::PLAYER_0:
 			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); //will introduce other type later;
 			srcRect = { 132, 0, 16, 16 }; // sprite size
-			destRect = { x, y, 16 * 3, 16 * 3 }; // display size
+			destRect = { (int) x, (int) y, 16 * 3, 16 * 3 }; // display size
 			break;
 		case Bullettype::PLAYER_1:
 			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); //will introduce other type later;
 			srcRect = { 200, 0, 9, 48 }; // sprite size
-			destRect = { x, y, 9 * 2, 48 * 2 }; // display size
+			destRect = { (int) x, (int) y, 9 * 2, 48 * 2 }; // display size
+			break;
+		case Bullettype::ENEMY_0:
 			break;
 	}
 }
@@ -29,6 +31,8 @@ void Bullet::update() {
 		case Bullettype::PLAYER_1:
 			destRect.x += vx;
 			destRect.y += vy;
+			break;
+		case Bullettype::ENEMY_0:
 			break;
 	}
 }

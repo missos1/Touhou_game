@@ -71,7 +71,7 @@ void Game::handleEvents() {
     player->handleInput(keys);
 
     if (keys[SDL_SCANCODE_SPACE]) {
-        if (SDL_GetTicks() % 100 < 32) {
+        if (SDL_GetTicks() % 100 < 64) {
             player->playerShoot(player_bullets);
         }
     }
@@ -81,6 +81,7 @@ void Game::update() {
     int winW, winH;
     SDL_GetRendererOutputSize(renderer, &winW, &winH);
     player->update(); // update movement
+
 
     for (size_t i = 0; i < player_bullets.size(); i++) {
         player_bullets[i]->update();                       // bullets update
