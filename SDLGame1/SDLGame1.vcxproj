@@ -134,6 +134,8 @@
     <Image Include="res\Kunai.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Projectiles &amp; Items.png" />
+    <Image Include="res\player\idleanimation.png" />
+    <Image Include="res\player\left.png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />

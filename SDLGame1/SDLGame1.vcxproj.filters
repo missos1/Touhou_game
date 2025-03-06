@@ -367,6 +367,12 @@
     <Image Include="res\Tinybullet.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\player\idleanimation.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\player\left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

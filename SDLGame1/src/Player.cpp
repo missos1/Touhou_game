@@ -4,15 +4,18 @@
 #include <unordered_set>
 
 Player::Player(SDL_Renderer* renderer, int x, int y)
-    : renderer(renderer), dx(0), dy(0), speed(9), isFocusing(false) {
+    : renderer(renderer), dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
+    isFlipped(false) {
 
-    texture = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
+    texture = TextureManager::LoadTexture("res/player/idleanimation.png", renderer);
     amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
+    rightTexture = TextureManager::LoadTexture("res/player/left.png", renderer);
 
     totalFrames = 4;
     Ani_speed = 0.1f;
-    frameTime = 0.0;
+    frameTime = 0.0f;
     currentFrame = 0;
+    currentFrameIdle = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
     destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
@@ -40,61 +43,87 @@ void Player::handleInput(const Uint8* keys) {
     }
     if (keys[SDL_SCANCODE_W]) dy = -speed;
     if (keys[SDL_SCANCODE_S]) dy = speed;
-    if (keys[SDL_SCANCODE_A]) dx = -speed;
-    if (keys[SDL_SCANCODE_D]) dx = speed;
+    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_D]) {
+        if (keys[SDL_SCANCODE_A]) {
+            dx = -speed;
+            isMovingright = true;
+            isFlipped = false;
+            isIdle = false;
+        }
+        if (keys[SDL_SCANCODE_D]) {
+            dx = speed;
+            isMovingright = true;
+            isFlipped = true;
+            isIdle = false;
+        }
+    }
+    else {
+        isIdle = true;
+    }
 }
 
 void Player::update() {
     frameTime += Ani_speed;
 
-    //srcRect.y = isMoving ? PLAYER_HEIGHT : 0;
-
-    /*if (isMoving) {
-        holdTime += Ani_speed;
-        if (holdTime <= 0.4f) {
-            if (frameTime >= 1.2f && currentFrame <= 2) {
+    if (isMovingright) {
+        if (currentFrame < 6 && !isIdle) {
+            if (frameTime >= 0.5f) {
                 frameTime = 0.0f;
                 currentFrame++;
+                // left right animation     
+                srcRect.x = currentFrame * PLAYER_WIDTH;
             }
         }
-        else {
-            if (frameTime >= 1.2f && currentFrame <= 3) {
+        else if (currentFrame > 0 && isIdle) {
+            isMovingright = true;
+            if (frameTime >= 0.01f) {
                 frameTime = 0.0f;
-                currentFrame++;
+                currentFrame--;
+                srcRect.x = currentFrame * PLAYER_WIDTH;
             }
         }
-    }*/
-
-    //else {
-        if (frameTime >= 1.0f) {
+        else if (currentFrame == 0 && isIdle) {
+            isMovingright = false;
+        }
+    }
+    else {
+        if (frameTime >= 1.0f && currentFrame == 0 && isIdle) {
             frameTime = 0.0f;
-            currentFrame = (currentFrame + 1) % totalFrames;
+            currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
+            srcRect.x = currentFrameIdle * PLAYER_WIDTH;
         }
-    //}
+    }
 
-        srcRect.x = currentFrame * PLAYER_WIDTH;
+    destRect.x += dx;
+    destRect.y += dy;
 
-        destRect.x += dx;
-        destRect.y += dy;
-        if (isFocusing) {
-            destRect_amu_0.x = destRect.x - 5;
-            destRect_amu_0.y = destRect.y - 20;
-            destRect_amu_1.x = destRect.x + 24;
-            destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
-        }
-        else {
-            destRect_amu_0.x = destRect.x - 45;
-            destRect_amu_1.x = destRect.x + PLAYER_WIDTH + 32;
-            destRect_amu_0.y = destRect.y + 24;
-            destRect_amu_1.y = destRect_amu_0.y;
-        }
+    if (isFocusing) {
+        destRect_amu_0.x = destRect.x - 5;
+        destRect_amu_0.y = destRect.y - 20;
+        destRect_amu_1.x = destRect.x + 24;
+        destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
+    }
+    else {
+        destRect_amu_0.x = destRect.x - 45;
+        destRect_amu_1.x = destRect.x + PLAYER_WIDTH + 32;
+        destRect_amu_0.y = destRect.y + 24;
+        destRect_amu_1.y = destRect_amu_0.y;
+    }
 }
 
 void Player::render() {
-    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+
+    if (isMovingright) {
+        SDL_RenderCopyEx(renderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    }
+    else {
+        SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    }
+
     if (powerlv >= 3) {
-        SDL_RenderCopy(renderer, amulet_text, &srcRect_amu_0, &destRect_amu_0);
-        SDL_RenderCopy(renderer, amulet_text, &srcRect_amu_1, &destRect_amu_1); // amulet
+        
+        SDL_RenderCopyEx(renderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, 0, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(renderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, 0, nullptr, SDL_FLIP_NONE); // amulet
     }
 }
 
