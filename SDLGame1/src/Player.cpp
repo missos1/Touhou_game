@@ -72,26 +72,32 @@ void Player::handleInput(const Uint8* keys) {
 
 void Player::update() {
     frameTime += Ani_speed;
-
+    // not gonna lie this is pain to figure out
     if (isMovingright) {
-        if (currentFrame < 6 && !isIdle) { // left right animation  
-            if (frameTime >= 0.5f) {
+        if (currentFrame <= 7 && !isIdle) { // left right animation  
+            if (frameTime >= 0.5f && currentFrame < 4) {
                 frameTime = 0.0f;
                 currentFrame++; 
-                srcRect.x = currentFrame * PLAYER_WIDTH;
+         
+            }
+            else if (currentFrame >= 4 && frameTime >= 1.0f) {
+                frameTime = 0.0f;
+                ++currentFrame;
+                if (currentFrame >= 7) currentFrame = 4;
             }
         }
         else if (currentFrame > 0 && isIdle) { // if key is released then buffers to slowly play frame back
+            if (currentFrame > 4) currentFrame = 4;
             isMovingright = true;
             if (frameTime >= 0.01f) {
                 frameTime = 0.0f;
-                currentFrame--;
-                srcRect.x = currentFrame * PLAYER_WIDTH;
+                currentFrame--;              
             }
         }
         else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle ani
             isMovingright = false;
         }
+        srcRect.x = currentFrame * PLAYER_WIDTH;
     }
     else {
         if (frameTime >= 1.0f && currentFrame == 0 && isIdle) { // idle animation
@@ -110,9 +116,9 @@ void Player::update() {
     if (destRect.y > PLAY_AREA_Y_MAX) destRect.y = PLAY_AREA_Y_MAX;
 
     if (isFocusing) {
-        destRect_amu_0.x = destRect.x - 3;
+        destRect_amu_0.x = destRect.x - 7;
         destRect_amu_0.y = destRect.y - 32;
-        destRect_amu_1.x = destRect.x + 22;
+        destRect_amu_1.x = destRect.x + 28;
         destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
     }
     else {
@@ -141,7 +147,7 @@ void Player::render() {
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
-    double bulletspeed = -90.0;
+    double bulletspeed = -30.0;
     std::vector<int> angle;
     switch (powerlv) {
         case 1:
@@ -151,19 +157,19 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             angle = { 2, -2 };
             break;
         case 3:
-            angle = { 7, 0, -7 };
+            angle = { 3, 0, -3 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 4:
-            angle = { 8, 3, -3, -8 };
+            angle = { 5, 2, -2, -5 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 5:
-            angle = { 13, 7, 0, -7, -13 };
+            angle = { 6, 3, 0, -3, -6 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
@@ -175,7 +181,7 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
     
     for (int angle : angle) {
         double vx = angle;
-        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 80, vx, bulletspeed, Bullettype::PLAYER_0));
+        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
     }
     Mix_VolumeChunk(shootSound, MIX_MAX_VOLUME / 4); // shooting sound
     Mix_PlayChannel(-1, shootSound, 0);

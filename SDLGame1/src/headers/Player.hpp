@@ -36,10 +36,10 @@ private:
     Mix_Chunk* shootSound;
 
     int baseSpeed = 9;   
-    int focusSpeed = 4; 
+    int focusSpeed = 2; 
     int speed;
     int dx, dy;  // movement deltas
-    int powerlv = 5;
+    int powerlv = 3;
     bool isFocusing;
     //bool isFocusing = false;  
     bool isIdle = true;
