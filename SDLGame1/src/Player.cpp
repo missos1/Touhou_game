@@ -5,20 +5,25 @@
 
 Player::Player(SDL_Renderer* renderer, int x, int y)
     : renderer(renderer), dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
-    isFlipped(false) {
+    isFlipped(false), shootSound(nullptr) {
 
     texture = TextureManager::LoadTexture("res/player/idleanimation.png", renderer);
-    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer);
+    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); // texture
     rightTexture = TextureManager::LoadTexture("res/player/left.png", renderer);
-
+    // initialize animation
     totalFrames = 4;
     Ani_speed = 0.1f;
     frameTime = 0.0f;
-    currentFrame = 0;
+    currentFrame = 0; 
     currentFrameIdle = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
     destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
+
+    shootSound = Mix_LoadWAV("res/sound/plst00.wav"); // shooting sound
+    if (!shootSound) {
+        std::cout << "Failed to load shoot sound: " << Mix_GetError() << std::endl;
+    }
 
     srcRect_amu_0 = { 134, 17, 14, 16 };
     srcRect_amu_1 = srcRect_amu_0;
@@ -28,11 +33,14 @@ Player::Player(SDL_Renderer* renderer, int x, int y)
 
 Player::~Player() {
     SDL_DestroyTexture(texture);
+    Mix_FreeChunk(shootSound);
+    SDL_DestroyTexture(amulet_text);
+    SDL_DestroyTexture(rightTexture);
 }
 
 void Player::handleInput(const Uint8* keys) {
     dx = dy = 0;
-
+    // keyboard movement
     if (keys[SDL_SCANCODE_LSHIFT]) {
         speed = focusSpeed;
         isFocusing = true;
@@ -66,15 +74,14 @@ void Player::update() {
     frameTime += Ani_speed;
 
     if (isMovingright) {
-        if (currentFrame < 6 && !isIdle) {
+        if (currentFrame < 6 && !isIdle) { // left right animation  
             if (frameTime >= 0.5f) {
                 frameTime = 0.0f;
-                currentFrame++;
-                // left right animation     
+                currentFrame++; 
                 srcRect.x = currentFrame * PLAYER_WIDTH;
             }
         }
-        else if (currentFrame > 0 && isIdle) {
+        else if (currentFrame > 0 && isIdle) { // if key is released then buffers to slowly play frame back
             isMovingright = true;
             if (frameTime >= 0.01f) {
                 frameTime = 0.0f;
@@ -82,12 +89,12 @@ void Player::update() {
                 srcRect.x = currentFrame * PLAYER_WIDTH;
             }
         }
-        else if (currentFrame == 0 && isIdle) {
+        else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle ani
             isMovingright = false;
         }
     }
     else {
-        if (frameTime >= 1.0f && currentFrame == 0 && isIdle) {
+        if (frameTime >= 1.0f && currentFrame == 0 && isIdle) { // idle animation
             frameTime = 0.0f;
             currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
             srcRect.x = currentFrameIdle * PLAYER_WIDTH;
@@ -97,10 +104,15 @@ void Player::update() {
     destRect.x += dx;
     destRect.y += dy;
 
+    if (destRect.x < PLAY_AREA_X_MIN) destRect.x = PLAY_AREA_X_MIN;
+    if (destRect.x > PLAY_AREA_X_MAX) destRect.x = PLAY_AREA_X_MAX;
+    if (destRect.y < PLAY_AREA_Y_MIN) destRect.y = PLAY_AREA_Y_MIN;
+    if (destRect.y > PLAY_AREA_Y_MAX) destRect.y = PLAY_AREA_Y_MAX;
+
     if (isFocusing) {
-        destRect_amu_0.x = destRect.x - 5;
-        destRect_amu_0.y = destRect.y - 20;
-        destRect_amu_1.x = destRect.x + 24;
+        destRect_amu_0.x = destRect.x - 3;
+        destRect_amu_0.y = destRect.y - 32;
+        destRect_amu_1.x = destRect.x + 22;
         destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
     }
     else {
@@ -129,7 +141,7 @@ void Player::render() {
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
-    double bulletspeed = -60.0;
+    double bulletspeed = -90.0;
     std::vector<int> angle;
     switch (powerlv) {
         case 1:
@@ -144,14 +156,14 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 4:
-            angle = { 9, 4, -4, -9 };
+            angle = { 8, 3, -3, -8 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 5:
-            angle = { 14, 7, 0, -7, -14 };
+            angle = { 13, 7, 0, -7, -13 };
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
@@ -159,14 +171,14 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
             bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
-        case 6:
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, bulletspeed, bulletspeed, Bullettype::PLAYER_1));
     }
     
     for (int angle : angle) {
         double vx = angle;
         bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 80, vx, bulletspeed, Bullettype::PLAYER_0));
     }
+    Mix_VolumeChunk(shootSound, MIX_MAX_VOLUME / 4); // shooting sound
+    Mix_PlayChannel(-1, shootSound, 0);
 }
 
 int Player::getY() {
@@ -176,4 +188,5 @@ int Player::getY() {
 int Player::getX() {
     return destRect.x;
 }
+
 

@@ -16,11 +16,11 @@ Sidebar::~Sidebar() {
 void Sidebar::render(int winW, int winH) {
     //render background
     int w, h;
-    SDL_QueryTexture(bg_texture, nullptr, nullptr, &w, &h);
+    SDL_QueryTexture(bg_texture, nullptr, nullptr, &w, &h); // get texture info
     tileSize = w;
     for (int y = 0; y < winH; y += tileSize) {
         for (int x = 0; x < winW; x += tileSize) {
-            if ((x < tileSize * 2) || (x > winW - tileSize * 14)) {
+            if ((x < tileSize * 2) || (x > winW - tileSize * 14)) {   // loop for render "side"bar
                 destRect = { x, y, tileSize, tileSize };
                 SDL_RenderCopy(renderer, bg_texture, nullptr, &destRect); 
             }
@@ -30,7 +30,7 @@ void Sidebar::render(int winW, int winH) {
     
     for (int y = 0; y < winH; y += tileSize) {
         for (int x = 0; x < winW; x += tileSize) {
-            if ((y < tileSize) || (y > winH - tileSize * 2)) {
+            if ((y < tileSize) || (y > winH - tileSize * 2)) {      // loop for render "top&bot"bar
                 destRect = { x ,y , tileSize, tileSize };
                 SDL_RenderCopy(renderer, bg_texture, nullptr, &destRect); 
             }

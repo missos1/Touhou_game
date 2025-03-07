@@ -2,9 +2,9 @@
 #include "headers/Bullets.hpp"
 #include "headers/Player.hpp"
 #include <iostream>
-#define endl "\n";
+#define endl "\n"
 
-Game::Game()
+Game::  Game()
     : window(nullptr), renderer(nullptr), isRunning(false), player(nullptr),
     frameStart(0), frameTime(0), sidebar(nullptr) {}
 
@@ -15,36 +15,51 @@ Game::~Game() {
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
     int flags = fullscreen ? SDL_WINDOW_FULLSCREEN : 0;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cout << "SDL Initialization Failed! Error: " << SDL_GetError() << endl;
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        std::cout << "SDL Initialization Failed! Error: " << SDL_GetError() << endl;  // initialize SDL with audio
+        return false;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) { 
+        std::cout << "SDL_mixer Initialization Failed! Error: " << Mix_GetError() << endl; // initialize mixer
         return false;
     }
 
     window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
     if (!window) {
-        std::cout << "Window Creation Failed! Error: " << SDL_GetError() << endl;
+        std::cout << "Window Creation Failed! Error: " << SDL_GetError() << endl;   // create window
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
-        std::cout << "Renderer Creation Failed! Error: " << SDL_GetError() << endl;
+        std::cout << "Renderer Creation Failed! Error: " << SDL_GetError() << endl; // create renderer
         return false;
     }
 
     sidebar = new Sidebar(renderer);
     if (!sidebar) {
-        std::cout << "Background Creation Failed! Error: " << SDL_GetError() << endl;
+        std::cout << "Background Creation Failed! Error: " << SDL_GetError() << endl;  // render sidebar
         return false;
     }
 
     player = new Player(renderer, 410, 680); // create player
     isRunning = true;
     return true;
+
 }
 
 void Game::run() {
-    while (isRunning) {
+    // temporary music test
+    Mix_Music* bgMusic = Mix_LoadMUS("res/OST/A Dream that is more Scarlet than Red.mp3");
+    if (!bgMusic) {
+        std::cout << "Failed to load music! Error: " << Mix_GetError() << endl;
+    }
+
+    Mix_PlayMusic(bgMusic, -1);
+
+    // game loop
+    while (isRunning) { 
         frameStart = SDL_GetTicks();
 
         handleEvents();
@@ -67,13 +82,14 @@ void Game::handleEvents() {
         }
     }
 
-    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    const Uint8* keys = SDL_GetKeyboardState(NULL); // keyboard input
     player->handleInput(keys);
 
-    if (keys[SDL_SCANCODE_SPACE]) {
-        if (SDL_GetTicks() % 100 < 64) {
-            player->playerShoot(player_bullets);
-        }
+    static Uint32 lastShotTime = 0;
+    Uint32 currentTime = SDL_GetTicks();
+    if (keys[SDL_SCANCODE_SPACE] && currentTime - lastShotTime > 100) {
+        player->playerShoot(player_bullets); // shooting call
+        lastShotTime = currentTime;
     }
 }
 
@@ -117,6 +133,7 @@ void Game::clean() {
     }
     player_bullets.clear();
     SDL_DestroyRenderer(renderer);
+    Mix_CloseAudio();
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

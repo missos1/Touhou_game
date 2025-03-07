@@ -147,6 +147,8 @@
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
     <Library Include="lib\SDL2_image.lib" />
+    <Library Include="lib\SDL2_mixer.lib" />
+    <Library Include="lib\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\cmake\SDL2\cmake\sdl2-config-version.cmake" />
@@ -158,6 +160,7 @@
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_mixer.dll" />
+    <None Include="SDL2_ttf.dll" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />
@@ -329,7 +332,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SDL2lib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

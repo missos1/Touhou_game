@@ -2,8 +2,14 @@
 #define PLAYER_HPP
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <vector>
 #include "TextureManager.hpp"
+
+const int PLAY_AREA_X_MIN = 54;
+const int PLAY_AREA_X_MAX = 820;
+const int PLAY_AREA_Y_MIN = 30;
+const int PLAY_AREA_Y_MAX = 855;
 
 class Bullet;
 
@@ -26,6 +32,8 @@ private:
     SDL_Texture* rightTexture;
     SDL_Rect srcRect_amu_0, destRect_amu_0;
     SDL_Rect srcRect_amu_1, destRect_amu_1;
+
+    Mix_Chunk* shootSound;
 
     int baseSpeed = 9;   
     int focusSpeed = 4; 
