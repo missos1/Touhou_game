@@ -22,6 +22,7 @@ public:
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
+	void testshoot(std::vector<Bullet*>& bullets);
     int getY();
     int getX();
 private:
