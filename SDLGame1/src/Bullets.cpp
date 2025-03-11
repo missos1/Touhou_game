@@ -29,10 +29,9 @@ void Bullet::update() {
 	switch (type) {
 		case Bullettype::PLAYER_0:
 		case Bullettype::PLAYER_1:
+		case Bullettype::ENEMY_0:
 			destRect.x += vx;
 			destRect.y += vy;
-			break;
-		case Bullettype::ENEMY_0:
 			break;
 	}
 }

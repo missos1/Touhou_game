@@ -33,7 +33,7 @@
     <ClCompile Include="src\sidebar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Boss_0.cpp">
+    <ClCompile Include="src\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -329,7 +329,7 @@
     <ClInclude Include="src\headers\Bullets.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\headers\Boss_0.hpp">
+    <ClInclude Include="src\headers\Enemy.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -371,6 +371,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\player\left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\circle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Red_fa.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Sakuya_idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Sakuya_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\White_fa.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
