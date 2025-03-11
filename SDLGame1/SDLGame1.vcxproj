@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Boss_0.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Bullets.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -120,7 +120,7 @@
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
-    <ClInclude Include="src\headers\Boss_0.hpp" />
+    <ClInclude Include="src\headers\Enemy.hpp" />
     <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
@@ -130,6 +130,11 @@
   <ItemGroup>
     <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\bigbullet.png" />
+    <Image Include="res\Enemy\circle.png" />
+    <Image Include="res\Enemy\Red_fa.png" />
+    <Image Include="res\Enemy\Sakuya_idle.png" />
+    <Image Include="res\Enemy\Sakuya_move.png" />
+    <Image Include="res\Enemy\White_fa.png" />
     <Image Include="res\Knife.png" />
     <Image Include="res\Kunai.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
