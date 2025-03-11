@@ -15,7 +15,7 @@ Player::Player(int x, int y)
     Ani_speed = 0.1f;
     frameTime = 0.0f;
     currentFrame = 0; 
-    currentFrameIdle = 0
+    currentFrameIdle = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
     destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
