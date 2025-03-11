@@ -88,7 +88,9 @@ void Game::handleEvents() {
     static Uint32 lastShotTime = 0;
     Uint32 currentTime = SDL_GetTicks();
     if (keys[SDL_SCANCODE_SPACE] && currentTime - lastShotTime > 100) {
+        int powerlv = 0;
         player->playerShoot(player_bullets); // shooting call
+		player->testshoot(player_bullets);
         lastShotTime = currentTime;
     }
 }

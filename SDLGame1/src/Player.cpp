@@ -195,4 +195,20 @@ int Player::getX() {
     return destRect.x;
 }
 
+void Player::testshoot(std::vector<Bullet*>& bullets) {
+    int x = 80;
+    int y = 100;
+	double vx = 0;
+    double vy = 0;
+    double deltax = destRect.x - x;
+	double deltay = destRect.y - y;
+	double angle = atan2(deltay, deltax);
+	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
+	for (auto offset : buffer) {
+		vx = cos(angle + offset) * 30.0;
+		vy = sin(angle + offset) * 30.0;
+		bullets.push_back(new Bullet(renderer, x, y, vx, vy, Bullettype::PLAYER_0));
+	}
+	
 
+}
