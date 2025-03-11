@@ -1,18 +1,19 @@
 #include "headers/Bullets.hpp"
+#include "headers/Game.hpp"
 #include <iostream>
 #include <cmath>
 
-Bullet::Bullet(SDL_Renderer* renderer, double x, double y, double velx, double vely, Bullettype type)
-	: renderer(renderer), vx(velx), vy(vely), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
+Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
+	: vx(velx), vy(vely), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
 	playerbullet_text(nullptr), savedVx(0), savedVy(0){
 	switch (type) {
 		case Bullettype::PLAYER_0:
-			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); //will introduce other type later;
+			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
 			srcRect = { 132, 0, 16, 16 }; // sprite size
 			destRect = { (int) x, (int) y, 16 * 3, 16 * 3 }; // display size
 			break;
 		case Bullettype::PLAYER_1:
-			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); //will introduce other type later;
+			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
 			srcRect = { 200, 0, 9, 48 }; // sprite size
 			destRect = { (int) x, (int) y, 9 * 2, 48 * 2 }; // display size
 			break;
@@ -41,10 +42,10 @@ void Bullet::render() {
 	SDL_SetTextureAlphaMod(playerbullet_text, 100);
 	switch (type) {
 		case Bullettype::PLAYER_0:
-			SDL_RenderCopyEx(renderer, playerbullet_text, &srcRect, &destRect, 35, nullptr, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(Game::Grenderer, playerbullet_text, &srcRect, &destRect, 35, nullptr, SDL_FLIP_NONE);
 			break;
 		case Bullettype::PLAYER_1:
-			SDL_RenderCopy(renderer, playerbullet_text, &srcRect, &destRect);
+			SDL_RenderCopy(Game::Grenderer, playerbullet_text, &srcRect, &destRect);
 			break;
 	}
 }

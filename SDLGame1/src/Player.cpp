@@ -3,13 +3,13 @@
 #include <iostream>
 #include <unordered_set>
 
-Player::Player(SDL_Renderer* renderer, int x, int y)
-    : renderer(renderer), dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
+Player::Player(int x, int y)
+    : dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
     isFlipped(false), shootSound(nullptr) {
 
-    texture = TextureManager::LoadTexture("res/player/idleanimation.png", renderer);
-    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png", renderer); // texture
-    rightTexture = TextureManager::LoadTexture("res/player/left.png", renderer);
+    texture = TextureManager::LoadTexture("res/player/idleanimation.png");
+    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); // texture
+    rightTexture = TextureManager::LoadTexture("res/player/left.png");
     // initialize animation
     totalFrames = 4;
     Ani_speed = 0.1f;
@@ -132,16 +132,16 @@ void Player::update() {
 void Player::render() {
 
     if (isMovingright) {
-        SDL_RenderCopyEx(renderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+        SDL_RenderCopyEx(Game::Grenderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
     else {
-        SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+        SDL_RenderCopy(Game::Grenderer, texture, &srcRect, &destRect);
     }
 
     if (powerlv >= 3) {
         
-        SDL_RenderCopyEx(renderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, 0, nullptr, SDL_FLIP_NONE);
-        SDL_RenderCopyEx(renderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, 0, nullptr, SDL_FLIP_NONE); // amulet
+        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, 0, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, 0, nullptr, SDL_FLIP_NONE); // amulet
     }
 }
 
@@ -158,30 +158,30 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             break;
         case 3:
             angle = { 3, 0, -3 };
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 4:
             angle = { 5, 2, -2, -5 };
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 5:
             angle = { 6, 3, 0, -3, -6 };
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(renderer, destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.push_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
     }
     
     for (int angle : angle) {
         double vx = angle;
-        bullets.push_back(new Bullet(renderer, destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
+        bullets.push_back(new Bullet(destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
     }
     Mix_VolumeChunk(shootSound, MIX_MAX_VOLUME / 4); // shooting sound
     Mix_PlayChannel(-1, shootSound, 0);
@@ -195,20 +195,20 @@ int Player::getX() {
     return destRect.x;
 }
 
-void Player::testshoot(std::vector<Bullet*>& bullets) {
-    int x = 80;
-    int y = 100;
-	double vx = 0;
-    double vy = 0;
-    double deltax = destRect.x - x;
-	double deltay = destRect.y - y;
-	double angle = atan2(deltay, deltax);
-	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
-	for (auto offset : buffer) {
-		vx = cos(angle + offset) * 30.0;
-		vy = sin(angle + offset) * 30.0;
-		bullets.push_back(new Bullet(renderer, x, y, vx, vy, Bullettype::PLAYER_0));
-	}
-	
-
-}
+//void Player::testshoot(std::vector<Bullet*>& bullets) {
+//    int x = 80;
+//    int y = 100;
+//	double vx = 0;
+//    double vy = 0;
+//    double deltax = destRect.x - x;
+//	double deltay = destRect.y - y;
+//	double angle = atan2(deltay, deltax);
+//	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
+//	for (auto offset : buffer) {
+//		vx = cos(angle + offset) * 30.0;
+//		vy = sin(angle + offset) * 30.0;
+//		bullets.push_back(new Bullet(Game::Grenderer, x, y, vx, vy, Bullettype::PLAYER_0));
+//	}
+//	
+//
+//}

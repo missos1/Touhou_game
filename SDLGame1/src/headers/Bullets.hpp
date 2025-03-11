@@ -6,6 +6,8 @@
 #include <SDL_mixer.h>
 #include "TextureManager.hpp"
 
+class Game;
+
 enum class Bullettype {
 	PLAYER_0,
 	PLAYER_1,
@@ -18,14 +20,13 @@ enum class Bullettype {
 
 class Bullet {
 public:
-	Bullet(SDL_Renderer* renderer, double x, double y, double velx, double vely, Bullettype type);
+	Bullet(double x, double y, double velx, double vely, Bullettype type);
 	~Bullet();
 	void update();
 	void render();
 	int getY() const;
 
 private:
-	SDL_Renderer* renderer;
 	SDL_Texture* playerbullet_text;
 	SDL_Rect srcRect, destRect;
 

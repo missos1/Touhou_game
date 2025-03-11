@@ -5,6 +5,7 @@
 #include <SDL_mixer.h>
 #include <vector>
 #include "TextureManager.hpp"
+#include "Game.hpp"  
 
 const int PLAY_AREA_X_MIN = 54;
 const int PLAY_AREA_X_MAX = 820;
@@ -15,18 +16,18 @@ class Bullet;
 
 class Player {
 public:
-    Player(SDL_Renderer* renderer, int x, int y);
+    Player(int x, int y);
     ~Player();
 
     void handleInput(const Uint8* keys);
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
-	void testshoot(std::vector<Bullet*>& bullets);
+
     int getY();
     int getX();
+
 private:
-    SDL_Renderer* renderer;
     SDL_Texture* texture;
     SDL_Rect srcRect, destRect;
     SDL_Texture* amulet_text;
@@ -36,13 +37,12 @@ private:
 
     Mix_Chunk* shootSound;
 
-    int baseSpeed = 9;   
-    int focusSpeed = 2; 
+    int baseSpeed = 9;
+    int focusSpeed = 2;
     int speed;
-    int dx, dy;  // movement deltas
-    int powerlv = 3;
+    int dx, dy;
+    int powerlv = 5;
     bool isFocusing;
-    //bool isFocusing = false;  
     bool isIdle = true;
 
     const int PLAYER_HEIGHT = 43;
@@ -55,9 +55,6 @@ private:
     float frameTime;
     bool isMovingright;
     bool isFlipped;
-    //bool isShooting;
-    //bool reverseAnimation;
-    //float holdTime;
 };
 
 #endif
