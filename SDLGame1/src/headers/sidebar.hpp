@@ -3,15 +3,16 @@
 
 #include "TextureManager.hpp"
 
+class Game;
+
 class Sidebar {
 public:
-	Sidebar(SDL_Renderer* renderer);
+	Sidebar();
 	~Sidebar();
 
 	void render(int winW, int winH);
 
 private:
-	SDL_Renderer* renderer;
 	SDL_Texture* bg_texture;
 	SDL_Texture* title_texture;
 

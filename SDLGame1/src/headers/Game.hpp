@@ -15,6 +15,8 @@ public:
     Game();
     ~Game();
 
+	static SDL_Renderer* Grenderer;
+
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
     void handleEvents();
     void update();
@@ -27,7 +29,6 @@ public:
 private:
     bool isRunning;
     SDL_Window* window;
-    SDL_Renderer* renderer;
 
     Player* player;
     std::vector<Bullet*> player_bullets;
