@@ -9,6 +9,7 @@
 
 class Bullet;
 class Player;
+class Enemy;
 
 class Game {
 public:
@@ -31,6 +32,8 @@ private:
     SDL_Window* window;
 
     Player* player;
+    std::vector<Enemy*> enemies; 
+
     std::vector<Bullet*> player_bullets;
     std::vector<Bullet*> enemy_bullets;
     Sidebar* sidebar;

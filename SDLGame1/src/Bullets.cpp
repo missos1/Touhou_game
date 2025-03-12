@@ -6,20 +6,25 @@
 Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 	: vx(velx), vy(vely), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
 	playerbullet_text(nullptr), savedVx(0), savedVy(0){
+
+	int spriteW = 0, spriteH = 0, spriteXpos= 0, spriteYpos = 0;
 	switch (type) {
 		case Bullettype::PLAYER_0:
 			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
-			srcRect = { 132, 0, 16, 16 }; // sprite size
-			destRect = { (int) x, (int) y, 16 * 3, 16 * 3 }; // display size
+			spriteXpos = 132; spriteYpos = 0; spriteW = 16; spriteH = 16;
+			srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+			destRect = { (int)x, (int)y, spriteW * 3, spriteH * 3 };
 			break;
 		case Bullettype::PLAYER_1:
 			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
-			srcRect = { 200, 0, 9, 48 }; // sprite size
-			destRect = { (int) x, (int) y, 9 * 2, 48 * 2 }; // display size
+			spriteXpos = 200; spriteYpos = 0; spriteW = 9; spriteH = 48;
+			srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+			destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
 			break;
 		case Bullettype::ENEMY_0:
 			break;
 	}
+	
 }
 
 Bullet::~Bullet() {

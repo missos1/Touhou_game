@@ -187,13 +187,14 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
     Mix_PlayChannel(-1, shootSound, 0);
 }
 
-int Player::getY() {
+int Player::getX() const {
+    return destRect.x;
+}
+
+int Player::getY() const {
     return destRect.y;
 }
 
-int Player::getX() {
-    return destRect.x;
-}
 
 //void Player::testshoot(std::vector<Bullet*>& bullets) {
 //    int x = 80;

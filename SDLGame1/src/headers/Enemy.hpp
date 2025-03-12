@@ -10,28 +10,50 @@ class Bullet;
 class Player;
 class Game;
 
+
+
 enum class EnemyType {
 	RED_FA,
 	BLUE_FA,
 	WHITE_FA,
 };
+
+enum class MovementType {
+	Horizontal,
+	Stationary,
+	BezierCurve,
+};
+
 class Enemy {
 public:
-	Enemy(double x, double y, double vx, double vy, EnemyType type);
+	Enemy(double x, double y, double speed, EnemyType type, MovementType Mtype);
 	~Enemy();
 	void update();
 	void render();
 
+	int getY() const;
+	int getX() const;
+
 private:
-	double x, y;
 	double vx, vy;
+	double speed;
 	EnemyType type;
-	SDL_Texture* texture;
+	MovementType Mtype;
+	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
 
-	void BezierCuver();
+
+	void BezierCurve();
 	void Horizontal();
 	void Stationary();
+
+
+	int currentFrame;
+	int totalFrames;
+	float Ani_speed;
+	float frameTime;
+
+	int spriteW = 0, spriteH = 0;
 };
 
 #endif 

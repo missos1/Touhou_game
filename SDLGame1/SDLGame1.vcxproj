@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Bullets.cpp" />
+    <ClCompile Include="src\EnemyLayout.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="include\SDL_vulkan.h" />
     <ClInclude Include="src\headers\Enemy.hpp" />
     <ClInclude Include="src\headers\Bullets.hpp" />
+    <ClInclude Include="src\headers\EnemyLayout.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
     <ClInclude Include="src\headers\sidebar.hpp" />

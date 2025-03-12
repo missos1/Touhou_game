@@ -24,8 +24,8 @@ public:
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
 
-    int getY();
-    int getX();
+    int getY() const;
+    int getX() const;
 
 private:
     SDL_Texture* texture;

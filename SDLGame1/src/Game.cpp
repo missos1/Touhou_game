@@ -1,6 +1,8 @@
 #include "headers/Game.hpp"
 #include "headers/Bullets.hpp"
 #include "headers/Player.hpp"
+#include "headers/Enemy.hpp"
+#include "headers/EnemyLayout.hpp"
 #include <iostream>
 #define endl "\n"
 
@@ -96,6 +98,11 @@ void Game::handleEvents() {
         player->playerShoot(player_bullets);
         lastShotTime = currentTime;
     }
+
+    
+    EnemyLayout::spawnHorizontalWave(enemies);
+        
+    
 }
 
 void Game::update() {
@@ -103,11 +110,22 @@ void Game::update() {
     SDL_GetRendererOutputSize(Grenderer, &winW, &winH);
 	player->update(); // update player
 
-    for (size_t i = 0; i < player_bullets.size(); i++) {
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
         player_bullets[i]->update();
         if (player_bullets[i]->getY() < 0) {
-			player_bullets.erase(player_bullets.begin() + i); // remove bullets that go off screen
-            i--;
+            delete player_bullets[i];
+            player_bullets.erase(player_bullets.begin() + i);
+        }
+    }
+
+    for (int i = (int)enemies.size() - 1; i >= 0; i--) {
+        enemies[i]->update();
+        if (enemies[i]->getY() < -1000 ||
+            enemies[i]->getY() > 1000 ||
+            enemies[i]->getX() > 2000 ||
+            enemies[i]->getX() < -2000) {
+            delete enemies[i];
+            enemies.erase(enemies.begin() + i);
         }
     }
 }
@@ -122,6 +140,11 @@ void Game::render() {
     for (Bullet* bullet : player_bullets) {
 		bullet->render(); // render bullets
     }
+
+    for (Enemy* enemy : enemies) {
+        enemy->render();
+    }
+
 	player->render(); // render player
 	sidebar->render(winW, winH); // render sidebar
 
@@ -134,6 +157,10 @@ void Game::clean() {
     for (Bullet* bullet : player_bullets) {
 		delete bullet; // clean up
     }
+    for (Enemy* enemy : enemies) {
+        delete enemy;
+    }
+    enemies.clear();
     player_bullets.clear();
     SDL_DestroyRenderer(Grenderer);
     Mix_CloseAudio();
