@@ -36,6 +36,7 @@ private:
 
     std::vector<Bullet*> player_bullets;
     std::vector<Bullet*> enemy_bullets;
+
     Sidebar* sidebar;
 
     const int FPS = 60;

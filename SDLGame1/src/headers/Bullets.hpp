@@ -11,7 +11,7 @@ class Game;
 enum class Bullettype {
 	PLAYER_0,
 	PLAYER_1,
-	ENEMY_0,	// types of bullets/bullet patterns
+	ENEMY_KUNAI,	// types of bullets/bullet patterns
 	ENEMY_1,
 	ENEMY_2,
 	ENEMY_3,
@@ -20,19 +20,21 @@ enum class Bullettype {
 
 class Bullet {
 public:
-	Bullet(double x, double y, double velx, double vely, Bullettype type);
-	~Bullet();
-	void update();
-	void render();
-	int getY() const;
+    Bullet(double x, double y, double velx, double vely, Bullettype type);
+    ~Bullet();
+    void update();
+    void render();
+    int getY() const;
 
 private:
-	SDL_Texture* playerbullet_text;
-	SDL_Rect srcRect, destRect;
+    SDL_Texture* playerbullet_text;
+    SDL_Texture* enemybullet_text;
+    SDL_Rect srcRect, destRect;
 
-	double vx, vy;
-	double savedVx, savedVy;
-	Bullettype type;
+    double xPos, yPos;  // Store actual position as double
+    double vx, vy;
+    double savedVx, savedVy;
+    Bullettype type;
 };
 
 #endif

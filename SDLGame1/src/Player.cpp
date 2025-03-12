@@ -206,10 +206,9 @@ int Player::getY() const {
 //	double angle = atan2(deltay, deltax);
 //	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
 //	for (auto offset : buffer) {
-//		vx = cos(angle + offset) * 30.0;
-//		vy = sin(angle + offset) * 30.0;
-//		bullets.push_back(new Bullet(Game::Grenderer, x, y, vx, vy, Bullettype::PLAYER_0));
+//		vx = cos(angle + offset) * 25;
+//		vy = sin(angle + offset) * 25;
+//		bullets.push_back(new Bullet(x, y, vx, vy, Bullettype::PLAYER_0));
 //	}
-//	
 //
 //}

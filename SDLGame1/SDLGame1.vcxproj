@@ -132,22 +132,19 @@
   <ItemGroup>
     <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\bigbullet.png" />
+    <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\circle.png" />
     <Image Include="res\Enemy\Red_fa.png" />
     <Image Include="res\Enemy\Sakuya_idle.png" />
     <Image Include="res\Enemy\Sakuya_move.png" />
     <Image Include="res\Enemy\White_fa.png" />
-    <Image Include="res\Knife.png" />
-    <Image Include="res\Kunai.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
-    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Projectiles &amp; Items.png" />
     <Image Include="res\player\idleanimation.png" />
     <Image Include="res\player\left.png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />
-    <Image Include="res\Tinybullet.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

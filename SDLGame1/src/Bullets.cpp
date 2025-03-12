@@ -4,42 +4,44 @@
 #include <cmath>
 
 Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
-	: vx(velx), vy(vely), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
-	playerbullet_text(nullptr), savedVx(0), savedVy(0){
+	: xPos(x), yPos(y), vx(velx), vy(vely), type(type),
+	destRect{ (int)x, (int)y, 0, 0 }, srcRect{ 0, 0, 0, 0 },
+	playerbullet_text(nullptr), enemybullet_text(nullptr),
+	savedVx(0), savedVy(0) {
 
-	int spriteW = 0, spriteH = 0, spriteXpos= 0, spriteYpos = 0;
+	int spriteW = 0, spriteH = 0, spriteXpos = 0, spriteYpos = 0;
 	switch (type) {
-		case Bullettype::PLAYER_0:
-			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
-			spriteXpos = 132; spriteYpos = 0; spriteW = 16; spriteH = 16;
-			srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
-			destRect = { (int)x, (int)y, spriteW * 3, spriteH * 3 };
-			break;
-		case Bullettype::PLAYER_1:
-			playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
-			spriteXpos = 200; spriteYpos = 0; spriteW = 9; spriteH = 48;
-			srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
-			destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
-			break;
-		case Bullettype::ENEMY_0:
-			break;
+	case Bullettype::PLAYER_0:
+		playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
+		spriteXpos = 132; spriteYpos = 0; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { (int)x, (int)y, spriteW * 3, spriteH * 3 };
+		break;
+	case Bullettype::PLAYER_1:
+		playerbullet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); //will introduce other type later;
+		spriteXpos = 200; spriteYpos = 0; spriteW = 9; spriteH = 48;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
+		break;
+	case Bullettype::ENEMY_KUNAI:
+		enemybullet_text = playerbullet_text = TextureManager::LoadTexture("res/bullets.png");
+		spriteXpos = 338; spriteYpos = 105; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
+		break;
 	}
-	
 }
+
 
 Bullet::~Bullet() {
 	SDL_DestroyTexture(playerbullet_text);
 }
 
 void Bullet::update() {
-	switch (type) {
-		case Bullettype::PLAYER_0:
-		case Bullettype::PLAYER_1:
-		case Bullettype::ENEMY_0:
-			destRect.x += vx;
-			destRect.y += vy;
-			break;
-	}
+	xPos += vx;
+	yPos += vy;
+	destRect.x = static_cast<int>(xPos);
+	destRect.y = static_cast<int>(yPos);
 }
 
 void Bullet::render() {
@@ -50,6 +52,9 @@ void Bullet::render() {
 			break;
 		case Bullettype::PLAYER_1:
 			SDL_RenderCopy(Game::Grenderer, playerbullet_text, &srcRect, &destRect);
+			break;
+		case Bullettype::ENEMY_KUNAI:
+			SDL_RenderCopy(Game::Grenderer, enemybullet_text, &srcRect, &destRect);
 			break;
 	}
 }

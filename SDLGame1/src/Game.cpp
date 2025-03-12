@@ -96,13 +96,9 @@ void Game::handleEvents() {
 	if (keys[SDL_SCANCODE_SPACE] && currentTime - lastShotTime > 100) { // shooting
         int powerlv = 0;
         player->playerShoot(player_bullets);
+        //player->testshoot(player_bullets);
         lastShotTime = currentTime;
     }
-
-    
-    EnemyLayout::spawnHorizontalWave(enemies);
-        
-    
 }
 
 void Game::update() {
@@ -110,7 +106,9 @@ void Game::update() {
     SDL_GetRendererOutputSize(Grenderer, &winW, &winH);
 	player->update(); // update player
 
-    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
+    //std::cout << player->getX() << " " << player->getY();
+
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) { // update player's bullets
         player_bullets[i]->update();
         if (player_bullets[i]->getY() < 0) {
             delete player_bullets[i];
@@ -118,7 +116,15 @@ void Game::update() {
         }
     }
 
-    for (int i = (int)enemies.size() - 1; i >= 0; i--) {
+    for (int i = (int)enemy_bullets.size() - 1; i >= 0; i--) { // update enemies' bullets
+        enemy_bullets[i]->update();
+        if (enemy_bullets[i]->getY() < 0) {
+            delete enemy_bullets[i];
+            enemy_bullets.erase(enemy_bullets.begin() + i);
+        }
+    }
+
+    for (int i = (int)enemies.size() - 1; i >= 0; i--) { // update enemies
         enemies[i]->update();
         if (enemies[i]->getY() < -1000 ||
             enemies[i]->getY() > 1000 ||
@@ -128,10 +134,12 @@ void Game::update() {
             enemies.erase(enemies.begin() + i);
         }
     }
+    EnemyLayout::spawnHorizontalWave(enemies, 300, enemy_bullets, player);
+    EnemyLayout::spawnVerticalWave(enemies, 5);
 }
 
 void Game::render() {
-    SDL_SetRenderDrawColor(Grenderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(Grenderer, 0, 0, 0, 255); // render black window
     SDL_RenderClear(Grenderer);
 
     int winW, winH;
@@ -145,8 +153,14 @@ void Game::render() {
         enemy->render();
     }
 
+    for (Bullet* bullet : enemy_bullets) {
+        bullet->render(); // render bullets
+    }
+
 	player->render(); // render player
 	sidebar->render(winW, winH); // render sidebar
+
+    SDL_SetRenderDrawColor(Game::Grenderer, 128, 0, 128, 255); // Purple
 
     SDL_RenderPresent(Grenderer); 
 }
@@ -157,8 +171,11 @@ void Game::clean() {
     for (Bullet* bullet : player_bullets) {
 		delete bullet; // clean up
     }
+    for (Bullet* bullet : enemy_bullets) {
+        delete bullet; // clean up
+    }
     for (Enemy* enemy : enemies) {
-        delete enemy;
+        delete enemy; // clean up
     }
     enemies.clear();
     player_bullets.clear();

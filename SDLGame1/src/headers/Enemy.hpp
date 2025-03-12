@@ -10,17 +10,15 @@ class Bullet;
 class Player;
 class Game;
 
-
-
 enum class EnemyType {
 	RED_FA,
-	BLUE_FA,
+	BLUE_FA, // types
 	WHITE_FA,
 };
 
 enum class MovementType {
 	Horizontal,
-	Stationary,
+	Vertical, // Mtypes
 	BezierCurve,
 };
 
@@ -30,9 +28,12 @@ public:
 	~Enemy();
 	void update();
 	void render();
+	void enemyShoot(std::vector<Bullet*>& bullets);
+	void testShoot(std::vector<Bullet*>& bullets, int x ,int y);
 
 	int getY() const;
 	int getX() const;
+	bool fired = false;
 
 private:
 	double vx, vy;
@@ -42,11 +43,13 @@ private:
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
 
-
 	void BezierCurve();
-	void Horizontal();
-	void Stationary();
+	double newX, newY;
 
+	double movementProgress = 0.0;
+
+	void Horizontal();
+	void Vertical();
 
 	int currentFrame;
 	int totalFrames;
