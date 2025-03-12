@@ -54,7 +54,8 @@ void Bullet::render() {
 			SDL_RenderCopy(Game::Grenderer, playerbullet_text, &srcRect, &destRect);
 			break;
 		case Bullettype::ENEMY_KUNAI:
-			SDL_RenderCopy(Game::Grenderer, enemybullet_text, &srcRect, &destRect);
+			double angle = atan2(vy, vx) * 180 / M_PI;
+			SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90, nullptr , SDL_FLIP_NONE);
 			break;
 	}
 }
