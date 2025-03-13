@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <vector>
 #include <SDL_mixer.h>
-#include <SDL_mixer.h>
 #include "sidebar.hpp"
 
 class Bullet;
