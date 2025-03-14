@@ -25,6 +25,7 @@ public:
     void update();
     void render();
     int getY() const;
+    int getX() const;
 
 private:
     SDL_Texture* playerbullet_text;

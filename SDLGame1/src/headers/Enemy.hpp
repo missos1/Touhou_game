@@ -37,14 +37,15 @@ public:
 
 private:
 	double vx, vy;
+	double xPos, yPos;
 	double speed;
 	EnemyType type;
 	MovementType Mtype;
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
 
-	void BezierCurve();
-	double newX, newY;
+	/*void BezierCurve();
+	double newX, newY;*/
 
 	double movementProgress = 0.0;
 

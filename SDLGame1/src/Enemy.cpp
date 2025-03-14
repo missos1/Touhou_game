@@ -5,7 +5,7 @@
 #include <cmath>
 
 Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtype)
-	: vx(0), vy(0), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
+	: xPos(x) ,yPos(y), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
 	speed(speed), Enemy_texture(nullptr), Mtype(Mtype){
 	totalFrames = 4;
 	Ani_speed = 0.5f;
@@ -50,8 +50,10 @@ void Enemy::update() {
 			Vertical();
 			break;
 	}
-	destRect.x += vx;
-	destRect.y += vy;
+	xPos += vx;
+	yPos += vy;
+	destRect.x = static_cast<int>(xPos);
+	destRect.y = static_cast<int>(yPos);
 }
 
 void Enemy::render() {
@@ -60,12 +62,12 @@ void Enemy::render() {
 
 void Enemy::Horizontal() {
 	vx = speed;
-	vy = 1;
+	vy = 0.5;
 }
 
-void Enemy::BezierCurve() {
-
-}
+//void Enemy::BezierCurve() {
+//
+//}
 
 void Enemy::Vertical() {
 	vx = 0;

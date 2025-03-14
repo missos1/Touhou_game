@@ -63,3 +63,7 @@ void Bullet::render() {
 int Bullet::getY() const {
     return destRect.y;
 }
+
+int Bullet::getX() const {
+	return destRect.x;
+}

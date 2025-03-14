@@ -385,6 +385,9 @@
     <Image Include="res\bullets.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\player\Reimu_sprite2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

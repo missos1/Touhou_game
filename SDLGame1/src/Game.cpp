@@ -118,7 +118,10 @@ void Game::update() {
 
     for (int i = (int)enemy_bullets.size() - 1; i >= 0; i--) { // update enemies' bullets
         enemy_bullets[i]->update();
-        if (enemy_bullets[i]->getY() < 0) {
+        if (enemy_bullets[i]->getY() < -100 ||
+            enemy_bullets[i]->getY() > WIN_HEIGHT + 100 ||
+            enemy_bullets[i]->getX() < -100 ||
+            enemy_bullets[i]->getX() > WIN_WIDTH + 100) {
             delete enemy_bullets[i];
             enemy_bullets.erase(enemy_bullets.begin() + i);
         }
@@ -126,10 +129,10 @@ void Game::update() {
 
     for (int i = (int)enemies.size() - 1; i >= 0; i--) { // update enemies
         enemies[i]->update();
-        if (enemies[i]->getY() < -1000 ||
+        if (enemies[i]->getY() < -100 ||
             enemies[i]->getY() > 1000 ||
-            enemies[i]->getX() > 2000 ||
-            enemies[i]->getX() < -2000) {
+            enemies[i]->getX() > 1500 ||
+            enemies[i]->getX() < -100) {
             delete enemies[i];
             enemies.erase(enemies.begin() + i);
         }

@@ -1,10 +1,11 @@
 #include "headers/Player.hpp"
 #include "headers/Bullets.hpp"
+#include "headers/Game.hpp"
 #include <iostream>
 #include <unordered_set>
 
-Player::Player(int x, int y)
-    : dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
+Player::Player(double x, double y)
+    :xPos(x), yPos(y), dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
     isFlipped(false), shootSound(nullptr) {
 
     texture = TextureManager::LoadTexture("res/player/idleanimation.png");
@@ -18,7 +19,7 @@ Player::Player(int x, int y)
     currentFrameIdle = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
-    destRect = { x, y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
+    destRect = { (int)x, (int)y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
 
     shootSound = Mix_LoadWAV("res/sound/plst00.wav"); // shooting sound
     if (!shootSound) {
@@ -27,8 +28,10 @@ Player::Player(int x, int y)
 
     srcRect_amu_0 = { 134, 17, 14, 16 };
     srcRect_amu_1 = srcRect_amu_0;
-    destRect_amu_0 = { x, y, 14 * 2, 16 * 2 };
+    destRect_amu_0 = { (int)x, (int)y, 14 * 2, 16 * 2 };
     destRect_amu_1 = destRect_amu_0;
+
+    hitbox = { (int)x, (int)y, PLAYER_HB_SIZE, PLAYER_HB_SIZE };
 }
 
 Player::~Player() {
@@ -107,8 +110,12 @@ void Player::update() {
         }
     }
 
-    destRect.x += dx;
-    destRect.y += dy;
+    xPos += dx;
+    yPos += dy;
+    destRect.x = static_cast<int>(xPos);
+    destRect.y = static_cast<int>(yPos);
+    hitbox.x = destRect.x + 26;
+    hitbox.y = destRect.y + 42;
 
     if (destRect.x < PLAY_AREA_X_MIN) destRect.x = PLAY_AREA_X_MIN;
     if (destRect.x > PLAY_AREA_X_MAX) destRect.x = PLAY_AREA_X_MAX;
@@ -116,13 +123,13 @@ void Player::update() {
     if (destRect.y > PLAY_AREA_Y_MAX) destRect.y = PLAY_AREA_Y_MAX;
 
     if (isFocusing) {
-        destRect_amu_0.x = destRect.x - 7;
+        destRect_amu_0.x = destRect.x;
         destRect_amu_0.y = destRect.y - 32;
-        destRect_amu_1.x = destRect.x + 28;
+        destRect_amu_1.x = destRect.x + 32;
         destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
     }
     else {
-        destRect_amu_0.x = destRect.x - 45;
+        destRect_amu_0.x = destRect.x - 32;
         destRect_amu_1.x = destRect.x + PLAYER_WIDTH + 32;
         destRect_amu_0.y = destRect.y + 24;
         destRect_amu_1.y = destRect_amu_0.y;
@@ -130,6 +137,7 @@ void Player::update() {
 }
 
 void Player::render() {
+
 
     if (isMovingright) {
         SDL_RenderCopyEx(Game::Grenderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
@@ -139,10 +147,14 @@ void Player::render() {
     }
 
     if (powerlv >= 3) {
-        
-        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, 0, nullptr, SDL_FLIP_NONE);
-        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, 0, nullptr, SDL_FLIP_NONE); // amulet
+        static int angle = 0;
+        angle += 10;
+        if (angle >= 360) angle = 0;
+        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
+    SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255);
+    SDL_RenderFillRect(Game::Grenderer, &hitbox);
 }
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
@@ -188,11 +200,11 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
 }
 
 int Player::getX() const {
-    return destRect.x;
+    return hitbox.x - 7;
 }
 
 int Player::getY() const {
-    return destRect.y;
+    return hitbox.y - 10;
 }
 
 

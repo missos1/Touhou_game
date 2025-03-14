@@ -142,6 +142,7 @@
     <Image Include="res\player\idleanimation.png" />
     <Image Include="res\player\left.png" />
     <Image Include="res\player\Reimu_sprite.png" />
+    <Image Include="res\player\Reimu_sprite2.png" />
     <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />

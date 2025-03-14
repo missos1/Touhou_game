@@ -4,8 +4,10 @@
 #include <SDL.h>
 #include <vector>
 #include <SDL_mixer.h>
-#include <SDL_mixer.h>
 #include "sidebar.hpp"
+
+const int WIN_WIDTH = 1280;
+const int WIN_HEIGHT = 980;
 
 class Bullet;
 class Player;
