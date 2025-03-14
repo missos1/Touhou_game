@@ -8,7 +8,7 @@ void EnemyLayout::spawnHorizontalWave(std::vector<Enemy*>& enemies, int loop, st
 	static Uint32 lastSpawnTime = 0;
 	Uint32 currentTime = SDL_GetTicks();
 	static int lp = 0;
-	if (currentTime - lastSpawnTime > 200 && lp < loop) {
+	if (currentTime - lastSpawnTime > 500 && lp < loop) {
 		enemies.emplace_back(new Enemy(32, 50, 7, EnemyType::WHITE_FA, MovementType::Horizontal));
 		enemies.emplace_back(new Enemy(1000, 50, -7, EnemyType::WHITE_FA, MovementType::Horizontal));
 		lastSpawnTime = currentTime;

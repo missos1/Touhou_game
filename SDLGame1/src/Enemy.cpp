@@ -86,12 +86,14 @@ void Enemy::testShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) {
 	double angle = atan2((long double) deltay,(long double) deltax);
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
-
-	for (double offset : buffer) {
-		double velx = cos(angle + offset) * 4;
-		double vely = sin(angle + offset) * 4;
-		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI));
-	}
+	std::vector<double> spdvar = { 7 ,9, 12 };
+	//for (double offset : buffer) {
+		for (double speed : spdvar) {
+			double velx = cos(angle ) * speed;
+			double vely = sin(angle ) * speed;
+			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI));
+		}
+	//}
 	fired = true;
 }
 

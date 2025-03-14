@@ -31,6 +31,7 @@ private:
     SDL_Texture* playerbullet_text;
     SDL_Texture* enemybullet_text;
     SDL_Rect srcRect, destRect;
+    SDL_Rect hitbox;
 
     double xPos, yPos;  // Store actual position as double
     double vx, vy;

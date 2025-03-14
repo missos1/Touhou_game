@@ -137,7 +137,7 @@ void Game::update() {
             enemies.erase(enemies.begin() + i);
         }
     }
-    EnemyLayout::spawnHorizontalWave(enemies, 300, enemy_bullets, player);
+    EnemyLayout::spawnHorizontalWave(enemies, 30, enemy_bullets, player);
     EnemyLayout::spawnVerticalWave(enemies, 5);
 }
 
