@@ -143,14 +143,14 @@ void Game::update() {
 
         if (SDL_HasIntersection(&player_grazebox, &bullet_hitbox) && !enemy_bullets[i]->getGrazeState()) { // grazing bullets for more points (future ver)
             enemy_bullets[i]->GrazeUpdate();
-            std::cout << ++grazecount << endl;
+            std::cout << "graze: " << ++grazecount << endl;
         }
 
         if (SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) { // hp collision
             delete enemy_bullets[i];
             enemy_bullets.erase(enemy_bullets.begin() + i);
             player->updatePlayerhp();
-            std::cout << player->getPlayerhp() << endl;
+            std::cout << "hp: " << player->getPlayerhp() << endl;
             /*if (player->getPlayerhp() <= 0) {
                 delete player; // crash game lmao
             }*/

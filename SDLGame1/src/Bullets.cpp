@@ -92,8 +92,8 @@ void Bullet::render() {
 			SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90, nullptr , SDL_FLIP_NONE); 
 			break;
 	}
-	//SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255);
-	//SDL_RenderFillRect(Game::Grenderer, &hitbox);  // debug hitboxes
+	SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255);
+	SDL_RenderFillRect(Game::Grenderer, &hitbox);  // debug hitboxes
 }
 
 int Bullet::getX() const {
