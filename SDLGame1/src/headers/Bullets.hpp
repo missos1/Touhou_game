@@ -11,27 +11,35 @@ class Game;
 enum class Bullettype {
 	PLAYER_0,
 	PLAYER_1,
-	ENEMY_KUNAI,	// types of bullets/bullet patterns
+	ENEMY_KUNAI_RD,
+    ENEMY_KUNAI_BL,
+    ENEMY_KNIFE,// types of bullets/bullet patterns
 	ENEMY_1,
 	ENEMY_2,
 	ENEMY_3,
 };
 
-
 class Bullet {
 public:
     Bullet(double x, double y, double velx, double vely, Bullettype type);
     ~Bullet();
+
     void update();
     void render();
     int getY() const;
     int getX() const;
+
+    bool getGrazeState();
+    void GrazeUpdate();
+    SDL_Rect getHitbox() const;
 
 private:
     SDL_Texture* playerbullet_text;
     SDL_Texture* enemybullet_text;
     SDL_Rect srcRect, destRect;
     SDL_Rect hitbox;
+
+    bool grazed = false;
 
     double xPos, yPos;  // Store actual position as double
     double vx, vy;

@@ -5,13 +5,12 @@ Sidebar::Sidebar()
     : tileSize(0), bg_texture(nullptr), title_texture(nullptr),
     destRect{ 0, 0, 0, 0 }, desRect_title{ 0, 0, 0, 0 } {
 
-	bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png");
-	title_texture = TextureManager::LoadTexture("res/SIDEBAR_TITLE.png");
+    bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png");
+    title_texture = TextureManager::LoadTexture("res/SIDEBAR_TITLE.png");
 
 }
 Sidebar::~Sidebar() {
-	SDL_DestroyTexture(bg_texture);
-	SDL_DestroyTexture(title_texture);
+	
 }
 
 void Sidebar::render(int winW, int winH) {

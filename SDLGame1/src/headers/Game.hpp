@@ -11,7 +11,8 @@ const int WIN_HEIGHT = 980;
 
 class Bullet;
 class Player;
-class Enemy;
+class Enemy;    
+class TextureManager;
 
 class Game {
 public:
@@ -20,7 +21,13 @@ public:
 
 	static SDL_Renderer* Grenderer;
 
+    static SDL_Texture* Misc_player_text;
+    static SDL_Texture* enemybullet_text;
+    static SDL_Texture* Enemy_texture_w;
+    static SDL_Texture* Enemy_texture_r;
+
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+    void initText();
     void handleEvents();
     void update();
     void render();

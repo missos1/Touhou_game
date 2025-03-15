@@ -25,17 +25,19 @@ public:
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
+    void updatePlayerhp();
 
     int getY() const;
     int getX() const;
-    /*int gethbY() const;
-    int gethbY() const;*/
+    int getPlayerhp();
+    SDL_Rect getGrazingBox() const;
+    SDL_Rect getHitbox() const;
 
 private:
     SDL_Texture* texture;
-    SDL_Rect srcRect, destRect;
     SDL_Texture* amulet_text;
     SDL_Texture* rightTexture;
+    SDL_Rect srcRect, destRect;
     SDL_Rect srcRect_amu_0, destRect_amu_0;
     SDL_Rect srcRect_amu_1, destRect_amu_1;
     SDL_Rect hitbox;
@@ -43,15 +45,18 @@ private:
     Mix_Chunk* shootSound;
 
     int baseSpeed = 9;
-    int focusSpeed = 2;
+    int focusSpeed = 3.5;
     double speed;
     double dx, dy;
     double xPos, yPos;
+    int hp = 3;
+    int bomb = 3;
     int powerlv = 5;
     bool isFocusing;
     bool isIdle = true;
+    bool affectedbytimestop;
 
-    const int PLAYER_HEIGHT = 48;
+    const int PLAYER_HEIGHT = 50;
     const int PLAYER_WIDTH = 32;
 
     int currentFrame;

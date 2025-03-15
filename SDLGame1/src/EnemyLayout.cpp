@@ -33,3 +33,7 @@ void EnemyLayout::spawnVerticalWave(std::vector<Enemy*>& enemies, int loop) {
 		lp++;
 	}
 }
+
+void EnemyLayout::wave1(std::vector<Enemy*>& enemies, int loop, std::vector<Bullet*>& bullets, Player*& player) {
+
+}

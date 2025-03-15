@@ -15,12 +15,12 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 
 	switch (type) {
 		case EnemyType::RED_FA:
-			Enemy_texture = TextureManager::LoadTexture("res/Enemy/Red_fa.png");
+			Enemy_texture = Game::Enemy_texture_r;
 			spriteW = 32;
 			spriteH = 30;
 			break;
 		case EnemyType::WHITE_FA:
-			Enemy_texture = TextureManager::LoadTexture("res/Enemy/White_fa.png");
+			Enemy_texture = Game::Enemy_texture_w;
 			spriteW = 32;
 			spriteH = 30;
 			break;
@@ -31,7 +31,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 }
 
 Enemy::~Enemy() {
-	SDL_DestroyTexture(Enemy_texture);
+
 }
 
 void Enemy::update() {
@@ -75,7 +75,7 @@ void Enemy::Vertical() {
 }
 
 void Enemy::enemyShoot(std::vector<Bullet*>& bullets) {
-	bullets.push_back(new Bullet(destRect.x, destRect.y, 0, 4, Bullettype::ENEMY_KUNAI));
+	bullets.emplace_back(new Bullet(destRect.x, destRect.y, 0, 4, Bullettype::ENEMY_KUNAI_RD));
 	fired = true;
 }
 
@@ -87,33 +87,15 @@ void Enemy::testShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) {
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
 	std::vector<double> spdvar = { 7 ,9, 12 };
-	//for (double offset : buffer) {
+	for (double offset : buffer) {
 		for (double speed : spdvar) {
-			double velx = cos(angle ) * speed;
-			double vely = sin(angle ) * speed;
-			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI));
+			double velx = cos(angle + offset) * speed;
+			double vely = sin(angle +offset) * speed;
+			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_BL));
 		}
-	//}
+	}
 	fired = true;
 }
-
-//void Player::testshoot(std::vector<Bullet*>& bullets) {
-//    int x = 80;
-//    int y = 100;
-//	double vx = 0;
-//    double vy = 0;
-//    double deltax = destRect.x - x;
-//	double deltay = destRect.y - y;
-//	double angle = atan2(deltay, deltax);
-//	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
-//	for (auto offset : buffer) {
-//		vx = cos(angle + offset) * 30.0;
-//		vy = sin(angle + offset) * 30.0;
-//		bullets.push_back(new Bullet(Game::Grenderer, x, y, vx, vy, Bullettype::PLAYER_0));
-//	}
-//	
-//
-//}
 
 int Enemy::getX() const {
 	return destRect.x;
@@ -122,4 +104,9 @@ int Enemy::getX() const {
 int Enemy::getY() const {
 	return destRect.y;
 }
+
+EnemyType Enemy::getType() const{
+	return type;
+}
+
 

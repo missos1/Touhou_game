@@ -364,7 +364,7 @@
     <Image Include="res\player\idleanimation.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\player\left.png">
+    <Image Include="res\player\rightAni.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Enemy\circle.png">

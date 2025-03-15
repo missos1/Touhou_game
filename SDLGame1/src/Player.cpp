@@ -9,8 +9,8 @@ Player::Player(double x, double y)
     isFlipped(false), shootSound(nullptr) {
 
     texture = TextureManager::LoadTexture("res/player/idleanimation.png");
-    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); // texture
-    rightTexture = TextureManager::LoadTexture("res/player/left.png");
+    amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png");
+    rightTexture = TextureManager::LoadTexture("res/player/rightAni.png");;
     // initialize animation
     totalFrames = 4;
     Ani_speed = 0.1f;
@@ -35,16 +35,13 @@ Player::Player(double x, double y)
 }
 
 Player::~Player() {
-    SDL_DestroyTexture(texture);
-    Mix_FreeChunk(shootSound);
-    SDL_DestroyTexture(amulet_text);
-    SDL_DestroyTexture(rightTexture);
+    
 }
 
 void Player::handleInput(const Uint8* keys) {
     dx = dy = 0;
     // keyboard movement
-    if (keys[SDL_SCANCODE_LSHIFT]) {
+    if (keys[SDL_SCANCODE_LSHIFT]) { // hold shift to slow down
         speed = focusSpeed;
         isFocusing = true;
     }
@@ -58,7 +55,7 @@ void Player::handleInput(const Uint8* keys) {
         if (keys[SDL_SCANCODE_A]) {
             dx = -speed;
             isMovingright = true;
-            isFlipped = false;
+            isFlipped = false; // these are flags for an animation below
             isIdle = false;
         }
         if (keys[SDL_SCANCODE_D]) {
@@ -78,12 +75,12 @@ void Player::update() {
     // not gonna lie this is pain to figure out
     if (isMovingright) {
         if (currentFrame <= 7 && !isIdle) { // left right animation  
-            if (frameTime >= 0.5f && currentFrame < 4) {
+            if (frameTime >= 0.5f && currentFrame < 4) { // if less than 4 then increment to next fram
                 frameTime = 0.0f;
                 currentFrame++; 
          
             }
-            else if (currentFrame >= 4 && frameTime >= 1.0f) {
+            else if (currentFrame >= 4 && frameTime >= 1.0f) { // if more than 4 then looping from 7 to 4
                 frameTime = 0.0f;
                 ++currentFrame;
                 if (currentFrame >= 7) currentFrame = 4;
@@ -97,7 +94,7 @@ void Player::update() {
                 currentFrame--;              
             }
         }
-        else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle ani
+        else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle animation
             isMovingright = false;
         }
         srcRect.x = currentFrame * PLAYER_WIDTH;
@@ -113,23 +110,23 @@ void Player::update() {
     xPos += dx;
     yPos += dy;
     destRect.x = static_cast<int>(xPos);
-    destRect.y = static_cast<int>(yPos);
-    hitbox.x = destRect.x + 26;
+    destRect.y = static_cast<int>(yPos); // cast on to texture position
+    hitbox.x = destRect.x + 28;
     hitbox.y = destRect.y + 42;
 
     if (destRect.x < PLAY_AREA_X_MIN) destRect.x = PLAY_AREA_X_MIN;
-    if (destRect.x > PLAY_AREA_X_MAX) destRect.x = PLAY_AREA_X_MAX;
+    if (destRect.x > PLAY_AREA_X_MAX) destRect.x = PLAY_AREA_X_MAX; // limit in fram
     if (destRect.y < PLAY_AREA_Y_MIN) destRect.y = PLAY_AREA_Y_MIN;
     if (destRect.y > PLAY_AREA_Y_MAX) destRect.y = PLAY_AREA_Y_MAX;
 
     if (isFocusing) {
-        destRect_amu_0.x = destRect.x;
+        destRect_amu_0.x = destRect.x + 2;
         destRect_amu_0.y = destRect.y - 32;
-        destRect_amu_1.x = destRect.x + 32;
+        destRect_amu_1.x = destRect_amu_0.x + 35;
         destRect_amu_1.y = destRect_amu_0.y;    // focus mode config
     }
     else {
-        destRect_amu_0.x = destRect.x - 32;
+        destRect_amu_0.x = destRect.x - 25;
         destRect_amu_1.x = destRect.x + PLAYER_WIDTH + 32;
         destRect_amu_0.y = destRect.y + 24;
         destRect_amu_1.y = destRect_amu_0.y;
@@ -137,8 +134,6 @@ void Player::update() {
 }
 
 void Player::render() {
-
-
     if (isMovingright) {
         SDL_RenderCopyEx(Game::Grenderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     }
@@ -150,6 +145,7 @@ void Player::render() {
         static int angle = 0;
         angle += 10;
         if (angle >= 360) angle = 0;
+        SDL_SetTextureAlphaMod(amulet_text, 255);
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
@@ -170,43 +166,59 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
             break;
         case 3:
             angle = { 3, 0, -3 };
-            bullets.push_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 4:
             angle = { 5, 2, -2, -5 };
-            bullets.push_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
         case 5:
             angle = { 6, 3, 0, -3, -6 };
-            bullets.push_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
-            bullets.push_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
+            bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
             break;
     }
     
     for (int angle : angle) {
         double vx = angle;
-        bullets.push_back(new Bullet(destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
+        bullets.emplace_back(new Bullet(destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
     }
     Mix_VolumeChunk(shootSound, MIX_MAX_VOLUME / 4); // shooting sound
     Mix_PlayChannel(-1, shootSound, 0);
 }
 
 int Player::getX() const {
-    return hitbox.x - 7;
+    return hitbox.x - 10;
 }
 
 int Player::getY() const {
-    return hitbox.y - 10;
+    return hitbox.y - 20;
 }
 
+int Player::getPlayerhp() {
+    return hp;
+}
+
+void Player::updatePlayerhp() {
+    hp--;
+}
+
+
+SDL_Rect Player::getGrazingBox() const {
+    return destRect;
+}
+
+SDL_Rect Player::getHitbox() const {
+    return hitbox;
+}
 
 //void Player::testshoot(std::vector<Bullet*>& bullets) {
 //    int x = 80;
@@ -220,7 +232,7 @@ int Player::getY() const {
 //	for (auto offset : buffer) {
 //		vx = cos(angle + offset) * 25;
 //		vy = sin(angle + offset) * 25;
-//		bullets.push_back(new Bullet(x, y, vx, vy, Bullettype::PLAYER_0));
+//		bullets.emplace_back(new Bullet(x, y, vx, vy, Bullettype::PLAYER_0));
 //	}
 //
 //}

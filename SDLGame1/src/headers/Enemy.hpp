@@ -33,6 +33,7 @@ public:
 
 	int getY() const;
 	int getX() const;
+	EnemyType getType() const;
 	bool fired = false;
 
 private:
