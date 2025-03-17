@@ -39,6 +39,12 @@
     <ClCompile Include="src\EnemyLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Game.hpp">
@@ -338,6 +344,12 @@
     <ClInclude Include="src\headers\EnemyLayout.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\SoundManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Collision.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -386,6 +398,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\player\Reimu_sprite2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Blue_fa.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

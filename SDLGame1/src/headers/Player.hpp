@@ -8,7 +8,7 @@
 
 const int PLAY_AREA_X_MIN = 54;
 const int PLAY_AREA_X_MAX = 820;
-const int PLAY_AREA_Y_MIN = 30;
+const int PLAY_AREA_Y_MIN = 10;
 const int PLAY_AREA_Y_MAX = 855;
 const int PLAYER_HB_SIZE = 10;
 
@@ -29,7 +29,7 @@ public:
 
     int getY() const;
     int getX() const;
-    int getPlayerhp();
+    int getPlayerhp() const;
     SDL_Rect getGrazingBox() const;
     SDL_Rect getHitbox() const;
 
@@ -45,11 +45,10 @@ private:
     Mix_Chunk* shootSound;
 
     int baseSpeed = 9;
-    int focusSpeed = 3.5;
+    int focusSpeed = 3;
     double speed;
     double dx, dy;
-    double xPos, yPos;
-    int hp = 3;
+    int hp = 7;
     int bomb = 3;
     int powerlv = 5;
     bool isFocusing;

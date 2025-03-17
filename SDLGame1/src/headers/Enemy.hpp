@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <vector>
+#include <random>
 
 class Bullet;
 class Player;
@@ -28,22 +29,28 @@ public:
 	~Enemy();
 	void update();
 	void render();
-	void enemyShoot(std::vector<Bullet*>& bullets);
-	void testShoot(std::vector<Bullet*>& bullets, int x ,int y);
+	void rndriceShoot(std::vector<Bullet*>& bullets);
+	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
 
 	int getY() const;
 	int getX() const;
+	int getEnemyhp() const;
+	void updatehp(int in_hp);
+	SDL_Rect getEnHitbox() const;
 	EnemyType getType() const;
+
 	bool fired = false;
 
 private:
 	double vx, vy;
 	double xPos, yPos;
 	double speed;
+	int hp;
 	EnemyType type;
 	MovementType Mtype;
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
+
 
 	/*void BezierCurve();
 	double newX, newY;*/

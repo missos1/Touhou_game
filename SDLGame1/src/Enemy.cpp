@@ -6,7 +6,7 @@
 
 Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtype)
 	: xPos(x) ,yPos(y), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
-	speed(speed), Enemy_texture(nullptr), Mtype(Mtype){
+	speed(speed), Enemy_texture(nullptr), Mtype(Mtype), hp(0) {
 	totalFrames = 4;
 	Ani_speed = 0.5f;
 	frameTime = 0.0f;
@@ -14,16 +14,24 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 
 
 	switch (type) {
-		case EnemyType::RED_FA:
-			Enemy_texture = Game::Enemy_texture_r;
-			spriteW = 32;
-			spriteH = 30;
-			break;
-		case EnemyType::WHITE_FA:
-			Enemy_texture = Game::Enemy_texture_w;
-			spriteW = 32;
-			spriteH = 30;
-			break;
+	case EnemyType::RED_FA:
+		Enemy_texture = Game::Enemy_texture_r;
+		spriteW = 32;
+		spriteH = 30;
+		hp = 8;
+		break;
+	case EnemyType::WHITE_FA:
+		Enemy_texture = Game::Enemy_texture_w;
+		spriteW = 32;
+		spriteH = 30;
+		hp = 10;
+		break;
+	case EnemyType::BLUE_FA:
+		Enemy_texture = Game::Enemy_texture_b;
+		spriteW = 32;
+		spriteH = 30;
+		hp = 8;
+		break;
 	}
 
 	srcRect = { 0, 0, spriteW, spriteH };
@@ -62,7 +70,7 @@ void Enemy::render() {
 
 void Enemy::Horizontal() {
 	vx = speed;
-	vy = 0.5;
+	vy = -0.5;
 }
 
 //void Enemy::BezierCurve() {
@@ -74,19 +82,27 @@ void Enemy::Vertical() {
 	vy = speed;
 }
 
-void Enemy::enemyShoot(std::vector<Bullet*>& bullets) {
-	bullets.emplace_back(new Bullet(destRect.x, destRect.y, 0, 4, Bullettype::ENEMY_KUNAI_RD));
+void Enemy::rndriceShoot(std::vector<Bullet*>& bullets) {
+	int density = 4;
+	srand(SDL_GetTicks());
+	for (int i = 0; i < density; i++) {
+		double angle = (std::rand() % 180) * M_PI / 180;
+		double speed = 3 + std::rand() % 3;
+		double velx = cos(angle) * speed;
+		double vely = sin(angle) * speed;
+		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE));
+	}
 	fired = true;
 }
 
-void Enemy::testShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) {
+void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) {
 	double deltax = playerX - destRect.x; 
 	double deltay = playerY - destRect.y; 
 
 	double angle = atan2((long double) deltay,(long double) deltax);
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
-	std::vector<double> spdvar = { 7 ,9, 12 };
+	std::vector<double> spdvar = { 3.6, 4, 4.2, 4.5, 5, 6 };
 	for (double offset : buffer) {
 		for (double speed : spdvar) {
 			double velx = cos(angle + offset) * speed;
@@ -109,4 +125,14 @@ EnemyType Enemy::getType() const{
 	return type;
 }
 
+SDL_Rect Enemy::getEnHitbox() const {
+	return destRect;
+}
 
+int Enemy::getEnemyhp() const {
+	return hp;
+}
+
+void Enemy::updatehp(int in_hp) {
+	hp = in_hp;
+}

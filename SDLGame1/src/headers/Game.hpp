@@ -13,6 +13,8 @@ class Bullet;
 class Player;
 class Enemy;    
 class TextureManager;
+class SoundManager;
+class CollisionCheck;
 
 class Game {
 public:
@@ -25,9 +27,12 @@ public:
     static SDL_Texture* enemybullet_text;
     static SDL_Texture* Enemy_texture_w;
     static SDL_Texture* Enemy_texture_r;
+    static SDL_Texture* Enemy_texture_b;
 
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+    void ObjHandling();
     void initText();
+    void initSM();
     void handleEvents();
     void update();
     void render();

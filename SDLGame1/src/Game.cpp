@@ -4,6 +4,8 @@
 #include "headers/Enemy.hpp"
 #include "headers/EnemyLayout.hpp"
 #include "headers/TextureManager.hpp"
+#include "headers/SoundManager.hpp"
+#include "headers/Collision.hpp"
 #include <iostream>
 #define endl "\n"
 
@@ -13,6 +15,7 @@ SDL_Texture* Game::Misc_player_text = nullptr; // declare texture
 SDL_Texture* Game::enemybullet_text = nullptr;
 SDL_Texture* Game::Enemy_texture_w = nullptr;
 SDL_Texture* Game::Enemy_texture_r = nullptr;
+SDL_Texture* Game::Enemy_texture_b = nullptr;
 
 Game::Game()
     : window(nullptr), isRunning(false), player(nullptr), // game variables
@@ -61,6 +64,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     }
 
     Game::initText();
+    Game::initSM();
 
 	isRunning = true; // if everything is successful, set isRunning to true
     return true;
@@ -71,15 +75,26 @@ void Game::initText() {
     enemybullet_text = TextureManager::LoadTexture("res/bullets.png");
     Enemy_texture_w = TextureManager::LoadTexture("res/Enemy/White_fa.png");
     Enemy_texture_r = TextureManager::LoadTexture("res/Enemy/Red_fa.png");
+    Enemy_texture_b = TextureManager::LoadTexture("res/Enemy/Blue_fa.png");;
+
+}
+
+void Game::initSM() {
+    SoundManager::LoadSound("pldead", "res/sound/pldead00.wav");
+    SoundManager::LoadSound("graze", "res/sound/graze.wav");
+    SoundManager::LoadSound("plshoot", "res/sound/plst00.wav");
+    SoundManager::LoadSound("enshoot0", "res/sound/tan00.wav");
+    SoundManager::LoadSound("enshoot1", "res/sound/tan01.wav");
+    SoundManager::LoadSound("enshoot2", "res/sound/tan02.wav");
+    SoundManager::LoadSound("endie0", "res/sound/enep00.wav");
+    SoundManager::LoadSound("endie1", "res/sound/enep01.wav");
+    SoundManager::LoadSound("entakedmg", "res/sound/damage00.wav");
+    
+    SoundManager::LoadMusic("Mainmenu", "res/OST/A Dream that is more Scarlet than Red.mp3");
 }
 
 void Game::run() {
-    Mix_Music* bgMusic = Mix_LoadMUS("res/OST/A Dream that is more Scarlet than Red.mp3");
-    if (!bgMusic) {
-        std::cout << "Failed to load music! Error: " << Mix_GetError() << endl;
-    }
-
-    Mix_PlayMusic(bgMusic, -1);
+    SoundManager::PlayMusic("Mainmenu", -1, 255);
 
 	while (isRunning) { // main game loop
         frameStart = SDL_GetTicks();
@@ -116,69 +131,36 @@ void Game::handleEvents() {
     }
 }
 
+void Game::ObjHandling() {
+    //std::cout << player->getX() << " " << player->getY();
+    static int grazecount = 0;
+
+
+    for (int i = (int)enemy_bullets.size() - 1; i >= 0; i--) { // update enemies' bullets
+        enemy_bullets[i]->update();
+    }
+
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) { // update player's bullets
+        player_bullets[i]->update();
+    }
+
+    for (int i = (int)enemies.size() - 1; i >= 0; i--) { // update enemies
+        enemies[i]->update();
+    }
+
+
+    //EnemyLayout::spawnHorizontal(enemies, -30, 300, 4, EnemyType::RED_FA,enemy_bullets, player);
+    EnemyLayout::wave1(enemies, enemy_bullets, player);
+    //EnemyLayout::spawnVerticalWave(enemies, 5);
+    CollisionCheck::EnemyColli(player_bullets, enemies);
+    CollisionCheck::PlayerColli(enemy_bullets, player);
+}
+
 void Game::update() {
     int winW, winH;
     SDL_GetRendererOutputSize(Grenderer, &winW, &winH);
 	player->update(); // update player
-
-    //std::cout << player->getX() << " " << player->getY();
-    static int grazecount = 0;
-
-    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) { // update player's bullets
-
-        player_bullets[i]->update();
-
-        if (player_bullets[i]->getY() < 0) {
-            delete player_bullets[i];
-            player_bullets.erase(player_bullets.begin() + i);
-        }
-    }
-
-    for (int i = (int)enemy_bullets.size() - 1; i >= 0; i--) { // update enemies' bullets
-        enemy_bullets[i]->update();
-
-        SDL_Rect bullet_hitbox = enemy_bullets[i]->getHitbox();
-        SDL_Rect player_grazebox = player->getGrazingBox();
-        SDL_Rect player_hitbox = player->getHitbox();
-
-        if (SDL_HasIntersection(&player_grazebox, &bullet_hitbox) && !enemy_bullets[i]->getGrazeState()) { // grazing bullets for more points (future ver)
-            enemy_bullets[i]->GrazeUpdate();
-            std::cout << "graze: " << ++grazecount << endl;
-        }
-
-        if (SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) { // hp collision
-            delete enemy_bullets[i];
-            enemy_bullets.erase(enemy_bullets.begin() + i);
-            player->updatePlayerhp();
-            std::cout << "hp: " << player->getPlayerhp() << endl;
-            /*if (player->getPlayerhp() <= 0) {
-                delete player; // crash game lmao
-            }*/
-        }
-
-        if (enemy_bullets[i]->getY() < -100 ||
-            enemy_bullets[i]->getY() > WIN_HEIGHT + 100 ||  // offscreen deletion
-            enemy_bullets[i]->getX() < -100 ||
-            enemy_bullets[i]->getX() > WIN_WIDTH + 100) {
-            delete enemy_bullets[i];
-            enemy_bullets.erase(enemy_bullets.begin() + i); // erase bullets
-        }
-    }
-
-    for (int i = (int)enemies.size() - 1; i >= 0; i--) { // update enemies
-
-        enemies[i]->update();
-
-        if (enemies[i]->getY() < -100 ||
-            enemies[i]->getY() > 1000 ||
-            enemies[i]->getX() > 1500 ||
-            enemies[i]->getX() < -100) {
-            delete enemies[i];
-            enemies.erase(enemies.begin() + i); // erase enemies
-        }
-    }
-    EnemyLayout::spawnHorizontalWave(enemies, 30, enemy_bullets, player);
-    EnemyLayout::spawnVerticalWave(enemies, 5);
+    ObjHandling();
 }
 
 void Game::render() {
@@ -223,6 +205,7 @@ void Game::clean() {
     enemies.clear();
     player_bullets.clear();
     TextureManager::cleanup();
+    SoundManager::Clean();
     SDL_DestroyRenderer(Grenderer);
     Mix_CloseAudio();
     SDL_DestroyWindow(window);
