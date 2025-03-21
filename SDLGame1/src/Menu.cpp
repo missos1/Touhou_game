@@ -37,7 +37,7 @@ void Menu::handleInput(const Uint8* keys) {
             SoundManager::PlaySound("cancel", 0, 32);
             keyPressed = true;
         }
-        if (keys[SDL_SCANCODE_RETURN]) {
+        if (keys[SDL_SCANCODE_RETURN] || keys[SDL_SCANCODE_SPACE]) {
             if (selectedOption == 0) {
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::MENU;

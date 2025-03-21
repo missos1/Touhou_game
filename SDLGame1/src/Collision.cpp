@@ -53,11 +53,11 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
             if (SDL_HasIntersection(&enemy_hitbox, &bullet_hitbox)) { // enemy collision
                 enemies[j]->updatehp(enemy_hp - bullet_dmg);
                 std::cout << "hp: " << enemy_hp - bullet_dmg << std::endl;
-                SoundManager::PlaySound("entakedmg", 0, 32);
+                SoundManager::PlaySound("entakedmg", 0, 16);
                 if (enemies[j]->getEnemyhp() <= 0) {
+                    SoundManager::PlaySound("endie0", 0, 255);
                     delete enemies[j];
                     enemies.erase(enemies.begin() + j);
-                    SoundManager::PlaySound("endie0", 0, 64);
                 }
                 delete bullets[i];
                 bullets.erase(bullets.begin() + i); 

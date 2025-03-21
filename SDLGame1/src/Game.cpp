@@ -11,7 +11,7 @@
 #define endl "\n"
 
 SDL_Renderer* Game::Grenderer = nullptr; // define the static renderer
-GameState Game::state = GameState::MENU;
+GameState Game::state = GameState::LOADING;
 GameState Game::prevState = GameState::LOADING;
 
 Uint32 Game::GameStartTime = 0;
@@ -69,12 +69,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    Mix_AllocateChannels(64);
+
     initText();
     initSM();
 
     MENU = new Menu();
-
-    state = GameState::LOADING;
 
 	isRunning = true; // if everything is successful, set isRunning to true
     return true;
@@ -111,11 +111,15 @@ void Game::initSM() {
 
 
 void Game::run() {
+    int allocatedChannels = Mix_AllocateChannels(-1);
+    std::cout << "Currently allocated channels: " << allocatedChannels << endl;
+
 	while (isRunning) { // main game loop
         frameStart = SDL_GetTicks();
 
-        if (state == GameState::LOADING && SDL_GetTicks() >= 5000) state = GameState::MENU;
-
+        if (state == GameState::LOADING && SDL_GetTicks() >= 2000) {
+            state = GameState::MENU;
+        }
         handleEvents(); // handling keyboards && mouse etc
         update(); // updating the game during loop
         render(); // rendering the game during loop
@@ -127,8 +131,8 @@ void Game::run() {
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
             Game::GameStartTime = SDL_GetTicks(); // Store the start time
             SoundManager::StopMusic();
-            SoundManager::PlayMusic("Stage_theme", -1, 255);
-            std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
+            //SoundManager::PlayMusic("Stage_theme", -1, 64);
+            //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
         }
 
         Game::prevState = Game::state;
@@ -222,6 +226,8 @@ void Game::render() {
     }
 
     else if (state == GameState::PLAYING) {
+	    player->render(); // render player
+
         for (Bullet* bullet : player_bullets) {
 		    bullet->render(); // render bullets
         }
@@ -234,7 +240,6 @@ void Game::render() {
             bullet->render(); // render bullets
         }
 
-	    player->render(); // render player
 	    sidebar->render(winW, winH); // render sidebar
     }
 

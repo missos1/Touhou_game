@@ -3,6 +3,7 @@
 #include "headers/Game.hpp"
 #include "headers/Bullets.hpp"
 #include "headers/EnemyLayout.hpp"
+#include "headers/SoundManager.hpp"
 #include <iostream>
 #include <cmath>
 #define endl "\n"
@@ -70,14 +71,17 @@ void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 		/*if (enemies[i]->getX() >= 350 && enemies[i]->getX() <= 550)*/
 		switch (enemies[i]->getType()) {
 		case EnemyType::RED_FA:
-			if (currentTime - enemyLastShootTime[enemies[i]] > 400) {
+			if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
 				enemyLastShootTime[enemies[i]] = currentTime;
 				enemies[i]->rndriceShoot(bullets, 2);
+				
 			}
 			break;
 		case EnemyType::WHITE_FA:
-			if (enemies[i]->getY() >= 100 && !enemies[i]->fired) enemies[i]->aimedShoot(bullets, player->getX(), player->getY());
-			//if (enemies[i]->getY() >= 100 && !enemies[i]->fired) enemies[i]->circleroundShoot(bullets, 60);
+			//if (enemies[i]->getY() >= 100 && !enemies[i]->fired) enemies[i]->aimedShoot(bullets, player->getX(), player->getY());
+			if (enemies[i]->getY() >= 100 && !enemies[i]->fired) {
+				enemies[i]->circleroundShoot(bullets, 60);
+			}
 			break;
 		}	
 	}

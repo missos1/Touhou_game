@@ -109,6 +109,7 @@ void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
 		double vely = sin(angle) * speed;
 		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE));
 	}
+	SoundManager::PlaySound("enshoot0", 0, 32);
 	fired = true;
 }
 
@@ -125,8 +126,10 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 			double velx = cos(angle + offset) * speed;
 			double vely = sin(angle +offset) * speed;
 			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_BL));
+			
 		}
 	}
+	SoundManager::PlaySound("enshoot0", 0, 32);
 	fired = true;
 }
 
@@ -139,7 +142,7 @@ void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
 			double velx = cos(angle) * speed;
 			double vely = sin(angle) * speed;
 			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1));
-			SoundManager::PlaySound("enshoot0", 0, 64);
+			SoundManager::PlaySound("enshoot1", 0, 32);
 		}
 	}
 	fired = true;

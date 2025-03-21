@@ -14,12 +14,12 @@ std::unordered_map<std::string, Mix_Music*> SoundManager::musicTracks;
 bool SoundManager::LoadSound(const std::string& id, const char* fileName) {
 	Mix_Chunk* sound = Mix_LoadWAV(fileName);
 	if (!sound) {
-		std::cout << "Failed to load sound: " << Mix_GetError << endl;
+		std::cout << "Failed to load sound: " << Mix_GetError << endl; // get error if no sound is loaded
 		return false;
 	}
 
 	for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) {
-		std::cout << pair.first << endl;
+		std::cout << pair.first << endl; // debug
 	}
 
 	soundEffects[id] = sound;
@@ -27,24 +27,24 @@ bool SoundManager::LoadSound(const std::string& id, const char* fileName) {
 }
 
 void SoundManager::PlaySound(const std::string& id, int loop, int vol) {
-	if (soundEffects.find(id) != soundEffects.end()) {
+	if (soundEffects.find(id) != soundEffects.end()) { // if existed in map the play it
 		Mix_VolumeChunk(soundEffects[id], vol);
 		Mix_PlayChannel(-1, soundEffects[id], loop);
 	}
 	else {
-		std::cout << "Sound " << id << " not found!" << endl;
+		std::cout << "Sound " << id << " not found!" << endl; // get error
 	}
 }
 
 bool SoundManager::LoadMusic(const std::string& id, const char* fileName) {
 	Mix_Music* music = Mix_LoadMUS(fileName);
 	if (!music) {
-		std::cout << "Failed to load music: " << Mix_GetError << endl;
+		std::cout << "Failed to load music: " << Mix_GetError << endl; // get error if no track is loaded
 		return false;
 	}
 
 	for (std::pair<const std::string, Mix_Music*>& pair : musicTracks) {
-		std::cout << pair.first << endl;
+		std::cout << pair.first << endl; 
 	}
 
 	musicTracks[id] = music;
