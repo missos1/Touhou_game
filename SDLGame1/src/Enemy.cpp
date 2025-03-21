@@ -2,11 +2,12 @@
 #include "headers/Bullets.hpp"
 #include "headers/Player.hpp"
 #include "headers/Enemy.hpp"
+#include "headers/SoundManager.hpp"
 #include <cmath>
 
 Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtype)
-	: xPos(x) ,yPos(y), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
-	speed(speed), Enemy_texture(nullptr), Mtype(Mtype), hp(0) {
+	: xPos(x), yPos(y), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
+	speed(speed), Enemy_texture(nullptr), Mtype(Mtype), hp(0), vx(0), vy(0), hitbox{ 0, 0, 0, 0 } {
 	totalFrames = 4;
 	Ani_speed = 0.5f;
 	frameTime = 0.0f;
@@ -18,19 +19,22 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		Enemy_texture = Game::Enemy_texture_r;
 		spriteW = 32;
 		spriteH = 30;
-		hp = 8;
+		hp = 3;
+		hitbox = { (int)x, (int)y, L_HITBOX_SIZE, L_HITBOX_SIZE };
 		break;
 	case EnemyType::WHITE_FA:
 		Enemy_texture = Game::Enemy_texture_w;
 		spriteW = 32;
 		spriteH = 30;
 		hp = 10;
+		hitbox = { (int)x, (int)y, L_HITBOX_SIZE, L_HITBOX_SIZE };
 		break;
 	case EnemyType::BLUE_FA:
 		Enemy_texture = Game::Enemy_texture_b;
 		spriteW = 32;
 		spriteH = 30;
 		hp = 8;
+		hitbox = { (int)x, (int)y, L_HITBOX_SIZE, L_HITBOX_SIZE };
 		break;
 	}
 
@@ -53,24 +57,35 @@ void Enemy::update() {
 	switch (Mtype) {
 		case MovementType::Horizontal:
 			Horizontal();
+			xPos += vx;
+			yPos += vy;
 			break;
 		case MovementType::Vertical:
 			Vertical();
+			xPos += vx;
+			yPos += vy;
 			break;
 	}
 	xPos += vx;
 	yPos += vy;
 	destRect.x = static_cast<int>(xPos);
 	destRect.y = static_cast<int>(yPos);
+
+	hitbox.x = destRect.x + 16;
+	hitbox.y = destRect.y + 16;
 }
 
 void Enemy::render() {
 	SDL_RenderCopy(Game::Grenderer, Enemy_texture, &srcRect, &destRect);
+
+	SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug hitbox
+	SDL_RenderFillRect(Game::Grenderer, &hitbox);
 }
 
 void Enemy::Horizontal() {
 	vx = speed;
 	vy = -0.5;
+
 }
 
 //void Enemy::BezierCurve() {
@@ -78,16 +93,18 @@ void Enemy::Horizontal() {
 //}
 
 void Enemy::Vertical() {
+	//static double n = 0.0;
+	//n += 0.01;
 	vx = 0;
 	vy = speed;
 }
 
-void Enemy::rndriceShoot(std::vector<Bullet*>& bullets) {
-	int density = 4;
+void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
+	//int density = 10;
 	srand(SDL_GetTicks());
 	for (int i = 0; i < density; i++) {
 		double angle = (std::rand() % 180) * M_PI / 180;
-		double speed = 3 + std::rand() % 3;
+		double speed = 3 + std::rand() % 2;
 		double velx = cos(angle) * speed;
 		double vely = sin(angle) * speed;
 		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE));
@@ -113,6 +130,21 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 	fired = true;
 }
 
+void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
+	//int m = 10;
+	for (int i = 0; i < density; ++i) {
+		double angle = (2 * M_PI / density) * i;
+		std::vector<double> spdvar = { 2.5, 2.3, 2,  };
+		for (double speed : spdvar) {
+			double velx = cos(angle) * speed;
+			double vely = sin(angle) * speed;
+			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1));
+			SoundManager::PlaySound("enshoot0", 0, 64);
+		}
+	}
+	fired = true;
+}
+
 int Enemy::getX() const {
 	return destRect.x;
 }
@@ -126,7 +158,7 @@ EnemyType Enemy::getType() const{
 }
 
 SDL_Rect Enemy::getEnHitbox() const {
-	return destRect;
+	return hitbox;
 }
 
 int Enemy::getEnemyhp() const {

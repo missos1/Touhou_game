@@ -18,6 +18,10 @@ bool SoundManager::LoadSound(const std::string& id, const char* fileName) {
 		return false;
 	}
 
+	for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) {
+		std::cout << pair.first << endl;
+	}
+
 	soundEffects[id] = sound;
 	return true;
 }
@@ -39,6 +43,10 @@ bool SoundManager::LoadMusic(const std::string& id, const char* fileName) {
 		return false;
 	}
 
+	for (std::pair<const std::string, Mix_Music*>& pair : musicTracks) {
+		std::cout << pair.first << endl;
+	}
+
 	musicTracks[id] = music;
 	return true;
 }
@@ -58,12 +66,12 @@ void SoundManager::StopMusic() {
 }
 
 void SoundManager::Clean() {
-	for (auto& pair : soundEffects) {
+	for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) {
 		Mix_FreeChunk(pair.second);
 	}
 	soundEffects.clear();
 
-	for (auto& pair : musicTracks) {
+	for (std::pair<const std::string, Mix_Music*>& pair : musicTracks) {
 		Mix_FreeMusic(pair.second);
 	}
 	musicTracks.clear();

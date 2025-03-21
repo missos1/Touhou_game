@@ -5,12 +5,12 @@
 
 Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 	: xPos(x), yPos(y), vx(velx), vy(vely), type(type),
-	destRect{ (int)x, (int)y, 0, 0 }, srcRect{ 0, 0, 0, 0 },
+	destRect{ (int)x, (int)y, 0, 0 }, srcRect{ 0, 0, 0, 0 }, // init variables
 	playerbullet_text(nullptr), enemybullet_text(nullptr),
 	savedVx(0), savedVy(0), hitbox{ 0, 0, 0, 0 }, dmg(0) {
 
 	int spriteW = 0, spriteH = 0, spriteXpos = 0, spriteYpos = 0;
-	playerbullet_text = Game::Misc_player_text;
+	playerbullet_text = Game::Misc_player_text; // get texture 
 	enemybullet_text = Game::enemybullet_text;
 
 	switch (type) {
@@ -32,25 +32,31 @@ Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 		spriteXpos = DEFAULT_X + L_RED; spriteYpos = KUNAI_Y; spriteW = 16; spriteH = 16;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
-		hitbox = { (int)y, (int)x, 8 , 8};
+		hitbox = { (int)y, (int)x, S_HITBOX_SIZE , S_HITBOX_SIZE};
 		break;
 	case Bullettype::ENEMY_KUNAI_BL: // blue 
 		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = KUNAI_Y; spriteW = 16; spriteH = 16;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
-		hitbox = { (int)y, (int)x, 8 , 8 };
+		hitbox = { (int)y, (int)x, S_HITBOX_SIZE , S_HITBOX_SIZE };
 		break;
 	case Bullettype::ENEMY_KNIFE: // knife
 		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = KNIFE_Y; spriteW = 32; spriteH = 32;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
-		hitbox = { (int)y, (int)x, 16 , 16 };
+		hitbox = { (int)y, (int)x, L_HITBOX_SIZE , L_HITBOX_SIZE };
 		break;
 	case Bullettype::ENEMY_RICE:
 		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = RICE_Y; spriteW = 16; spriteH = 16;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
-		hitbox = { (int)y, (int)x, 8 , 8 };
+		hitbox = { (int)y, (int)x, S_HITBOX_SIZE , S_HITBOX_SIZE };
+		break;
+	case Bullettype::ENEMY_ROUND1:
+		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = ROUND1_Y; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { (int)x, (int)y, spriteW * 2, spriteH * 2 };
+		hitbox = { (int)y, (int)x, M_HITBOX_SIZE , M_HITBOX_SIZE };
 		break;
 	}
 }
@@ -76,6 +82,10 @@ void Bullet::update() {
 		hitbox.x = destRect.x + 24; // big
 		hitbox.y = destRect.y + 24;
 		break;
+	case Bullettype::ENEMY_ROUND1:
+		hitbox.x = destRect.x + 10;
+		hitbox.y = destRect.y + 10;
+		break;
 	default:
 		hitbox.x = destRect.x; // def case
 		hitbox.y = destRect.y;
@@ -84,9 +94,9 @@ void Bullet::update() {
 }
 
 void Bullet::render() {
-	static double plyb_angle = 0;
-	plyb_angle += 30;
-	if (plyb_angle >= 360) plyb_angle = 0;
+	static double plyb_angle = 0.0;
+	plyb_angle += 0.01;
+	if (plyb_angle >= 360.0) plyb_angle = 0.0;
 	switch (type) {
 		case Bullettype::PLAYER_0:
 			SDL_SetTextureAlphaMod(playerbullet_text, 100);
@@ -100,6 +110,7 @@ void Bullet::render() {
 		case Bullettype::ENEMY_KUNAI_RD:
 		case Bullettype::ENEMY_KNIFE:
 		case Bullettype::ENEMY_KUNAI_BL:
+		case Bullettype::ENEMY_ROUND1:
 			double angle = atan2(vy, vx) * 180 / M_PI; // get direction 
 			SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90, nullptr , SDL_FLIP_NONE); 
 			break;

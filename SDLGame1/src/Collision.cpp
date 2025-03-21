@@ -6,25 +6,25 @@
 #include "headers/SoundManager.hpp"
 
 void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player*& player) {
-    for (int i = (int)bullets.size() - 1; i >= 0; i--) { // update enemies' bullets
-        static int grazecount = 0;
+    for (int i = (int)bullets.size() - 1; i >= 0; i--) { // update enemies' bullets loop
+        static int grazecount = 0; // graze count
     
         SDL_Rect bullet_hitbox = bullets[i]->getHitbox();
         SDL_Rect player_grazebox = player->getGrazingBox();
         SDL_Rect player_hitbox = player->getHitbox();
 
         if (SDL_HasIntersection(&player_grazebox, &bullet_hitbox) && !bullets[i]->getGrazeState()) { // grazing bullets for more points (future ver)
-            bullets[i]->GrazeUpdate();
-            SoundManager::PlaySound("graze", 0, 64);
-            std::cout << "graze: " << ++grazecount << std::endl;
+            bullets[i]->GrazeUpdate(); // update if grazed
+            SoundManager::PlaySound("graze", 0, 64); // play graze sound
+            //std::cout << "graze: " << ++grazecount << std::endl; // debug
         }
 
         if (SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) { // hp collision
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
+            delete bullets[i]; // delete bullet when it collided with player
+            bullets.erase(bullets.begin() + i); // delete its postion
             player->updatePlayerhp();
-            SoundManager::PlaySound("pldead", 0, 64);
-            std::cout << "hp: " << player->getPlayerhp() << std::endl;
+            SoundManager::PlaySound("pldead", 0, 64); // play sound when player dies
+            //std::cout << "hp: " << player->getPlayerhp() << std::endl; //debug
 
             /*if (player->getPlayerhp() <= 0) {
                 delete player; // crash game lmao

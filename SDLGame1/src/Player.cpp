@@ -7,7 +7,7 @@
 
 Player::Player(double x, double y)
     : dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
-    isFlipped(false), shootSound(nullptr) {
+    isFlipped(false), shootSound(nullptr), affectedbytimestop(false) {
 
     texture = TextureManager::LoadTexture("res/player/idleanimation.png");
     amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png");
@@ -37,6 +37,7 @@ Player::Player(double x, double y)
 
 Player::~Player() {
     
+
 }
 
 void Player::handleInput(const Uint8* keys) {
@@ -149,8 +150,9 @@ void Player::render() {
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
-    SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255);
-    SDL_RenderFillRect(Game::Grenderer, &hitbox);
+    /*SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
+    SDL_RenderFillRect(Game::Grenderer, &hitbox);*/
+
 }
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
@@ -171,25 +173,25 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
         break;
     case 4:
         angle = { 5, 2, -2, -5 };
-        bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
         break;
     case 5:
         angle = { 6, 3, 0, -3, -6 };
-        bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 24, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y - 40, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y - 40, 0, bulletspeed, Bullettype::PLAYER_1));
         break;
     }
     
     for (int angle : angle) {
         double vx = angle;
-        bullets.emplace_back(new Bullet(destRect.x - 1, destRect.y + 30, vx, bulletspeed, Bullettype::PLAYER_0));
+        bullets.emplace_back(new Bullet(hitbox.x - 15, hitbox.y, vx, bulletspeed, Bullettype::PLAYER_0));
     }
     SoundManager::PlaySound("plshoot", 0, 64);
 }

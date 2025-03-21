@@ -45,6 +45,9 @@
     <ClCompile Include="src\Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Game.hpp">
@@ -350,6 +353,9 @@
     <ClInclude Include="src\headers\Collision.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -403,6 +409,27 @@
     <Image Include="res\Enemy\Blue_fa.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\Titlescreens&amp;menus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Loading.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Menu_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Quit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Quit_unsl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Start.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Start_unsl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
@@ -423,6 +450,7 @@
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_ttf.dll" />
+    <None Include="SDL2paths.props" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\sound\cancel00.wav">

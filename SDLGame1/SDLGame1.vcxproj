@@ -25,6 +25,7 @@
     <ClCompile Include="src\EnemyLayout.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\sidebar.cpp" />
     <ClCompile Include="src\SoundManager.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\EnemyLayout.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
+    <ClInclude Include="src\headers\Menu.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
     <ClInclude Include="src\headers\sidebar.hpp" />
     <ClInclude Include="src\headers\SoundManager.hpp" />
@@ -143,6 +145,12 @@
     <Image Include="res\Enemy\Sakuya_idle.png" />
     <Image Include="res\Enemy\Sakuya_move.png" />
     <Image Include="res\Enemy\White_fa.png" />
+    <Image Include="res\Menu\Loading.png" />
+    <Image Include="res\Menu\Menu_bg.png" />
+    <Image Include="res\Menu\Quit.png" />
+    <Image Include="res\Menu\Quit_unsl.png" />
+    <Image Include="res\Menu\Start.png" />
+    <Image Include="res\Menu\Start_unsl.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
     <Image Include="res\player\idleanimation.png" />
     <Image Include="res\player\rightAni.png" />
@@ -151,6 +159,7 @@
     <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />
+    <Image Include="res\Titlescreens&amp;menus.png" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
@@ -168,6 +177,7 @@
     <None Include="lib\SDL2.pdb" />
     <None Include="lib\SDL2_image.pdb" />
     <None Include="SDL2.dll" />
+    <None Include="SDL2paths.props" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_mixer.dll" />
     <None Include="SDL2_ttf.dll" />

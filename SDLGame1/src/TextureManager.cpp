@@ -1,6 +1,7 @@
 #include "headers/TextureManager.hpp"
 #include "headers/Game.hpp"
 #include <iostream>
+#define endl "\n"
 
 std::unordered_map<std::string, SDL_Texture*> TextureManager::texture_Map;
 
@@ -14,7 +15,7 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
 
     SDL_Surface* tempSurface = IMG_Load(fileName);
     if (!tempSurface) {
-        std::cout << "Failed to load image: " << IMG_GetError() << std::endl;
+        std::cout << "Failed to load image: " << IMG_GetError() << endl;
         return nullptr;
     }
 
@@ -25,15 +26,15 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
         texture_Map[fileStr] = texture; // store texture in cache
     }
 
-    for (auto & pair : texture_Map) {
-        std::cout << pair.first << " ";
+    for (std::pair<const std::string, SDL_Texture*>& pair : texture_Map) {
+        std::cout << pair.first << endl;
     }
-    std::cout << std::endl;
+    
     return texture;
 }
 
 void TextureManager::cleanup() {
-    for (auto& pair : texture_Map) {
+    for (std::pair<const std::string, SDL_Texture*>& pair : texture_Map) {
         SDL_DestroyTexture(pair.second);
     }
     texture_Map.clear();

@@ -6,7 +6,7 @@
 #include <vector>
 #include "TextureManager.hpp"
 
-const int PLAY_AREA_X_MIN = 54;
+const int PLAY_AREA_X_MIN = 20;
 const int PLAY_AREA_X_MAX = 820;
 const int PLAY_AREA_Y_MIN = 10;
 const int PLAY_AREA_Y_MAX = 855;

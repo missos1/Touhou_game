@@ -6,31 +6,17 @@
 #include <SDL_mixer.h>
 #include "TextureManager.hpp"
 
+
 class Game;
 
-const int KUNAI_Y = 105;
-const int KNIFE_Y = 185;
-const int RICE_Y = 89;
-const int DEFAULT_X = 306;
-
-//const int S_
-
-const int L_RED = 32;
-const int L_PINK = 64;
-const int L_BLUE = 96;
-const int L_CYAN = 128;
-const int L_GREEN = 160;
-const int L_YELLOW = 192;
-const int L_WHITE = 224;
-
 enum class Bullettype {
-	PLAYER_0,
-	PLAYER_1,
-	ENEMY_KUNAI_RD,
+    PLAYER_0,
+    PLAYER_1,
+    ENEMY_KUNAI_RD,
     ENEMY_KUNAI_BL,
     ENEMY_KNIFE,// types of bullets/bullet patterns
-	ENEMY_RICE,
-	ENEMY_2,
+    ENEMY_RICE,
+    ENEMY_ROUND1,
 	ENEMY_3,
 };
 
@@ -64,6 +50,27 @@ private:
     double vx, vy;
     double savedVx, savedVy;
     Bullettype type;
+
+    const int S_HITBOX_SIZE = 8;
+    const int M_HITBOX_SIZE = 12;
+    const int L_HITBOX_SIZE = 16;
+
+    const int ROUND0_Y = 57;
+    const int ROUND1_Y = 73;
+    const int RICE_Y = 89;
+    const int KUNAI_Y = 105;
+    const int KNIFE_Y = 185;
+    const int DEFAULT_X = 306;
+
+    //const int S_
+
+    const int L_RED = 32;
+    const int L_PINK = 64;
+    const int L_BLUE = 96;
+    const int L_CYAN = 128;
+    const int L_GREEN = 160;
+    const int L_YELLOW = 192;
+    const int L_WHITE = 224;
 };
 
 #endif

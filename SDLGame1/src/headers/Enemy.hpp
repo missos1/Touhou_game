@@ -7,9 +7,11 @@
 #include <vector>
 #include <random>
 
+
 class Bullet;
 class Player;
 class Game;
+
 
 enum class EnemyType {
 	RED_FA,
@@ -29,8 +31,9 @@ public:
 	~Enemy();
 	void update();
 	void render();
-	void rndriceShoot(std::vector<Bullet*>& bullets);
+	void rndriceShoot(std::vector<Bullet*>& bullets, int density);
 	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
+	void circleroundShoot(std::vector<Bullet*>& bullets, int density);
 
 	int getY() const;
 	int getX() const;
@@ -42,6 +45,7 @@ public:
 	bool fired = false;
 
 private:
+	const int L_HITBOX_SIZE = 20;
 	double vx, vy;
 	double xPos, yPos;
 	double speed;
@@ -50,6 +54,7 @@ private:
 	MovementType Mtype;
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
+	SDL_Rect hitbox;
 
 
 	/*void BezierCurve();
