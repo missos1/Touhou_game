@@ -69,10 +69,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    Game::initText();
-    Game::initSM();
+    initText();
+    initSM();
 
     MENU = new Menu();
+
+    state = GameState::LOADING;
 
 	isRunning = true; // if everything is successful, set isRunning to true
     return true;
@@ -99,10 +101,6 @@ void Game::initSM() {
     SoundManager::LoadSound("select", "res/sound/select00.wav");
     SoundManager::LoadSound("ok", "res/sound/ok00.wav");
     SoundManager::LoadSound("cancel", "res/sound/cancel00.wav");
-
-
-
-
     
     SoundManager::LoadMusic("Mainmenu", "res/OST/A Dream that is more Scarlet than Red.mp3");
     SoundManager::LoadMusic("Stage_theme", "res/OST/The Maid and the Pocket Watch of Blood.mp3");
@@ -116,6 +114,7 @@ void Game::run() {
 	while (isRunning) { // main game loop
         frameStart = SDL_GetTicks();
 
+        if (state == GameState::LOADING && SDL_GetTicks() >= 5000) state = GameState::MENU;
 
         handleEvents(); // handling keyboards && mouse etc
         update(); // updating the game during loop
@@ -210,7 +209,15 @@ void Game::render() {
         SDL_RenderCopy(Grenderer, )
     }*/
 
-    if (state == GameState::MENU) {
+    if (state == GameState::LOADING) {
+        SDL_Texture* loading = TextureManager::LoadTexture("res/Menu/Loading.png");
+        SDL_Rect src_load = { 0,0, 640, 480 };
+        SDL_Rect dest_load = { 0,0, 640 * 2, 480 * 2 };
+
+        SDL_RenderCopy(Grenderer, loading, &src_load, &dest_load);
+    }
+
+    else if (state == GameState::MENU) {
         MENU->render();
     }
 
