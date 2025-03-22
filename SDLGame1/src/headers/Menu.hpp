@@ -1,7 +1,7 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include <SDL.h>>
+#include <SDL.h>
 #include <SDL_image.h>
 
 class Game;

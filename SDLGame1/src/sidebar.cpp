@@ -10,8 +10,7 @@ Sidebar::Sidebar()
 
 }
 Sidebar::~Sidebar() {
-    SDL_DestroyTexture(bg_texture);
-    SDL_DestroyTexture(title_texture);
+    
 }
 
 void Sidebar::render(int winW, int winH) {

@@ -8,12 +8,12 @@
 #include <cmath>
 #define endl "\n"
 
-void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player*& player) {
+void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
 	static double lastexecuteTime = -1.0;
 
-	double initTime = Game::GameStartTime / 1000;
-	double elapsed = SDL_GetTicks() / 1000.0 - initTime;
-	elapsed = round(elapsed * 10) / 10 + 0.0;
+	double initTime = Game::GameStartTime / 1000; // check the time to spawn enemies
+	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // get the time elapsed since the game started
+	elapsed = round(elapsed * 10) / 10 + 0.0; // round to 1 decimal place
 
 
 	//std::cout << "elapsed: " << elapsed << endl;
@@ -29,7 +29,7 @@ void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 		lastexecuteTime = elapsed;
 		//std::cout << "lastexe = " << lastexecuteTime << endl;
 		
-		int loop = 10;
+		int loop = 10; 
 
 		double interval = 0.5;
 
@@ -73,7 +73,7 @@ void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 		case EnemyType::RED_FA:
 			if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
 				enemyLastShootTime[enemies[i]] = currentTime;
-				enemies[i]->rndriceShoot(bullets, 2);
+				enemies[i]->rndriceShoot(bullets, 5);
 				
 			}
 			break;
@@ -88,7 +88,7 @@ void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 }
 
 //void EnemyLayout::spawnVertical(std::vector<Enemy*>& enemies, int loop, double x, double y, double speed,
-//									EnemyType type, std::vector<Bullet*>& bullets, Player*& player) {
+//									EnemyType type, std::vector<Bullet*>& bullets, Player* player) {
 //	static Uint32 lastSpawnTime = 0;
 //	static int lp = 0;
 //	if (currentTime - lastSpawnTime > 200 && lp < loop) {

@@ -5,7 +5,7 @@
 #include "headers/Collision.hpp"
 #include "headers/SoundManager.hpp"
 
-void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player*& player) {
+void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player) {
     for (int i = (int)bullets.size() - 1; i >= 0; i--) { // update enemies' bullets loop
         static int grazecount = 0; // graze count
     
@@ -51,16 +51,16 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
             int enemy_hp = enemies[j]->getEnemyhp();
 
             if (SDL_HasIntersection(&enemy_hitbox, &bullet_hitbox)) { // enemy collision
-                enemies[j]->updatehp(enemy_hp - bullet_dmg);
+				enemies[j]->updatehp(enemy_hp - bullet_dmg); // update enemy hp
                 std::cout << "hp: " << enemy_hp - bullet_dmg << std::endl;
-                SoundManager::PlaySound("entakedmg", 0, 16);
+				SoundManager::PlaySound("entakedmg", 0, 16); // play sound when enemy takes damage
                 if (enemies[j]->getEnemyhp() <= 0) {
-                    SoundManager::PlaySound("endie0", 0, 255);
-                    delete enemies[j];
-                    enemies.erase(enemies.begin() + j);
+					SoundManager::PlaySound("endie0", 0, 255); // play sound when enemy dies
+					delete enemies[j];  // delete enemy when hp is 0
+					enemies.erase(enemies.begin() + j); // erase enemy
                 }
-                delete bullets[i];
-                bullets.erase(bullets.begin() + i); 
+				delete bullets[i]; // delete bullet when it collided with enemy
+				bullets.erase(bullets.begin() + i); // erase its postion
                 break;
             }
         }
@@ -68,7 +68,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
 
     for (int j = (int)enemies.size() - 1; j >= 0; j--) {
         if (enemies[j]->getY() < -100 ||
-            enemies[j]->getY() > 1000 ||
+			enemies[j]->getY() > 1000 ||  // offscreen deletion
             enemies[j]->getX() > 1500 ||
             enemies[j]->getX() < -100) {
             delete enemies[j];
@@ -77,8 +77,8 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
     }
 
     for (int i = (int)bullets.size() - 1; i >= 0; i--) {
-        if (bullets[i]->getY() < 0) {
-            delete bullets[i];
+		if (bullets[i]->getY() < 0) { // offscreen deletion
+            delete bullets[i]; 
             bullets.erase(bullets.begin() + i);
         }
     }
