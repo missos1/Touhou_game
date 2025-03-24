@@ -17,12 +17,16 @@ enum class EnemyType {
 	RED_FA,
 	BLUE_FA, // types
 	WHITE_FA,
+	SPARKLE,
 };
 
 enum class MovementType {
 	Horizontal,
 	Vertical, // Mtypes
 	BezierCurve,
+	DiagonalNWSE,
+	DiagonalNESW,
+	Lshape,
 };
 
 class Enemy {
@@ -35,6 +39,8 @@ public:
 	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
 	void circleroundShoot(std::vector<Bullet*>& bullets, int density);
 
+	int initX; // store where the enemy was spawned
+	int initY;
 	int getY() const;
 	int getX() const;
 	int getEnemyhp() const;
@@ -45,17 +51,21 @@ public:
 	bool fired = false;
 
 private:
-	const int L_HITBOX_SIZE = 20;
-	double vx, vy;
-	double xPos, yPos;
-	double speed;
-	int hp;
-	EnemyType type;
-	MovementType Mtype;
+	const int L_HITBOX_SIZE = 20; // hitbox size
+	double vx, vy; // velocity
+	double xPos, yPos; // position in cartesian plane
+	double speed; // speed
+	int hp; // hp
+	EnemyType type; // enemy type
+	MovementType Mtype; // movement type
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
 	SDL_Rect hitbox;
 
+
+	bool movingHorizontal;
+	bool pause;
+	Uint32 pauseStart;
 
 	/*void BezierCurve();
 	double newX, newY;*/
@@ -64,6 +74,9 @@ private:
 
 	void Horizontal();
 	void Vertical();
+	void DiagonalNWSE();
+	void DiagonalNESW();
+	void Lshape();
 
 	int currentFrame;
 	int totalFrames;

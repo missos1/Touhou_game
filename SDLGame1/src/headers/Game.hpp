@@ -8,6 +8,11 @@
 
 const int WIN_WIDTH = 1280;
 const int WIN_HEIGHT = 960;
+const int PLAY_AREA_X_MIN = 20;
+const int PLAY_AREA_X_MAX = 820;
+const int PLAY_AREA_Y_MIN = 10;
+const int PLAY_AREA_Y_MAX = 855;
+const int PLAYER_HB_SIZE = 10;
 
 class Bullet;
 class Player;
@@ -16,6 +21,7 @@ class TextureManager;
 class SoundManager;
 class CollisionCheck;
 class Menu;
+class Item;
 
 enum class GameState {
     LOADING,
@@ -40,13 +46,15 @@ public:
     static SDL_Texture* Enemy_texture_w;
     static SDL_Texture* Enemy_texture_r;
     static SDL_Texture* Enemy_texture_b;
+    static SDL_Texture* Enemy_texture_sparkle;
     static SDL_Texture* Menu_texture;
     
+    static int PLAYSCORE;
 
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
     void ObjHandling();
-    void initText();
-    void initSM();
+    bool initText();
+    bool initSM();
     void handleEvents();
     void update();
     void render();
@@ -68,6 +76,7 @@ private:
 
     std::vector<Bullet*> player_bullets;
     std::vector<Bullet*> enemy_bullets;
+    std::vector<Item*> items;
 
     Sidebar* sidebar;
 
@@ -75,6 +84,8 @@ private:
     const int frameDelay = 1000 / FPS;  // frame stuff
     Uint32 frameStart;
     int frameTime;
+
+    
 };
 
 #endif

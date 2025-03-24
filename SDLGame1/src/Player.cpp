@@ -7,7 +7,7 @@
 
 Player::Player(double x, double y)
     : dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
-    isFlipped(false), shootSound(nullptr), affectedbytimestop(false) {
+    isFlipped(false), shootSound(nullptr), affectedbytimestop(false), graze(0) {
 
     texture = TextureManager::LoadTexture("res/player/idleanimation.png");
     amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png");
@@ -20,7 +20,7 @@ Player::Player(double x, double y)
     currentFrameIdle = 0;
 
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
-    destRect = { (int)x, (int)y, PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
+    destRect = { static_cast<int>(x), static_cast<int>(y), PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)
 
     shootSound = Mix_LoadWAV("res/sound/plst00.wav"); // shooting sound
     if (!shootSound) {
@@ -29,10 +29,10 @@ Player::Player(double x, double y)
 
     srcRect_amu_0 = { 134, 17, 14, 16 };
     srcRect_amu_1 = srcRect_amu_0;
-    destRect_amu_0 = { (int)x, (int)y, 14 * 2, 16 * 2 };
+    destRect_amu_0 = { static_cast<int>(x), static_cast<int>(y), 14 * 2, 16 * 2 };
     destRect_amu_1 = destRect_amu_0;
 
-    hitbox = { (int)x, (int)y, PLAYER_HB_SIZE, PLAYER_HB_SIZE };
+    hitbox = { static_cast<int>(x), static_cast<int>(y), PLAYER_HB_SIZE, PLAYER_HB_SIZE };
 }
 
 Player::~Player() {
@@ -144,8 +144,8 @@ void Player::render() {
 
     if (powerlv >= 3) {
         static int angle = 0;
-        angle += 10;
-        if (angle >= 360) angle = 0;
+        angle = (angle + 10 + 360) % 360;
+        //std::cout << angle << std::endl;
         SDL_SetTextureAlphaMod(amulet_text, 255);
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, amulet_text, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
@@ -159,12 +159,20 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
     double bulletspeed = -30.0;
     std::vector<int> angle;
-    switch (powerlv) {
+
+    static double prevpowerlv = 0.0;
+
+    if (powerlv != prevpowerlv) {
+        std::cout << "player powerlv: " << powerlv << std::endl;
+        prevpowerlv = powerlv;
+    }
+
+    switch ((int) powerlv) {
     case 1:
         angle = { 0 };
         break;
     case 2:
-        angle = { 2, -2 };
+        angle = { 1, -1  };
         break;
     case 3:
         angle = { 3, 0, -3 };
@@ -208,18 +216,35 @@ int Player::getPlayerhp() const {
     return hp;
 }
 
-void Player::updatePlayerhp() {
-    hp--;
+void Player::updatePlayerhp(int input) {
+    hp += input;
 }
-
 
 SDL_Rect Player::getGrazingBox() const {
     return destRect;
 }
 
+void Player::updateGraze() {
+    graze++;
+}
+
+int Player::getGraze() const {
+    return graze;
+}
 SDL_Rect Player::getHitbox() const {
     return hitbox;
 }
+
+double Player::getPlayerpowerlv() const {
+    return powerlv;
+}
+
+void Player::updatePlayerpower(double input) {
+    powerlv += input;
+    if (powerlv >= 5.0) powerlv = 5.0;
+    else if (powerlv <= 1.0) powerlv = 1.0;
+}
+
 
 //void Player::testshoot(std::vector<Bullet*>& bullets) {
 //    int x = 80;

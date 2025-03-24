@@ -10,11 +10,12 @@ class Bullet;
 class Player;
 class Enemy;
 class SoundManager;
+class Item;
 
 class CollisionCheck {
 public:
-	static void PlayerColli(std::vector<Bullet*>& bullets, Player* player);
-	static void EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies);
+	static void PlayerColli(std::vector<Bullet*>& bullets, Player* player, std::vector<Item*>& items);
+	static void EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items, Player* player);
 	//static void BossColli(std::vector<Bullet*>& bullets,);
 };
 
