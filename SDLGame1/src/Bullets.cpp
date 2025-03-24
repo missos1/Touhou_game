@@ -94,7 +94,7 @@ void Bullet::update() {
 
 void Bullet::render() {
 	static double plyb_angle = 0.0;
-	plyb_angle += 0.05; // Increment angle for rotation
+	plyb_angle += 0.5; // Increment angle for rotation
 	if (plyb_angle >= 360.0) plyb_angle = 0.0; // Reset angle if it exceeds 360 degrees
 	switch (type) {
 	case Bullettype::PLAYER_0:

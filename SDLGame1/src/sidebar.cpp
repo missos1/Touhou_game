@@ -133,7 +133,7 @@ void Sidebar::render_playerhp(Player* player) {
             destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE * 2 ) ,285 , DIGIT_SIZE * 3 / 2, DIGIT_SIZE * 3 / 2};
         }
         else {
-            destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE ) ,295 , DIGIT_SIZE , DIGIT_SIZE };
+            destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE ) ,293 , DIGIT_SIZE , DIGIT_SIZE };
         }
 
         SDL_RenderCopy(Game::Grenderer, digit_texture, &srcRect_digit, &destRect_digit);

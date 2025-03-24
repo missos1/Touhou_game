@@ -157,7 +157,7 @@ void Player::render() {
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) {
     // powerlv manager
-    double bulletspeed = -30.0;
+    double bulletspeed = -50.0;
     std::vector<int> angle;
 
     static double prevpowerlv = 0.0;
@@ -172,10 +172,10 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
         angle = { 0 };
         break;
     case 2:
-        angle = { 1, -1  };
+        angle = { 2, -2  };
         break;
     case 3:
-        angle = { 3, 0, -3 };
+        angle = { 4, 0, -4 };
         bullets.emplace_back(new Bullet(destRect_amu_0.x + 3, destRect_amu_0.y, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
         break;

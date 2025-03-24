@@ -253,7 +253,6 @@ void Game::render() {
     }
 
     else if (state == GameState::PLAYING) {
-        player->render(); // Render player
 
         for (Bullet* bullet : player_bullets) {
             bullet->render(); // Render player bullets
@@ -266,6 +265,8 @@ void Game::render() {
         for (Enemy* enemy : enemies) {
             enemy->render(); // Render enemies
         }
+
+        player->render(); // Render player
 
         for (Bullet* bullet : enemy_bullets) {
             bullet->render(); // Render enemy bullets
