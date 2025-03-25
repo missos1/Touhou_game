@@ -23,13 +23,13 @@ public:
     void updatePlayerhp(int input);
     void updateGraze();
     
-    int getGraze() const;
-    int getY() const;
-    int getX() const;
-    int getPlayerhp() const;
-    double getPlayerpowerlv() const;
-    SDL_Rect getGrazingBox() const;
-    SDL_Rect getHitbox() const;
+    int getGraze() const { return graze; }
+    int getY() const { return hitbox.y - 20; }
+    int getX() const { return hitbox.x - 10; }
+    int getPlayerhp() const { return hp; }
+    SDL_Rect getGrazingBox() const { return destRect; }
+    SDL_Rect getHitbox() const { return hitbox; }
+    double getPlayerpowerlv() const { return powerlv; }
 
 private:
     SDL_Texture* texture;

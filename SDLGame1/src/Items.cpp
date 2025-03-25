@@ -9,7 +9,8 @@ Item::Item(double x, double y, Itemtype type) :
 	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, fallspeed(0), item_point(0) {
 	item_text = Game::enemybullet_text; // Get item texture
 
-	srand(time(0));
+	srand(time
+	(0));
 	switch (type) {
 	case Itemtype::POWER_S: // Small power item
 		srcRect = { ITEM_POWER_S, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
@@ -63,25 +64,5 @@ void Item::update() {
 
 void Item::render() {
 	SDL_RenderCopy(Game::Grenderer, item_text, &srcRect, &destRect); // Render item
-}
-
-int Item::getPoint() const {
-	return item_point; // Return item point value
-}
-
-int Item::getX() const {
-	return hitbox.x; // Return hitbox x position
-}
-
-int Item::getY() const {
-	return hitbox.y; // Return hitbox y position
-}
-
-SDL_Rect Item::getHitbox() const {
-	return hitbox; // Return hitbox
-}
-
-Itemtype Item::getType() const {
-	return type; // Return item type
 }
 

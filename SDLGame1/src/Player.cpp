@@ -204,24 +204,8 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
     SoundManager::PlaySound("plshoot", 0, 64);
 }
 
-int Player::getX() const {
-    return hitbox.x - 10;
-}
-
-int Player::getY() const {
-    return hitbox.y - 20;
-}
-
-int Player::getPlayerhp() const {
-    return hp;
-}
-
 void Player::updatePlayerhp(int input) {
     hp += input;
-}
-
-SDL_Rect Player::getGrazingBox() const {
-    return destRect;
 }
 
 void Player::updateGraze() {
@@ -229,37 +213,8 @@ void Player::updateGraze() {
     graze++;
 }
 
-int Player::getGraze() const {
-    return graze;
-}
-SDL_Rect Player::getHitbox() const {
-    return hitbox;
-}
-
-double Player::getPlayerpowerlv() const {
-    return powerlv;
-}
-
 void Player::updatePlayerpower(double input) {
     powerlv += input;
     if (powerlv >= 5.0) powerlv = 5.0;
     else if (powerlv <= 1.0) powerlv = 1.0;
 }
-
-
-//void Player::testshoot(std::vector<Bullet*>& bullets) {
-//    int x = 80;
-//    int y = 100;
-//	double vx = 0;
-//    double vy = 0;
-//    double deltax = destRect.x - x;
-//	double deltay = destRect.y - y;
-//	double angle = atan2(deltay, deltax);
-//	std::vector<double> buffer = { 3.1412 / 6, 0, -3.1412 / 6 };
-//	for (auto offset : buffer) {
-//		vx = cos(angle + offset) * 25;
-//		vy = sin(angle + offset) * 25;
-//		bullets.emplace_back(new Bullet(x, y, vx, vy, Bullettype::PLAYER_0));
-//	}
-//
-//}

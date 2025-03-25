@@ -51,13 +51,14 @@ public:
 
 	int initX; // store where the enemy was spawned
 	int initY;
-	int getY() const;
-	int getX() const;
-	int getEnemyhp() const;
-	void updatehp(int in_hp);
-	SDL_Rect getEnHitbox() const;
-	EnemyType getType() const;
-	int getPoint() const;
+
+	int getX() const { return destRect.x; }
+	int getY() const { return destRect.y; }
+	EnemyType getType() const { return type; }
+	SDL_Rect getEnHitbox() const { return hitbox; }
+	int getEnemyhp() const { return hp; }
+	void updatehp(int in_hp) { hp = in_hp; }
+	int getPoint() const { return point; }
 
 	bool fired = false;
 

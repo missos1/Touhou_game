@@ -28,13 +28,13 @@ public:
 
     void update();
     void render();
-    int getY() const;
-    int getX() const;
-    int getDmg() const;
 
-    bool getGrazeState() const;
-    void GrazeUpdate();
-    SDL_Rect getHitbox() const;
+    int getX() const { return hitbox.x; }
+    int getY() const { return hitbox.y; }
+    SDL_Rect getHitbox() const { return hitbox; }
+    void GrazeUpdate() { grazed = true; }
+    bool getGrazeState() const { return grazed; }
+    int getDmg() const { return dmg; }
 
 
 private:

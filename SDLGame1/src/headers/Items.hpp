@@ -21,11 +21,11 @@ public:
 	void update();
 	void render();
 
-	int getY() const;
-	int getX() const;
-	SDL_Rect getHitbox() const;
-	int getPoint() const;
-	Itemtype getType() const;
+	int getPoint() const { return item_point; }
+	int getX() const { return hitbox.x; }
+	int getY() const { return hitbox.y; }
+	SDL_Rect getHitbox() const { return hitbox; }
+	Itemtype getType() const { return type; }
 
 private:
 	SDL_Texture* item_text;

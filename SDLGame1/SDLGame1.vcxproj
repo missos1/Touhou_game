@@ -154,6 +154,7 @@
     <Image Include="res\Menu\Start.png" />
     <Image Include="res\Menu\Start_unsl.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png" />
     <Image Include="res\player\idleanimation.png" />
     <Image Include="res\player\rightAni.png" />
     <Image Include="res\player\Reimu_sprite.png" />

@@ -445,6 +445,9 @@
     <Image Include="res\SIDEBAR_HP.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />

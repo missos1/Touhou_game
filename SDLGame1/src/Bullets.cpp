@@ -126,26 +126,3 @@ void Bullet::render() {
 	//SDL_RenderFillRect(Game::Grenderer, &hitbox);  // Debug hitboxes
 }
 
-int Bullet::getX() const {
-	return hitbox.x; // Return x position of hitbox
-}
-
-int Bullet::getY() const {
-	return hitbox.y; // Return y position of hitbox
-}
-
-SDL_Rect Bullet::getHitbox() const {
-	return hitbox; // Return hitbox
-}
-
-void Bullet::GrazeUpdate() {
-	grazed = true; // Update graze state
-}
-
-bool Bullet::getGrazeState() const {
-	return grazed; // Return graze state
-}
-
-int Bullet::getDmg() const {
-	return dmg; // Return damage value
-}

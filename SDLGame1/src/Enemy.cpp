@@ -10,6 +10,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 	: xPos(x), yPos(y), type(type), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 },
 	speed(speed), Enemy_texture(nullptr), Mtype(Mtype), hp(0), vx(0), vy(0), hitbox{ 0, 0, 0, 0 },
 	movingHorizontal(true), pause(false), pauseStart(0), useBezier(false), bezierT(0.0), point(0) {
+
 	std::cout << "Enemy spawned at: (" << xPos << ", " << yPos << ")" << std::endl;
 
 	srand(time(0));
@@ -230,7 +231,7 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 			
 		}
 	}
-	SoundManager::PlaySound("enshoot0", 0, 16);
+	SoundManager::PlaySound("enshoot1", 0, 16);
 	fired = true;
 }
 
@@ -245,7 +246,7 @@ void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
 			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1));
 		}
 	}
-	SoundManager::PlaySound("enshoot1", 0, 16);
+	SoundManager::PlaySound("enshoot2", 0, 16);
 	fired = true;
 }
 
@@ -258,32 +259,3 @@ void Enemy::deathShoot(std::vector<Bullet*>& bullets, int density) {
 		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_GR));
 	}
 }
-
-int Enemy::getX() const {
-	return destRect.x;
-}
-
-int Enemy::getY() const {
-	return destRect.y;
-}
-
-EnemyType Enemy::getType() const{
-	return type;
-}
-
-SDL_Rect Enemy::getEnHitbox() const {
-	return hitbox;
-}
-
-int Enemy::getEnemyhp() const {
-	return hp;
-}
-
-void Enemy::updatehp(int in_hp) {
-	hp = in_hp;
-}
-
-int Enemy::getPoint() const {
-	return point;
-}
-
