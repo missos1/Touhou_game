@@ -12,6 +12,7 @@ Player::Player(double x, double y)
     texture = TextureManager::LoadTexture("res/player/idleanimation.png");
     amulet_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png");
     rightTexture = TextureManager::LoadTexture("res/player/rightAni.png");;
+
     // initialize animation
     totalFrames = 4;
     Ani_speed = 0.1f;
@@ -36,8 +37,24 @@ Player::Player(double x, double y)
 }
 
 Player::~Player() {
-    
-
+    // Free textures
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
+    }
+    if (amulet_text) {
+        SDL_DestroyTexture(amulet_text);
+        amulet_text = nullptr;
+    }
+    if (rightTexture) {
+        SDL_DestroyTexture(rightTexture);
+        rightTexture = nullptr;
+    }
+    // Free sound
+    if (shootSound) {
+        Mix_FreeChunk(shootSound);
+        shootSound = nullptr;
+    }
 }
 
 void Player::handleInput(const Uint8* keys) {

@@ -20,7 +20,31 @@ Sidebar::Sidebar()
     player_texture = TextureManager::LoadTexture("res/SIDEBAR_PLAYER.png");
 }
 Sidebar::~Sidebar() {
-    
+    // Free the textures
+    if (bg_texture) {
+        SDL_DestroyTexture(bg_texture);
+        bg_texture = nullptr;
+    }
+    if (title_texture) {
+        SDL_DestroyTexture(title_texture);
+        title_texture = nullptr;
+    }
+    if (digit_texture) {
+        SDL_DestroyTexture(digit_texture);
+        digit_texture = nullptr;
+    }
+    if (powerngraze_texture) {
+        SDL_DestroyTexture(powerngraze_texture);
+        powerngraze_texture = nullptr;
+    }
+    if (hp_texture) {
+        SDL_DestroyTexture(hp_texture);
+        hp_texture = nullptr;
+    }
+    if (player_texture) {
+        SDL_DestroyTexture(player_texture);
+        player_texture = nullptr;
+    }
 }
 
 void Sidebar::render(int winW, int winH, Player* player) {
