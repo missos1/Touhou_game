@@ -9,6 +9,7 @@ Item::Item(double x, double y, Itemtype type) :
 	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, fallspeed(0), item_point(0) {
 	item_text = Game::enemybullet_text; // Get item texture
 
+	srand(time(0));
 	switch (type) {
 	case Itemtype::POWER_S: // Small power item
 		srcRect = { ITEM_POWER_S, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
@@ -20,11 +21,11 @@ Item::Item(double x, double y, Itemtype type) :
 		break;
 	case Itemtype::POINT: // Point item
 		srcRect = { ITEM_POINT, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
-		item_point = 50000; // Set item point value
+		item_point = 30000; // Set item point value
 		break;
 	case Itemtype::FULLPOWER: // Full power item
 		srcRect = { ITEM_FULLPOWER, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
-		item_point = 3000; // Set item point value
+		item_point = 1000; // Set item point value
 		break;
 	case Itemtype::ONEUP: // 1-Up item
 		srcRect = { ITEM_ONEUP, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
@@ -44,8 +45,15 @@ void Item::update() {
 	fallspeed += 0.1; // Increase fall speed
 	if (fallspeed >= 5) fallspeed = 5.0; // Cap fall speed
 
-	xPos += 0.0; // Update x position (no change)
-	yPos += fallspeed; // Update y position
+	if (fallspeed <= 0) {
+		double angle = (rand() % 60 + 60) * M_PI / 180.0;;
+		xPos += cos(angle) * fallspeed;
+		yPos += sin(angle) * fallspeed;
+	}
+	else {
+		xPos += 0.0; // Update x position (no change)
+		yPos += fallspeed; // Update y position
+	}
 
 	destRect.x = static_cast<int>(xPos); // Update destination rectangle x position
 	destRect.y = static_cast<int>(yPos); // Update destination rectangle y position

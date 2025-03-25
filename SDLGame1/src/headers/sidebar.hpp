@@ -20,13 +20,15 @@ private:
 	SDL_Texture* digit_texture;
 	SDL_Texture* powerngraze_texture;
 	SDL_Texture* title_texture;
-	SDL_Texture* dot_texture;
+	SDL_Texture* hp_texture;
+	SDL_Texture* player_texture;
 
 	SDL_Rect destRect;
 	SDL_Rect desRect_title;
 	SDL_Rect destRect_power;
 	SDL_Rect srcRect_digit;
 	SDL_Rect destRect_digit;
+	SDL_Rect destRect_hp;
 
 	int tileSize;
 

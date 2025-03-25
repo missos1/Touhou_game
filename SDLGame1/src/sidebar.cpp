@@ -9,14 +9,15 @@
 Sidebar::Sidebar()
     : tileSize(0), bg_texture(nullptr), title_texture(nullptr),
     destRect{ 0, 0, 0, 0 }, desRect_title{ 0, 0, 0, 0 }, destRect_digit{ 0,0,0,0 },
-    srcRect_digit{ 0,0,0,0 }, destRect_power {0, 0, 0, 0} {
+    srcRect_digit{ 0,0,0,0 }, destRect_power{ 0, 0, 0, 0 }, destRect_hp{ 0, 0, 0, 0} {
 
     bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png");
     title_texture = TextureManager::LoadTexture("res/SIDEBAR_TITLE.png");
     
     digit_texture = TextureManager::LoadTexture("res/SIDEBAR_NUMBER.png");
     powerngraze_texture = TextureManager::LoadTexture("res/SIDEBAR_POWER.png");
-    dot_texture = TextureManager::LoadTexture("res/DOT.png");
+    hp_texture = TextureManager::LoadTexture("res/SIDEBAR_HP.png");
+    player_texture = TextureManager::LoadTexture("res/SIDEBAR_PLAYER.png");
 }
 Sidebar::~Sidebar() {
     
@@ -64,6 +65,12 @@ void Sidebar::render(int winW, int winH, Player* player) {
     destRect_power = { 910 , 280, POWER_W * 2, POWER_H * 2 };
 
     SDL_RenderCopy(Game::Grenderer, powerngraze_texture, nullptr, &destRect_power);
+    
+    int PLAYER_W, PLAYER_H;
+    SDL_QueryTexture(player_texture, nullptr, nullptr, &PLAYER_W, &PLAYER_H);
+    destRect_power = { 910 , 230, PLAYER_W * 2, PLAYER_H * 2 };
+
+    SDL_RenderCopy(Game::Grenderer, player_texture, nullptr, &destRect_power);
 }
 
 void Sidebar::render_score(int score, int Highscore) {
@@ -138,5 +145,14 @@ void Sidebar::render_playerhp(Player* player) {
 
         SDL_RenderCopy(Game::Grenderer, digit_texture, &srcRect_digit, &destRect_digit);
         
+    }
+
+    if (player->getPlayerhp() > 0) {
+        int HP_W, HP_H;
+        SDL_QueryTexture(hp_texture, nullptr, nullptr, &HP_W, &HP_H);
+        for (int i = 0; i < player->getPlayerhp(); i++) {
+            destRect_hp = { 1010 + (i * HP_W * 3 / 2 ), 230, HP_W * 3 / 2, HP_H * 3 / 2};
+            SDL_RenderCopy(Game::Grenderer, hp_texture, nullptr, &destRect_hp);
+        }
     }
 }

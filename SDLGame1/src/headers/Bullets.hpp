@@ -14,6 +14,7 @@ enum class Bullettype {
     PLAYER_1,
     ENEMY_KUNAI_RD,
     ENEMY_KUNAI_BL,
+    ENEMY_KUNAI_GR,
     ENEMY_KNIFE,// types of bullets/bullet patterns
     ENEMY_RICE,
     ENEMY_ROUND1,

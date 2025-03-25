@@ -8,6 +8,15 @@
 #include <random>
 
 
+class Point {
+public:
+	double x, y;
+
+	Point() : x(0), y(0) {};
+	Point(double x, double y) : x(x), y(y) {};
+
+};
+
 class Bullet;
 class Player;
 class Game;
@@ -38,6 +47,7 @@ public:
 	void rndriceShoot(std::vector<Bullet*>& bullets, int density);
 	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
 	void circleroundShoot(std::vector<Bullet*>& bullets, int density);
+	void deathShoot(std::vector<Bullet*>& bullets, int density);
 
 	int initX; // store where the enemy was spawned
 	int initY;
@@ -47,6 +57,7 @@ public:
 	void updatehp(int in_hp);
 	SDL_Rect getEnHitbox() const;
 	EnemyType getType() const;
+	int getPoint() const;
 
 	bool fired = false;
 
@@ -56,6 +67,7 @@ private:
 	double xPos, yPos; // position in cartesian plane
 	double speed; // speed
 	int hp; // hp
+	int point;
 	EnemyType type; // enemy type
 	MovementType Mtype; // movement type
 	SDL_Texture* Enemy_texture;
@@ -67,10 +79,10 @@ private:
 	bool pause;
 	Uint32 pauseStart;
 
-	/*void BezierCurve();
-	double newX, newY;*/
-
-	double movementProgress = 0.0;
+	void BezierCurve();
+	Point P0, P1, P2;
+	double bezierT;
+	bool useBezier;
 
 	void Horizontal();
 	void Vertical();

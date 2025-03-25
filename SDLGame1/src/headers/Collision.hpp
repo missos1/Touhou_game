@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 
 class Game;
 class Bullet;

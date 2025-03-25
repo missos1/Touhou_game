@@ -180,14 +180,14 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) {
         bullets.emplace_back(new Bullet(destRect_amu_1.x + 3, destRect_amu_1.y, 0, bulletspeed, Bullettype::PLAYER_1));
         break;
     case 4:
-        angle = { 5, 2, -2, -5 };
+        angle = { 7, 2, -2, -7 };
         bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_1.x - 16, destRect_amu_1.y + 1, 0, bulletspeed, Bullettype::PLAYER_1));
         break;
     case 5:
-        angle = { 6, 3, 0, -3, -6 };
+        angle = { 8, 4, 0, -4, -8 };
         bullets.emplace_back(new Bullet(destRect_amu_0.x + 20, destRect_amu_0.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_0.x - 16, destRect_amu_0.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
         bullets.emplace_back(new Bullet(destRect_amu_1.x + 20, destRect_amu_1.y - 30, 0, bulletspeed, Bullettype::PLAYER_1));
@@ -225,6 +225,7 @@ SDL_Rect Player::getGrazingBox() const {
 }
 
 void Player::updateGraze() {
+    SoundManager::PlaySound("graze", 0, 64); // Play graze sound
     graze++;
 }
 

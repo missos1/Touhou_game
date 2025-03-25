@@ -433,9 +433,6 @@
     <Image Include="res\Enemy\Sparkle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\DOT.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\SIDEBAR_NUMBER.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -443,6 +440,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\SIDEBAR_POWER.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SIDEBAR_HP.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

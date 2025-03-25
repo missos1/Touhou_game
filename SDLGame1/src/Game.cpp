@@ -215,7 +215,7 @@ void Game::ObjHandling() {
     }
 
     //EnemyLayout::spawnHorizontal(enemies, -30, 300, 4, EnemyType::RED_FA,enemy_bullets, player);
-    EnemyLayout::wave1(enemies, enemy_bullets, player); // Execute enemy wave
+    EnemyLayout::stage(enemies, enemy_bullets, player); // Execute stage
     //EnemyLayout::spawnVerticalWave(enemies, 5);
     CollisionCheck::EnemyColli(player_bullets, enemies, items, player); // Check collisions with enemies
     CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player

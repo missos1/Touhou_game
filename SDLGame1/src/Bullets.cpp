@@ -40,6 +40,12 @@ Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
 		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
 		break;
+	case Bullettype::ENEMY_KUNAI_GR: // Blue kunai
+		spriteXpos = DEFAULT_X + L_GREEN; spriteYpos = KUNAI_Y; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
+		break;
 	case Bullettype::ENEMY_KNIFE: // Knife
 		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = KNIFE_Y; spriteW = 32; spriteH = 32;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
@@ -74,6 +80,7 @@ void Bullet::update() {
 	case Bullettype::ENEMY_RICE:
 	case Bullettype::ENEMY_KUNAI_RD:
 	case Bullettype::ENEMY_KUNAI_BL: // Small hitboxes
+	case Bullettype::ENEMY_KUNAI_GR: // Small hitboxes
 		hitbox.x = destRect.x + 12;
 		hitbox.y = destRect.y + 12;
 		break;
@@ -107,6 +114,7 @@ void Bullet::render() {
 		break;
 	case Bullettype::ENEMY_RICE:
 	case Bullettype::ENEMY_KUNAI_RD:
+	case Bullettype::ENEMY_KUNAI_GR:
 	case Bullettype::ENEMY_KNIFE:
 	case Bullettype::ENEMY_KUNAI_BL:
 	case Bullettype::ENEMY_ROUND1:

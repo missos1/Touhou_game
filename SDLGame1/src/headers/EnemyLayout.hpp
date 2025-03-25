@@ -16,8 +16,10 @@ class Timer;
 
 class EnemyLayout {
 public:
-    static void wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
+    static void stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
     static void wave2(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
+private:
+
 };
 
 #endif 

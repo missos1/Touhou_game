@@ -46,8 +46,7 @@ private:
     int focusSpeed = 3;
     double speed;
     double dx, dy;
-    int hp = 7;
-    int bomb = 3;
+    int hp = 5;
     double powerlv = 1.0;
     int graze;
     bool isFocusing;

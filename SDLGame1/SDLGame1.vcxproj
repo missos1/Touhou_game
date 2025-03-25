@@ -140,7 +140,6 @@
   <ItemGroup>
     <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\bullets.png" />
-    <Image Include="res\DOT.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
     <Image Include="res\Enemy\Red_fa.png" />
@@ -160,6 +159,7 @@
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\player\Reimu_sprite2.png" />
     <Image Include="res\sidebar.png" />
+    <Image Include="res\SIDEBAR_HP.png" />
     <Image Include="res\SIDEBAR_NUMBER.png" />
     <Image Include="res\SIDEBAR_PLAYER.png" />
     <Image Include="res\SIDEBAR_POWER.png" />
