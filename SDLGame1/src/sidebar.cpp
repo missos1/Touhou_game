@@ -7,8 +7,8 @@
 #include <iomanip>
 
 Sidebar::Sidebar()
-    : tileSize(0), bg_texture(nullptr), title_texture(nullptr),
-    destRect{ 0, 0, 0, 0 }, desRect_title{ 0, 0, 0, 0 }, destRect_digit{ 0,0,0,0 },
+    : tileSize(0), bg_texture(nullptr), title_texture(nullptr), graze_texture(nullptr), 
+    power_texture(nullptr), destRect{ 0, 0, 0, 0 }, desRect_title{ 0, 0, 0, 0 }, destRect_digit{ 0,0,0,0 },
     srcRect_digit{ 0,0,0,0 }, destRect_power{ 0, 0, 0, 0 }, destRect_hp{ 0, 0, 0, 0} {
 
     bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png");
@@ -45,6 +45,15 @@ Sidebar::~Sidebar() {
         SDL_DestroyTexture(player_texture);
         player_texture = nullptr;
     }
+    if (power_texture) {
+        SDL_DestroyTexture(power_texture);
+        player_texture = nullptr;
+    }
+    if (graze_texture) {
+        SDL_DestroyTexture(graze_texture);
+        graze_texture = nullptr;
+    }
+
 }
 
 void Sidebar::render(int winW, int winH, Player* player) {
@@ -83,7 +92,7 @@ void Sidebar::render(int winW, int winH, Player* player) {
 
 	SDL_RenderCopy(Game::Grenderer, title_texture, nullptr, &desRect_title);   
 
-    // render player health and power
+     // render player health and power
     int POWER_W, POWER_H;
     SDL_QueryTexture(powerngraze_texture, nullptr, nullptr, &POWER_W, &POWER_H);
     destRect_power = { 910 , 280, POWER_W * 2, POWER_H * 2 };
@@ -133,48 +142,22 @@ void Sidebar::render_playerhp(Player* player) {
 
     std::string grazeStr = grazeStream.str();
     std::string powerStr = powerStream.str();
-    
 
-    for (size_t i = 0; i < grazeStr.length(); i++) {
-        char digit = grazeStr[i] - '0';
-        if (digit == ' ') {
-            continue;
-        }
+    SDL_Color white = { 255, 255 ,255 };
+    TTF_Font* font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 16);
 
-        srcRect_digit = { digit * DIGIT_SIZE, 0, DIGIT_SIZE, DIGIT_SIZE };
-        destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE ) ,323 , DIGIT_SIZE , DIGIT_SIZE };
+    graze_texture = TextureManager::LoadFontTexture(grazeStr.c_str(), font0, white);
+    SDL_Rect grazeRect = { 1010, 323, 50, 20 };
+    SDL_RenderCopy(Game::Grenderer, graze_texture, NULL, &grazeRect);
 
-        SDL_RenderCopy(Game::Grenderer, digit_texture, &srcRect_digit, &destRect_digit);
-    }
-    
-    for (size_t i = 0; i < powerStr.length(); i++) {
-        char digit = powerStr[i] - '0';
-        int index;
-
-        if (digit == '.') {
-            index = 10;
-        }
-        else {
-            index = digit;
-        }
-
-        srcRect_digit = { index * DIGIT_SIZE, 0, DIGIT_SIZE, DIGIT_SIZE };
-
-        if (i == 0) {
-            destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE * 2 ) ,285 , DIGIT_SIZE * 3 / 2, DIGIT_SIZE * 3 / 2};
-        }
-        else {
-            destRect_digit = { 1010 + static_cast<int>(i * DIGIT_SIZE ) ,293 , DIGIT_SIZE , DIGIT_SIZE };
-        }
-
-        SDL_RenderCopy(Game::Grenderer, digit_texture, &srcRect_digit, &destRect_digit);
-        
-    }
+    power_texture = TextureManager::LoadFontTexture(powerStr.c_str(), font0, white);
+    SDL_Rect powerRect = { 1010, 285, 60, 20 }; 
+    SDL_RenderCopy(Game::Grenderer, power_texture, NULL, &powerRect);  
 
     if (player->getPlayerhp() > 0) {
         int HP_W, HP_H;
         SDL_QueryTexture(hp_texture, nullptr, nullptr, &HP_W, &HP_H);
-        for (int i = 0; i < player->getPlayerhp(); i++) {
+        for (int i = 0; i < player->getPlayerhp() - 1; i++) {
             destRect_hp = { 1010 + (i * HP_W * 3 / 2 ), 230, HP_W * 3 / 2, HP_H * 3 / 2};
             SDL_RenderCopy(Game::Grenderer, hp_texture, nullptr, &destRect_hp);
         }

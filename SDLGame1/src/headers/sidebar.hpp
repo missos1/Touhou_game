@@ -2,6 +2,7 @@
 #define SIDEBAR_HPP
 
 #include "TextureManager.hpp"
+#include <SDL_ttf.h>
 
 class Game;
 class Player;
@@ -19,6 +20,8 @@ private:
 	SDL_Texture* bg_texture;
 	SDL_Texture* digit_texture;
 	SDL_Texture* powerngraze_texture;
+	SDL_Texture* graze_texture;
+	SDL_Texture* power_texture;
 	SDL_Texture* title_texture;
 	SDL_Texture* hp_texture;
 	SDL_Texture* player_texture;
@@ -34,6 +37,7 @@ private:
 
 	const int DIGIT_SIZE = 16;
 	const int SCORE_DIGITS = 9;
+	
 };
 
 #endif 

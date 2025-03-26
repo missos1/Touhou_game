@@ -29,7 +29,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteW = spriteH = 32;
 		hp = 1;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 10000;
+		point = 3000;
 		break;
 	case EnemyType::RED_FA:
 		Enemy_texture = Game::Enemy_texture_r;
@@ -37,21 +37,21 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteH = 30;
 		hp = 10;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 15000;
+		point = 7000;
 		break;
 	case EnemyType::WHITE_FA:
 		Enemy_texture = Game::Enemy_texture_w;
 		spriteW = 32;
 		spriteH = 30;
-		hp = 30;
+		hp = 60;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 25000;
+		point = 30000;
 		break;
 	case EnemyType::BLUE_FA:
 		Enemy_texture = Game::Enemy_texture_b;
 		spriteW = 32;
 		spriteH = 30;
-		hp = 15;
+		hp = 30;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
 		point = 25000;
 		break;
@@ -210,7 +210,6 @@ void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
 		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE));
 	}
 	SoundManager::PlaySound("enshoot0", 0, 16);
-	fired = true;
 }
 
 

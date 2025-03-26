@@ -10,14 +10,10 @@ class Enemy;
 class Game;
 class Bullet;
 class Player;
-class StageTimeline;
-class StageEvent;
-class Timer;
 
 class EnemyLayout {
 public:
     static void stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
-    static void wave2(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
 private:
 
 };

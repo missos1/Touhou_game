@@ -49,6 +49,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    if (TTF_Init() < 0) {
+        std::cout << "SDL_ttf Initialization Failed! Error: " << TTF_GetError() << endl;
+    }
+
     window = SDL_CreateWindow(title, xpos, ypos, width, height, flags); // Create window
     if (!window) {
         std::cout << "Window Creation Failed! Error: " << SDL_GetError() << endl;

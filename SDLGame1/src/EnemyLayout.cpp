@@ -11,7 +11,7 @@
 void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 
-	double initTime = Game::GameStartTime / 1000; // Initial game start time in seconds
+	double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
 	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // Time elapsed since the game started in seconds
 	elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
 
@@ -73,11 +73,13 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				//std::cout << initTime << endl; // debug
 				enemies.emplace_back(new Enemy(-30, -40, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
 				enemies.emplace_back(new Enemy(900, -40, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+				enemies.emplace_back(new Enemy(-130, 10, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+				enemies.emplace_back(new Enemy(1000, 10, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
 
 				//std::cout << "Spawning enemies!" << endl; // debug
 				//std::cout << "elapsed = " << elapsed << endl; // debug
 			}
-			if (std::abs(elapsed - (25.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+			if (std::abs(elapsed - (27.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
 				//std::cout << "Spawn Time: " << elapsed << endl; //debug
 				//std::cout << initTime << endl; // debug
 
@@ -132,23 +134,25 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			enemies.emplace_back(new Enemy(400, -70, 2, EnemyType::BLUE_FA, MovementType::Vertical));
 			enemies.emplace_back(new Enemy(200, -70, 2, EnemyType::BLUE_FA, MovementType::Vertical));
 			enemies.emplace_back(new Enemy(700, -10, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
-			enemies.emplace_back(new Enemy(600, -40, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
-			enemies.emplace_back(new Enemy(400, -25, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(600, -10, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(400, -30, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
 			enemies.emplace_back(new Enemy(300, -30, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
 		}
 
 		if (elapsed == 70.0) { 
-			enemies.emplace_back(new Enemy(800, 205, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
-			enemies.emplace_back(new Enemy(700, 305, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
-			enemies.emplace_back(new Enemy(700, 245, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
-			enemies.emplace_back(new Enemy(500, 140, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
-			enemies.emplace_back(new Enemy(500, 150, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(900, 205, -3, EnemyType::RED_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(1000, 305, -3, EnemyType::RED_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(1200, 245, -3, EnemyType::RED_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(1400, 140, -3, EnemyType::RED_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(880, 150, -3, EnemyType::RED_FA, MovementType::Horizontal));
 		}
 
 		if (elapsed == 50.0) { 
-			enemies.emplace_back(new Enemy(840, 300, 2, EnemyType::WHITE_FA, MovementType::Lshape));
-			enemies.emplace_back(new Enemy(930, 250, 2, EnemyType::WHITE_FA, MovementType::Lshape));
-			enemies.emplace_back(new Enemy(1020, 200, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(900, 400, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(1430, 250, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(1220, 100, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(300, -30, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(410, 0, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
 		}
 
 		if (elapsed == 55.0) {
@@ -182,13 +186,18 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				case EnemyType::RED_FA:
 					if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
 						enemyLastShootTime[enemies[i]] = currentTime;
-						enemies[i]->rndriceShoot(bullets, 5);
+						enemies[i]->rndriceShoot(bullets, 4);
 					}
 					break;
 
 				case EnemyType::WHITE_FA:
+					if (currentTime - enemyLastShootTime[enemies[i]] > 1500) {
+						enemyLastShootTime[enemies[i]] = currentTime;
+						enemies[i]->rndriceShoot(bullets, 2);
+					}
+
 					if (enemies[i]->getY() <= (enemies[i]->initY - 10) && !enemies[i]->fired) {
-						enemies[i]->circleroundShoot(bullets, 60);
+						enemies[i]->circleroundShoot(bullets, 40);
 					}
 					break;
 

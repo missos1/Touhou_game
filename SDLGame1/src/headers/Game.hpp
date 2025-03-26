@@ -2,8 +2,9 @@
 #define GAME_HPP
 
 #include <SDL.h>
-#include <vector>
 #include <SDL_mixer.h>
+#include <vector>
+#include <SDL_ttf.h>
 #include "sidebar.hpp"
 
 const int WIN_WIDTH = 1280;
