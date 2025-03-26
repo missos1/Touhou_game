@@ -197,8 +197,8 @@ void Game::ObjHandling() {
 
 void Game::update() {
     if (state == GameState::PLAYING) {
-        //player->update(); // update player
-        //ObjHandling(); // updating objects
+        player->update(); // update player
+        ObjHandling(); // updating objects
     }
 }
 
