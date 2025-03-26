@@ -8,6 +8,15 @@
 #include <random>
 
 
+class Point {
+public:
+	double x, y;
+
+	Point() : x(0), y(0) {};
+	Point(double x, double y) : x(x), y(y) {};
+
+};
+
 class Bullet;
 class Player;
 class Game;
@@ -17,12 +26,16 @@ enum class EnemyType {
 	RED_FA,
 	BLUE_FA, // types
 	WHITE_FA,
+	SPARKLE,
 };
 
 enum class MovementType {
 	Horizontal,
 	Vertical, // Mtypes
 	BezierCurve,
+	DiagonalNWSE,
+	DiagonalNESW,
+	Lshape,
 };
 
 class Enemy {
@@ -34,36 +47,49 @@ public:
 	void rndriceShoot(std::vector<Bullet*>& bullets, int density);
 	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
 	void circleroundShoot(std::vector<Bullet*>& bullets, int density);
+	void deathShoot(std::vector<Bullet*>& bullets, int density);
 
-	int getY() const;
-	int getX() const;
-	int getEnemyhp() const;
-	void updatehp(int in_hp);
-	SDL_Rect getEnHitbox() const;
-	EnemyType getType() const;
+	int initX; // store where the enemy was spawned
+	int initY;
+
+	int getX() const { return destRect.x; }
+	int getY() const { return destRect.y; }
+	EnemyType getType() const { return type; }
+	SDL_Rect getEnHitbox() const { return hitbox; }
+	int getEnemyhp() const { return hp; }
+	void updatehp(int in_hp) { hp = in_hp; }
+	int getPoint() const { return point; }
 
 	bool fired = false;
 
 private:
-	const int L_HITBOX_SIZE = 20;
-	double vx, vy;
-	double xPos, yPos;
-	double speed;
-	int hp;
-	EnemyType type;
-	MovementType Mtype;
+	const int L_HITBOX_SIZE = 20; // hitbox size
+	double vx, vy; // velocity
+	double xPos, yPos; // position in cartesian plane
+	double speed; // speed
+	int hp; // hp
+	int point;
+	EnemyType type; // enemy type
+	MovementType Mtype; // movement type
 	SDL_Texture* Enemy_texture;
 	SDL_Rect srcRect, destRect;
 	SDL_Rect hitbox;
 
 
-	/*void BezierCurve();
-	double newX, newY;*/
+	bool movingHorizontal;
+	bool pause;
+	Uint32 pauseStart;
 
-	double movementProgress = 0.0;
+	void BezierCurve();
+	Point P0, P1, P2;
+	double bezierT;
+	bool useBezier;
 
 	void Horizontal();
 	void Vertical();
+	void DiagonalNWSE();
+	void DiagonalNESW();
+	void Lshape();
 
 	int currentFrame;
 	int totalFrames;

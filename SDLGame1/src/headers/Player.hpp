@@ -6,12 +6,6 @@
 #include <vector>
 #include "TextureManager.hpp"
 
-const int PLAY_AREA_X_MIN = 20;
-const int PLAY_AREA_X_MAX = 820;
-const int PLAY_AREA_Y_MIN = 10;
-const int PLAY_AREA_Y_MAX = 855;
-const int PLAYER_HB_SIZE = 10;
-
 class Bullet;
 class Game;
 class Enemy;
@@ -25,13 +19,17 @@ public:
     void update();
     void render();
     void playerShoot(std::vector<Bullet*>& bullets);
-    void updatePlayerhp();
-
-    int getY() const;
-    int getX() const;
-    int getPlayerhp() const;
-    SDL_Rect getGrazingBox() const;
-    SDL_Rect getHitbox() const;
+    void updatePlayerpower(double input);
+    void updatePlayerhp(int input);
+    void updateGraze();
+    
+    int getGraze() const { return graze; }
+    int getY() const { return hitbox.y - 20; }
+    int getX() const { return hitbox.x - 10; }
+    int getPlayerhp() const { return hp; }
+    SDL_Rect getGrazingBox() const { return destRect; }
+    SDL_Rect getHitbox() const { return hitbox; }
+    double getPlayerpowerlv() const { return powerlv; }
 
 private:
     SDL_Texture* texture;
@@ -48,9 +46,9 @@ private:
     int focusSpeed = 3;
     double speed;
     double dx, dy;
-    int hp = 7;
-    int bomb = 3;
-    int powerlv = 5;
+    int hp = 5;
+    double powerlv = 1.0;
+    int graze;
     bool isFocusing;
     bool isIdle = true;
     bool affectedbytimestop;

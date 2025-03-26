@@ -24,6 +24,7 @@
     <ClCompile Include="src\Bullets.cpp" />
     <ClCompile Include="src\EnemyLayout.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Items.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\EnemyLayout.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
+    <ClInclude Include="src\headers\Items.hpp" />
     <ClInclude Include="src\headers\Menu.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
     <ClInclude Include="src\headers\sidebar.hpp" />
@@ -137,13 +139,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\BGTEXTURE.png" />
-    <Image Include="res\bigbullet.png" />
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
     <Image Include="res\Enemy\Red_fa.png" />
     <Image Include="res\Enemy\Sakuya_idle.png" />
     <Image Include="res\Enemy\Sakuya_move.png" />
+    <Image Include="res\Enemy\Sparkle.png" />
     <Image Include="res\Enemy\White_fa.png" />
     <Image Include="res\Menu\Loading.png" />
     <Image Include="res\Menu\Menu_bg.png" />
@@ -152,12 +154,16 @@
     <Image Include="res\Menu\Start.png" />
     <Image Include="res\Menu\Start_unsl.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
+    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png" />
     <Image Include="res\player\idleanimation.png" />
     <Image Include="res\player\rightAni.png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\player\Reimu_sprite2.png" />
-    <Image Include="res\points.png" />
     <Image Include="res\sidebar.png" />
+    <Image Include="res\SIDEBAR_HP.png" />
+    <Image Include="res\SIDEBAR_NUMBER.png" />
+    <Image Include="res\SIDEBAR_PLAYER.png" />
+    <Image Include="res\SIDEBAR_POWER.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />
     <Image Include="res\Titlescreens&amp;menus.png" />
   </ItemGroup>

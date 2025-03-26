@@ -1,4 +1,4 @@
-#include "headers/Enemy.hpp"
+﻿#include "headers/Enemy.hpp"
 #include "headers/Player.hpp"
 #include "headers/Game.hpp"
 #include "headers/Bullets.hpp"
@@ -8,93 +8,205 @@
 #include <cmath>
 #define endl "\n"
 
-void EnemyLayout::wave1(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
-	static double lastexecuteTime = -1.0;
+void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
+	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 
-	double initTime = Game::GameStartTime / 1000; // check the time to spawn enemies
-	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // get the time elapsed since the game started
-	elapsed = round(elapsed * 10) / 10 + 0.0; // round to 1 decimal place
+	double initTime = Game::GameStartTime / 1000; // Initial game start time in seconds
+	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // Time elapsed since the game started in seconds
+	elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
 
-
-	//std::cout << "elapsed: " << elapsed << endl;
+	std::cout << "elapsed: " << elapsed << endl;
 	//std::cout << "initTime: " << initTime << endl;
-
 	//std::cout << "realtime: " << tmp << endl;
 
-	if (elapsed < 0.0) return;
+	if (elapsed < 0.0) return; // If elapsed time is negative, return early
 
+	if (elapsed != lastexecuteTime) { // Check if the elapsed time is different from the last execution time
+		lastexecuteTime = elapsed; // Update the last execution time
 
-	if (elapsed != lastexecuteTime) {
+		int loop_0 = 10; // Number of enemies in the first loop
+		int loop_1 = 20; // Number of enemies in the second loop
 
-		lastexecuteTime = elapsed;
-		//std::cout << "lastexe = " << lastexecuteTime << endl;
-		
-		int loop = 10; 
+		double interval_0 = 0.5; // Interval for the first loop
+		double interval_1 = 0.3; // Interval for the second loop
 
-		double interval = 0.5;
+		std::vector<double> spawntime_0; // Vector to store spawn times for the first loop
+		std::vector<double> spawntime_1; // Vector to store spawn times for the second loop
 
-		std::vector<double> spawntime;
-
-		for (int i = 1; i <= loop; i++) {
-			double x = interval * (double) i;
-			spawntime.push_back(x);
+		for (int i = 1; i <= loop_0; i++) { // Populate spawn times for the first loop
+			double x = interval_0 * (double)i;
+			spawntime_0.push_back(x);
+		}
+		for (int i = 1; i <= loop_1; i++) { // Populate spawn times for the second loop
+			double y = interval_1 * (double)i;
+			spawntime_1.push_back(y);
 		}
 
-		for (double spawn : spawntime) {
-			if (std::abs(elapsed - (10.0 + spawn)) < 0.01) { // torelance compare for correct spawning
-				std::cout << "Spawn Time: " << elapsed << endl;
-				//std::cout << initTime << endl;
-				enemies.emplace_back(new Enemy(-30, 400, 2, EnemyType::RED_FA, MovementType::Horizontal));
-				//std::cout << "Spawning enemies!" << endl;
 
-				//std::cout << "elapsed = " << elapsed << endl;
+		if (elapsed == 5.0) {
+			enemies.emplace_back(new Enemy(1000, -40, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+			enemies.emplace_back(new Enemy(1200, -30, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+			enemies.emplace_back(new Enemy(920, -20, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+			enemies.emplace_back(new Enemy(880, 0, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+			enemies.emplace_back(new Enemy(-450, -100, 7, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+			enemies.emplace_back(new Enemy(-50, -70, 7, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+			enemies.emplace_back(new Enemy(-70, -80, 7, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+			enemies.emplace_back(new Enemy(-100, -30, 7, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+			enemies.emplace_back(new Enemy(-200, -10, 7, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+		}
+
+
+
+		for (double spawn : spawntime_1) { // Spawn enemies for the second loop
+			if (std::abs(elapsed - (10.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				//std::cout << "Spawn Time: " << elapsed << endl; //debug
+				//std::cout << initTime << endl; // debug
+
+				enemies.emplace_back(new Enemy(-30, -40, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+				enemies.emplace_back(new Enemy(900, -40, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+
+				//std::cout << "Spawning enemies!" << endl; // debug
+				//std::cout << "elapsed = " << elapsed << endl; // debug
 			}
-			if (std::abs(elapsed - (15.0 + spawn)) < 0.01) { // torelance compare for correct spawning
-				enemies.emplace_back(new Enemy(800, 500, -2, EnemyType::RED_FA, MovementType::Horizontal));
-				std::cout << "Spawn Time: " << elapsed << endl;
-				std::cout << "Spawning enemies!" << endl;
+			if (std::abs(elapsed - (20.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				//std::cout << "Spawn Time: " << elapsed << endl; //debug
+				//std::cout << initTime << endl; // debug
+				enemies.emplace_back(new Enemy(-30, -40, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+				enemies.emplace_back(new Enemy(900, -40, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+
+				//std::cout << "Spawning enemies!" << endl; // debug
+				//std::cout << "elapsed = " << elapsed << endl; // debug
+			}
+			if (std::abs(elapsed - (25.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				//std::cout << "Spawn Time: " << elapsed << endl; //debug
+				//std::cout << initTime << endl; // debug
+
+				enemies.emplace_back(new Enemy(200, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(300, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(500, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(600, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+
+				//std::cout << "Spawning enemies!" << endl; // debug
+				//std::cout << "elapsed = " << elapsed << endl; // debug
+			}
+			if (std::abs(elapsed - (65.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				//std::cout << "Spawn Time: " << elapsed << endl; // debug
+				//std::cout << initTime << endl; // debug
+
+				enemies.emplace_back(new Enemy(430, -110, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(630, -10, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(530, -40, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(730, -20, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(50, -10, 8, EnemyType::SPARKLE, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(50, -10, 8, EnemyType::SPARKLE, MovementType::Horizontal));
+
+				//std::cout << "Spawning enemies!" << endl; // debug
+				//std::cout << "elapsed = " << elapsed << endl; //debug
 			}
 		}
-		if (elapsed == 20.0) {
-				enemies.emplace_back(new Enemy(600, -30, 2, EnemyType::WHITE_FA, MovementType::Vertical));
-				enemies.emplace_back(new Enemy(300, -30, 2, EnemyType::WHITE_FA, MovementType::Vertical));
-				std::cout << "Spawn Time: " << elapsed << endl;
-				std::cout << "Spawning enemies!" << endl;
+
+		for (double spawn : spawntime_0) { // Spawn enemies for the first loop
+			if (std::abs(elapsed - (32.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				enemies.emplace_back(new Enemy(-40, 300, 3, EnemyType::RED_FA, MovementType::Horizontal));
+				//std::cout << "Spawn Time: " << elapsed << endl; // debug
+				//std::cout << "Spawning enemies!" << endl; //debug
+			}
+			if (std::abs(elapsed - (42.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				enemies.emplace_back(new Enemy(410, -35, 0.5, EnemyType::RED_FA, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(660, -20, 0.3, EnemyType::BLUE_FA, MovementType::BezierCurve));
+				//std::cout << "Spawn Time: " << elapsed << endl; // debug					  
+				//std::cout << "Spawning enemies!" << endl; //debug
+			}
+			if (std::abs(elapsed - (75.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+				enemies.emplace_back(new Enemy(-40, 200, 3, EnemyType::RED_FA, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(900, 100, -3, EnemyType::RED_FA, MovementType::Horizontal));
+				//std::cout << "Spawn Time: " << elapsed << endl; // debug
+				//std::cout << "Spawning enemies!" << endl; //debug
+			}
 		}
-	}
 
-	Uint32 currentTime = SDL_GetTicks();
+		if (elapsed == 60.0) {
+			enemies.emplace_back(new Enemy(600, -80, 2, EnemyType::BLUE_FA, MovementType::Vertical));
+			enemies.emplace_back(new Enemy(500, -90, 2, EnemyType::BLUE_FA, MovementType::Vertical));
+			enemies.emplace_back(new Enemy(300, -40, 2, EnemyType::BLUE_FA, MovementType::Vertical));
+			enemies.emplace_back(new Enemy(400, -70, 2, EnemyType::BLUE_FA, MovementType::Vertical));
+			enemies.emplace_back(new Enemy(200, -70, 2, EnemyType::BLUE_FA, MovementType::Vertical));
+			enemies.emplace_back(new Enemy(700, -10, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(600, -40, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(400, -25, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+			enemies.emplace_back(new Enemy(300, -30, 0.4, EnemyType::BLUE_FA, MovementType::BezierCurve));
+		}
 
-	static std::unordered_map<Enemy*, Uint32> enemyLastShootTime; // storing timimg for each enemies
+		if (elapsed == 70.0) { 
+			enemies.emplace_back(new Enemy(800, 205, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(700, 305, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(700, 245, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(500, 140, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+			enemies.emplace_back(new Enemy(500, 150, 2, EnemyType::BLUE_FA, MovementType::Horizontal));
+		}
 
-	for (int i = (int)enemies.size() - 1; i >= 0; i--) {
-		/*if (enemies[i]->getX() >= 350 && enemies[i]->getX() <= 550)*/
-		switch (enemies[i]->getType()) {
-		case EnemyType::RED_FA:
-			if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
-				enemyLastShootTime[enemies[i]] = currentTime;
-				enemies[i]->rndriceShoot(bullets, 5);
-				
+		if (elapsed == 50.0) { 
+			enemies.emplace_back(new Enemy(840, 300, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(930, 250, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(1020, 200, 2, EnemyType::WHITE_FA, MovementType::Lshape));
+		}
+
+		if (elapsed == 55.0) {
+			enemies.emplace_back(new Enemy(0, 300, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(-20, 250, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+			/*std::cout << "Spawn Time: " << elapsed << endl;
+			std::cout << "Spawning enemies!" << endl;*/
+		}
+		if (elapsed == 56.0) {
+			enemies.emplace_back(new Enemy(-20, 250, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+		}
+
+		if (elapsed == 58.0) {
+			enemies.emplace_back(new Enemy(-70, 200, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+		}
+
+		if (elapsed == 60.0) {
+			enemies.emplace_back(new Enemy(-20, 100, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+		}
+		Uint32 currentTime = SDL_GetTicks(); // Get the current time in milliseconds
+
+		static std::unordered_map<Enemy*, Uint32> enemyLastShootTime; // Store the last shoot time for each enemy
+
+		for (int i = (int)enemies.size() - 1; i >= 0; i--) {
+			if (enemies[i]->getX() < PLAY_AREA_X_MAX &&
+				enemies[i]->getX() > PLAY_AREA_X_MIN &&
+				enemies[i]->getY() < PLAY_AREA_Y_MAX &&
+				enemies[i]->getY() > PLAY_AREA_Y_MIN) {
+
+				switch (enemies[i]->getType()) {
+				case EnemyType::RED_FA:
+					if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
+						enemyLastShootTime[enemies[i]] = currentTime;
+						enemies[i]->rndriceShoot(bullets, 5);
+					}
+					break;
+
+				case EnemyType::WHITE_FA:
+					if (enemies[i]->getY() <= (enemies[i]->initY - 10) && !enemies[i]->fired) {
+						enemies[i]->circleroundShoot(bullets, 60);
+					}
+					break;
+
+				case EnemyType::BLUE_FA:
+					if (enemies[i]->getY() >= 250 && !enemies[i]->fired) {
+						enemies[i]->aimedShoot(bullets, player->getX(), player->getY());
+					}
+					break;
+				case EnemyType::SPARKLE:
+					if (currentTime - enemyLastShootTime[enemies[i]] > 2500) {
+						enemyLastShootTime[enemies[i]] = currentTime;
+						enemies[i]->deathShoot(bullets, 4);
+					}
+					break;
+				}
 			}
-			break;
-		case EnemyType::WHITE_FA:
-			//if (enemies[i]->getY() >= 100 && !enemies[i]->fired) enemies[i]->aimedShoot(bullets, player->getX(), player->getY());
-			if (enemies[i]->getY() >= 100 && !enemies[i]->fired) {
-				enemies[i]->circleroundShoot(bullets, 60);
-			}
-			break;
-		}	
+		}
 	}
 }
 
-//void EnemyLayout::spawnVertical(std::vector<Enemy*>& enemies, int loop, double x, double y, double speed,
-//									EnemyType type, std::vector<Bullet*>& bullets, Player* player) {
-//	static Uint32 lastSpawnTime = 0;
-//	static int lp = 0;
-//	if (currentTime - lastSpawnTime > 200 && lp < loop) {
-//		enemies.emplace_back(new Enemy(x, y, speed, type, MovementType::Vertical));
-//		lastSpawnTime = currentTime;
-//		lp++;
-//	}
-//
-//}
+
