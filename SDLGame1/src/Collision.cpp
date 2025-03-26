@@ -64,10 +64,10 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
                 player->updatePlayerpower(5.0); // Increase player's power
                 break;
             case Itemtype::POWER_S: // Small power item
-                player->updatePlayerpower(0.02); // Increase player's power
+                player->updatePlayerpower(0.01); // Increase player's power
                 break;
             case Itemtype::POWER_L: // Large power item
-                player->updatePlayerpower(0.16); // Increase player's power
+                player->updatePlayerpower(0.1); // Increase player's power
                 break;
             case Itemtype::ONEUP: // 1-Up item
                 player->updatePlayerhp(1); // Increase player's HP
@@ -126,7 +126,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
                     if (countspawn % 2 == 0 || player->getPlayerpowerlv() == 5.0) { // Determine item type
                         type = Itemtype::POINT;
                     }
-                    else if (countspawn % 7 == 0) {
+                    else if (countspawn % 14 == 0) {
                         type = Itemtype::POWER_L;
                         countspawn = 0;
                     }

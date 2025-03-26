@@ -570,4 +570,7 @@
   <ItemGroup>
     <Text Include="res\sound\Read me!.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\DFPPOPCorn-W12.ttf" />
+  </ItemGroup>
 </Project>
