@@ -33,6 +33,8 @@ private:
 	SDL_Rect destRect_digit;
 	SDL_Rect destRect_hp;
 
+
+	TTF_Font* font0;
 	int tileSize;
 
 	const int DIGIT_SIZE = 16;

@@ -146,6 +146,14 @@ void Player::update() {
         destRect_amu_0.y = destRect.y + 24;
         destRect_amu_1.y = destRect_amu_0.y;
     }
+
+    static double prevpowerlv = 1.0;
+
+    if (powerlv != prevpowerlv) {
+        //std::cout << "player powerlv: " << powerlv << std::endl;
+        if ((powerlv == 2.0 || powerlv == 3.0 || powerlv == 4.0 || powerlv == 5.0) && (powerlv > prevpowerlv)) SoundManager::PlaySound("pl_powerup",0 ,255);
+        prevpowerlv = powerlv;
+    }
 }
 
 void Player::render() {
@@ -182,12 +190,6 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) const {
     double bulletspeed = -50.0;
     std::vector<int> angle;
 
-    static double prevpowerlv = 0.0;
-
-    if (powerlv != prevpowerlv) {
-        std::cout << "player powerlv: " << powerlv << std::endl;
-        prevpowerlv = powerlv;
-    }
 
     switch ((int) powerlv) {
     case 1:
