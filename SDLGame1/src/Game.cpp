@@ -8,6 +8,7 @@
 #include "headers/Collision.hpp"
 #include "headers/Menu.hpp"
 #include "headers/Items.hpp"
+#include "headers/Boss.hpp"
 #include <iostream>
 #define endl "\n"
 
@@ -77,6 +78,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    boss = new Boss(410, 120);
+
     Mix_AllocateChannels(64); // Allocate audio channels
 
     if (!initText() || !initSM()) { // Initialize textures and sound manager
@@ -129,10 +132,13 @@ bool Game::initSM() {
     if (!SoundManager::LoadSound("ok", "res/sound/ok00.wav")) return false;
     if (!SoundManager::LoadSound("cancel", "res/sound/cancel00.wav")) return false;
     if (!SoundManager::LoadSound("collect_item", "res/sound/item00.wav")) return false;
+    if (!SoundManager::LoadSound("enemypowerup0", "res/sound/power0.wav")) return false;
+    if (!SoundManager::LoadSound("enemypowerup1", "res/sound/power1.wav")) return false;
+    if (!SoundManager::LoadSound("pl_powerup", "res/sound/powerup.wav")) return false;
 
     if (!SoundManager::LoadMusic("Mainmenu", "res/OST/A Dream that is more Scarlet than Red.mp3")) return false; // Load music
-    if (!SoundManager::LoadMusic("Stage_theme", "res/OST/The Maid and the Pocket Watch of Blood.mp3")) return false;
-    if (!SoundManager::LoadMusic("Boss_theme", "res/OST/Lunar Clock ~ Luna Dial.mp3")) return false;
+    if (!SoundManager::LoadMusic("Stage_theme", "res/OST/The Centennial Festival for Magical Girls.mp3")) return false;
+    if (!SoundManager::LoadMusic("Boss_theme", "res/OST/U.N. Owen was Her.mp3")) return false;
 
     return true;
 }
@@ -158,7 +164,7 @@ void Game::run() {
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
             Game::GameStartTime = SDL_GetTicks(); // Store the start time
             SoundManager::StopMusic(); // Stop menu music
-            SoundManager::PlayMusic("Stage_theme", -1, 32); // Play stage music
+            //SoundManager::PlayMusic("Stage_theme", -1, 255); // Play stage music
             //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
         }
 
@@ -187,6 +193,7 @@ void Game::handleEvents() {
 
     else if (state == GameState::PLAYING) {
         player->handleInput(keys); // Handle player input
+        boss->debug_ani(keys); // debug boss animation
 
         static Uint32 lastShotTime = 0;
         Uint32 currentTime = SDL_GetTicks();
@@ -221,19 +228,20 @@ void Game::ObjHandling() {
     //EnemyLayout::spawnHorizontal(enemies, -30, 300, 4, EnemyType::RED_FA,enemy_bullets, player);
     EnemyLayout::stage(enemies, enemy_bullets, player); // Execute stage
     //EnemyLayout::spawnVerticalWave(enemies, 5);
-    CollisionCheck::EnemyColli(player_bullets, enemies, items, player); // Check collisions with enemies
-    CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
 }
 
 void Game::update() {
     if (state == GameState::PLAYING) {
-        static int prevscore = 0;
-        if (PLAYSCORE > prevscore) {
-            std::cout << "playscore: " << PLAYSCORE << endl; // Debug: print player score
-            prevscore = PLAYSCORE;
-        }
+        //static int prevscore = 0;
+        ////if (PLAYSCORE > prevscore) {
+        ////    std::cout << "playscore: " << PLAYSCORE << endl; // Debug: print player score
+        ////    prevscore = PLAYSCORE;
+        ////}
+        boss->update();
         player->update(); // Update player
         ObjHandling(); // Update game objects
+        CollisionCheck::EnemyColli(player_bullets, enemies, items, player); // Check collisions with enemies
+        CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
     }
 }
 
@@ -256,6 +264,8 @@ void Game::render() {
         MENU->render(); // Render menu
     }
 
+
+
     else if (state == GameState::PLAYING) {
 
         for (Bullet* bullet : player_bullets) {
@@ -269,6 +279,8 @@ void Game::render() {
         for (Enemy* enemy : enemies) {
             enemy->render(); // Render enemies
         }
+
+        boss->render();
 
         player->render(); // Render player
 
@@ -284,6 +296,7 @@ void Game::render() {
 
 void Game::clean() {
     delete MENU; // Clean up menu
+    delete boss;
     delete player; // Clean up player
     delete sidebar; // Clean up sidebar
     for (Bullet* bullet : player_bullets) {

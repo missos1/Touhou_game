@@ -3,8 +3,12 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
-#include <vector>
+#include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <ctime>
+#include <random>
+#include <vector>
+
 #include "sidebar.hpp"
 
 const int WIN_WIDTH = 1280;
@@ -23,6 +27,7 @@ class SoundManager;
 class CollisionCheck;
 class Menu;
 class Item;
+class Boss;
 
 enum class GameState {
     LOADING,
@@ -51,6 +56,7 @@ public:
     static SDL_Texture* Menu_texture;
     
     static int PLAYSCORE;
+    static bool isTimeStopped;
 
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
     void ObjHandling();
@@ -73,6 +79,7 @@ private:
     Menu* MENU;
 
     Player* player;
+    Boss* boss;
     std::vector<Enemy*> enemies; 
 
     std::vector<Bullet*> player_bullets;

@@ -18,36 +18,37 @@ public:
     void handleInput(const Uint8* keys);
     void update();
     void render();
-    void playerShoot(std::vector<Bullet*>& bullets);
+    void playerShoot(std::vector<Bullet*>& bullets) const;
     void updatePlayerpower(double input);
     void updatePlayerhp(int input);
     void updateGraze();
     
     int getGraze() const { return graze; }
-    int getY() const { return hitbox.y - 20; }
-    int getX() const { return hitbox.x - 10; }
+    int getY() const { return hitbox_ingame.y - 20; }
+    int getX() const { return hitbox_ingame.x - 10; }
     int getPlayerhp() const { return hp; }
-    SDL_Rect getGrazingBox() const { return destRect; }
-    SDL_Rect getHitbox() const { return hitbox; }
+    SDL_Rect getGrazingBox() const { return hitbox_destRect; }
+    SDL_Rect getHitbox() const { return hitbox_ingame; }
     double getPlayerpowerlv() const { return powerlv; }
 
 private:
     SDL_Texture* texture;
     SDL_Texture* amulet_text;
     SDL_Texture* rightTexture;
+    SDL_Texture* hitbox_texture;
+    SDL_Rect hitbox_destRect;
     SDL_Rect srcRect, destRect;
     SDL_Rect srcRect_amu_0, destRect_amu_0;
     SDL_Rect srcRect_amu_1, destRect_amu_1;
-    SDL_Rect hitbox;
 
-    Mix_Chunk* shootSound;
+    SDL_Rect hitbox_ingame;
 
     int baseSpeed = 9;
-    int focusSpeed = 3;
+    int focusSpeed = 4;
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 1.0;
+    double powerlv = 2.0;
     int graze;
     bool isFocusing;
     bool isIdle = true;
