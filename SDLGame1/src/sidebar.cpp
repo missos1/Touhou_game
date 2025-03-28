@@ -147,7 +147,7 @@ void Sidebar::render_playerhp(Player* player) {
     TTF_Font* font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 16);
 
     graze_texture = TextureManager::LoadFontTexture(grazeStr.c_str(), font0, white);
-    SDL_Rect grazeRect = { 1010, 323, 50, 20 };
+    SDL_Rect grazeRect = { 1010, 323, 60, 20 };
     SDL_RenderCopy(Game::Grenderer, graze_texture, NULL, &grazeRect);
 
     power_texture = TextureManager::LoadFontTexture(powerStr.c_str(), font0, white);

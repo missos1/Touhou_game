@@ -22,7 +22,7 @@ Item::Item(double x, double y, Itemtype type) :
 		break;
 	case Itemtype::POINT: // Point item
 		srcRect = { ITEM_POINT, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
-		item_point = 30000; // Set item point value
+		item_point = 10000; // Set item point value
 		break;
 	case Itemtype::FULLPOWER: // Full power item
 		srcRect = { ITEM_FULLPOWER, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
@@ -43,7 +43,7 @@ Item::~Item() {
 }
 
 void Item::update() {
-	fallspeed += 0.1; // Increase fall speed
+	fallspeed += 0.05; // Increase fall speed
 	if (fallspeed >= 5) fallspeed = 5.0; // Cap fall speed
 
 	if (fallspeed <= 0) {
