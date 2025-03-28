@@ -13,7 +13,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 
 	std::cout << "Enemy spawned at: (" << xPos << ", " << yPos << ")" << std::endl;
 
-	srand(time(0));
+	
 
 	totalFrames = 4;
 	Ani_speed = 0.5f;
@@ -29,7 +29,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteW = spriteH = 32;
 		hp = 1;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 3000;
+		point = 1000;
 		break;
 	case EnemyType::RED_FA:
 		Enemy_texture = Game::Enemy_texture_r;
@@ -37,7 +37,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteH = 30;
 		hp = 10;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 7000;
+		point = 5000;
 		break;
 	case EnemyType::WHITE_FA:
 		Enemy_texture = Game::Enemy_texture_w;
@@ -45,7 +45,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteH = 30;
 		hp = 60;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 30000;
+		point = 12000;
 		break;
 	case EnemyType::BLUE_FA:
 		Enemy_texture = Game::Enemy_texture_b;
@@ -53,7 +53,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		spriteH = 30;
 		hp = 30;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
-		point = 25000;
+		point = 8000;
 		break;
 	}
 
@@ -201,7 +201,7 @@ void Enemy::Vertical() {
 
 void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
 	//int density = 10;
-	srand(SDL_GetTicks());
+	
 	for (int i = 0; i < density; i++) {
 		double angle = (std::rand() % 180) * M_PI / 180;
 		double speed = 3 + std::rand() % 2;
