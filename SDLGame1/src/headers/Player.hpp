@@ -48,7 +48,7 @@ private:
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 5.0;
+    double powerlv = 2.0;
     int graze;
     bool isFocusing;
     bool isIdle = true;

@@ -132,6 +132,9 @@ bool Game::initSM() {
     if (!SoundManager::LoadSound("ok", "res/sound/ok00.wav")) return false;
     if (!SoundManager::LoadSound("cancel", "res/sound/cancel00.wav")) return false;
     if (!SoundManager::LoadSound("collect_item", "res/sound/item00.wav")) return false;
+    if (!SoundManager::LoadSound("enemypowerup0", "res/sound/power0.wav")) return false;
+    if (!SoundManager::LoadSound("enemypowerup1", "res/sound/power1.wav")) return false;
+    if (!SoundManager::LoadSound("pl_powerup", "res/sound/powerup.wav")) return false;
 
     if (!SoundManager::LoadMusic("Mainmenu", "res/OST/A Dream that is more Scarlet than Red.mp3")) return false; // Load music
     if (!SoundManager::LoadMusic("Stage_theme", "res/OST/The Centennial Festival for Magical Girls.mp3")) return false;
@@ -293,6 +296,7 @@ void Game::render() {
 
 void Game::clean() {
     delete MENU; // Clean up menu
+    delete boss;
     delete player; // Clean up player
     delete sidebar; // Clean up sidebar
     for (Bullet* bullet : player_bullets) {
