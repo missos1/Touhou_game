@@ -51,6 +51,9 @@
     <ClCompile Include="src\Items.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Game.hpp">
@@ -362,6 +365,9 @@
     <ClInclude Include="src\headers\Items.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\Boss.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -377,12 +383,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\player\idleanimation.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\player\rightAni.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Enemy\circle.png">
@@ -446,6 +446,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\player\hitbox.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Flandre.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\player\Reimu_sprite(2).png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

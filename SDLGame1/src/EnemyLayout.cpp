@@ -4,15 +4,16 @@
 #include "headers/Bullets.hpp"
 #include "headers/EnemyLayout.hpp"
 #include "headers/SoundManager.hpp"
+#include "headers/Boss.hpp"
 #include <iostream>
 #include <cmath>
 #define endl "\n"
 
-void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
+void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 
 	double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
-	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // Time elapsed since the game started in seconds
+	double elapsed = SDL_GetTicks() / 1000.0 - initTime + 85.0; // Time elapsed since the game started in seconds
 	elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
 
 	std::cout << "elapsed: " << elapsed << endl;
@@ -42,6 +43,9 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			spawntime_1.push_back(y);
 		}
 
+		if (elapsed == 2.0) {
+			SoundManager::PlayMusic("Stage_theme", -1, 255); // Play stage music
+		}
 
 		if (elapsed == 5.0) {
 			enemies.emplace_back(new Enemy(1000, -40, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
@@ -68,11 +72,11 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				//std::cout << "Spawning enemies!" << endl; // debug
 				//std::cout << "elapsed = " << elapsed << endl; // debug
 			}
-			if (std::abs(elapsed - (20.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+			if (std::abs(elapsed - (17.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
 				//std::cout << "Spawn Time: " << elapsed << endl; //debug
 				//std::cout << initTime << endl; // debug
-				enemies.emplace_back(new Enemy(-30, -40, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
-				enemies.emplace_back(new Enemy(900, -40, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
+				enemies.emplace_back(new Enemy(-30, 100, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
+				enemies.emplace_back(new Enemy(900, 100, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
 				enemies.emplace_back(new Enemy(-130, 10, 8, EnemyType::SPARKLE, MovementType::DiagonalNWSE));
 				enemies.emplace_back(new Enemy(1000, 10, -8, EnemyType::SPARKLE, MovementType::DiagonalNESW));
 
@@ -83,24 +87,27 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				//std::cout << "Spawn Time: " << elapsed << endl; //debug
 				//std::cout << initTime << endl; // debug
 
-				enemies.emplace_back(new Enemy(200, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
-				enemies.emplace_back(new Enemy(300, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
-				enemies.emplace_back(new Enemy(500, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
-				enemies.emplace_back(new Enemy(600, -40, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(200, -30, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(300, -10, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(450, -10, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(550, -30, 0.8, EnemyType::SPARKLE, MovementType::BezierCurve));
 
 				//std::cout << "Spawning enemies!" << endl; // debug
 				//std::cout << "elapsed = " << elapsed << endl; // debug
 			}
-			if (std::abs(elapsed - (65.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
+			if (std::abs(elapsed - (66.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
 				//std::cout << "Spawn Time: " << elapsed << endl; // debug
 				//std::cout << initTime << endl; // debug
 
 				enemies.emplace_back(new Enemy(430, -110, 8, EnemyType::SPARKLE, MovementType::Vertical));
-				enemies.emplace_back(new Enemy(630, -10, 8, EnemyType::SPARKLE, MovementType::Vertical));
-				enemies.emplace_back(new Enemy(530, -40, 8, EnemyType::SPARKLE, MovementType::Vertical));
-				enemies.emplace_back(new Enemy(730, -20, 8, EnemyType::SPARKLE, MovementType::Vertical));
-				enemies.emplace_back(new Enemy(50, -10, 8, EnemyType::SPARKLE, MovementType::Horizontal));
-				enemies.emplace_back(new Enemy(50, -10, 8, EnemyType::SPARKLE, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(330, -30, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(230, -20, 8, EnemyType::SPARKLE, MovementType::Vertical));
+				enemies.emplace_back(new Enemy(130, -10, 8, EnemyType::SPARKLE, MovementType::Vertical));
+
+				enemies.emplace_back(new Enemy(20, 320, 8, EnemyType::SPARKLE, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(-10, 210, 8, EnemyType::SPARKLE, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(1000, 410, -8, EnemyType::SPARKLE, MovementType::Horizontal));
+				enemies.emplace_back(new Enemy(1250, 120, -8, EnemyType::SPARKLE, MovementType::Horizontal));
 
 				//std::cout << "Spawning enemies!" << endl; // debug
 				//std::cout << "elapsed = " << elapsed << endl; //debug
@@ -115,7 +122,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			}
 			if (std::abs(elapsed - (42.0 + spawn)) < 0.01) { // Tolerance compare for correct spawning
 				enemies.emplace_back(new Enemy(410, -35, 0.5, EnemyType::RED_FA, MovementType::BezierCurve));
-				enemies.emplace_back(new Enemy(660, -20, 0.3, EnemyType::BLUE_FA, MovementType::BezierCurve));
+				enemies.emplace_back(new Enemy(550, 0, 0.3, EnemyType::BLUE_FA, MovementType::BezierCurve));
 				//std::cout << "Spawn Time: " << elapsed << endl; // debug					  
 				//std::cout << "Spawning enemies!" << endl; //debug
 			}
@@ -127,7 +134,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			}
 		}
 
-		if (elapsed == 60.0) {
+		if (elapsed == 63.0) {
 			enemies.emplace_back(new Enemy(600, -80, 2, EnemyType::BLUE_FA, MovementType::Vertical));
 			enemies.emplace_back(new Enemy(500, -90, 2, EnemyType::BLUE_FA, MovementType::Vertical));
 			enemies.emplace_back(new Enemy(300, -40, 2, EnemyType::BLUE_FA, MovementType::Vertical));
@@ -162,7 +169,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			std::cout << "Spawning enemies!" << endl;*/
 		}
 		if (elapsed == 56.0) {
-			enemies.emplace_back(new Enemy(-20, 250, 4, EnemyType::WHITE_FA, MovementType::Lshape));
+			enemies.emplace_back(new Enemy(-20, 150, 4, EnemyType::WHITE_FA, MovementType::Lshape));
 		}
 
 		if (elapsed == 58.0) {
@@ -191,9 +198,9 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 					break;
 
 				case EnemyType::WHITE_FA:
-					if (currentTime - enemyLastShootTime[enemies[i]] > 1500) {
+					if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
 						enemyLastShootTime[enemies[i]] = currentTime;
-						enemies[i]->rndriceShoot(bullets, 2);
+						enemies[i]->rndriceShoot(bullets, 3);
 					}
 
 					if (enemies[i]->getY() <= (enemies[i]->initY - 10) && !enemies[i]->fired) {
@@ -213,6 +220,27 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 					}
 					break;
 				}
+			}
+
+		}
+
+		if (elapsed >= 90.0) {
+			if (elapsed == 90.0) {
+				SoundManager::StopMusic();
+			}
+			if (elapsed == 91.0) {
+				SoundManager::PlayMusic("Boss_theme", -1, 255);
+			}
+
+			Phase phase = boss->getPhase();
+
+			switch (phase) {
+			case Phase::IDLE:
+				boss->moveinscreen();
+				break;
+			/*case Phase::PHASE1:
+				boss->move_phase0();
+				break;*/
 			}
 		}
 	}

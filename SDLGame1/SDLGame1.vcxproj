@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Boss.cpp" />
     <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Bullets.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
+    <ClInclude Include="src\headers\Boss.hpp" />
     <ClInclude Include="src\headers\Collision.hpp" />
     <ClInclude Include="src\headers\Enemy.hpp" />
     <ClInclude Include="src\headers\Bullets.hpp" />
@@ -142,6 +144,7 @@
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
+    <Image Include="res\Enemy\Flandre.png" />
     <Image Include="res\Enemy\Red_fa.png" />
     <Image Include="res\Enemy\Sakuya_idle.png" />
     <Image Include="res\Enemy\Sakuya_move.png" />
@@ -155,8 +158,8 @@
     <Image Include="res\Menu\Start_unsl.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png" />
-    <Image Include="res\player\idleanimation.png" />
-    <Image Include="res\player\rightAni.png" />
+    <Image Include="res\player\hitbox.png" />
+    <Image Include="res\player\Reimu_sprite(2).png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\player\Reimu_sprite2.png" />
     <Image Include="res\sidebar.png" />

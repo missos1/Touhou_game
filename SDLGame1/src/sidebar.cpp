@@ -18,6 +18,7 @@ Sidebar::Sidebar()
     powerngraze_texture = TextureManager::LoadTexture("res/SIDEBAR_POWER.png");
     hp_texture = TextureManager::LoadTexture("res/SIDEBAR_HP.png");
     player_texture = TextureManager::LoadTexture("res/SIDEBAR_PLAYER.png");
+    font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 16);
 }
 Sidebar::~Sidebar() {
     // Free the textures
@@ -54,6 +55,10 @@ Sidebar::~Sidebar() {
         graze_texture = nullptr;
     }
 
+    if (font0) {
+        TTF_CloseFont(font0);
+        font0 = nullptr;
+    }
 }
 
 void Sidebar::render(int winW, int winH, Player* player) {
@@ -140,15 +145,24 @@ void Sidebar::render_playerhp(Player* player) {
     grazeStream << std::setw(4) << std::setfill(' ') << player->getGraze();
     powerStream << std::fixed << std::setprecision(2) << player->getPlayerpowerlv();
 
+
+
     std::string grazeStr = grazeStream.str();
     std::string powerStr = powerStream.str();
 
     SDL_Color white = { 255, 255 ,255 };
-    TTF_Font* font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 16);
+
+    if (graze_texture) {
+        SDL_DestroyTexture(graze_texture);
+    }
 
     graze_texture = TextureManager::LoadFontTexture(grazeStr.c_str(), font0, white);
-    SDL_Rect grazeRect = { 1010, 323, 50, 20 };
+    SDL_Rect grazeRect = { 1010, 323, 45, 20 };
     SDL_RenderCopy(Game::Grenderer, graze_texture, NULL, &grazeRect);
+
+    if (power_texture) {
+        SDL_DestroyTexture(power_texture);
+    }
 
     power_texture = TextureManager::LoadFontTexture(powerStr.c_str(), font0, white);
     SDL_Rect powerRect = { 1010, 285, 60, 20 }; 

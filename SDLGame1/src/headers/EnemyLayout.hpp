@@ -10,10 +10,11 @@ class Enemy;
 class Game;
 class Bullet;
 class Player;
+class Boss;
 
 class EnemyLayout {
 public:
-    static void stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player);
+    static void stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss);
 private:
 
 };
