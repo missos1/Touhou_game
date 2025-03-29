@@ -70,7 +70,7 @@ void Player::handleInput(const Uint8* keys) {
     if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_D]) {
         if (keys[SDL_SCANCODE_A]) dx = -speed;
         if (keys[SDL_SCANCODE_D]) dx = speed;
-    } 
+    }
 }
 
 void Player::update() {
@@ -146,13 +146,16 @@ void Player::update() {
         destRect_amu_0.y = destRect.y + 24;
         destRect_amu_1.y = destRect_amu_0.y;
     }
-
-    static double prevpowerlv = 1.0;
-
-    if (powerlv != prevpowerlv) {
-        //std::cout << "player powerlv: " << powerlv << std::endl;
-        if ((powerlv == 2.0 || powerlv == 3.0 || powerlv == 4.0 || powerlv == 5.0) && (powerlv > prevpowerlv)) SoundManager::PlaySound("pl_powerup",0 ,255);
-        prevpowerlv = powerlv;
+    static int prevpowerlv = 1;
+    int pwlv = powerlv;
+    if (pwlv != prevpowerlv) {
+        if (pwlv > prevpowerlv) {
+            SoundManager::PlaySound("pl_powerup", 0, 255);
+            prevpowerlv = pwlv;
+        }
+        else if (pwlv < prevpowerlv) {
+            prevpowerlv = pwlv;
+        }
     }
 }
 
@@ -163,8 +166,6 @@ void Player::render() {
     else {
         SDL_RenderCopy(Game::Grenderer, texture, &srcRect, &destRect);
     }
-    static int angle = 0;
-    angle = (angle + 10 + 360) % 360;
 
     if (isFocusing) {
         static int angle = 0;

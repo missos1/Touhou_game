@@ -49,11 +49,11 @@ Boss::~Boss() {
 
 void Boss::debug_ani(const Uint8* keys) {
 	vx = vy = 0;
-	if (keys[SDL_SCANCODE_W]) vy = -4;
-	if (keys[SDL_SCANCODE_S]) vy = 4;
-	if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_D]) {
-		if (keys[SDL_SCANCODE_A]) vx = -4;
-		if (keys[SDL_SCANCODE_D])  vx = 4;
+	if (keys[SDL_SCANCODE_UP]) vy = -4;
+	if (keys[SDL_SCANCODE_DOWN]) vy = 4;
+	if (keys[SDL_SCANCODE_LEFT] || keys[SDL_SCANCODE_RIGHT]) {
+		if (keys[SDL_SCANCODE_LEFT]) vx = -4;
+		if (keys[SDL_SCANCODE_RIGHT])  vx = 4;
 	}
 }
 
