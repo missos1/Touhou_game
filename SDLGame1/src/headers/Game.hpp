@@ -54,6 +54,9 @@ public:
     static SDL_Texture* Enemy_texture_b;
     static SDL_Texture* Enemy_texture_sparkle;
     static SDL_Texture* Menu_texture;
+
+	static int BGM_volume;
+	static int SE_volume;
     
     static int PLAYSCORE;
     static bool isTimeStopped;

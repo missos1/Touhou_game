@@ -32,6 +32,9 @@ public:
 
 	void debug_ani(const Uint8* keys);
 
+	void movement0();
+	void movement1();
+
 	void pattern0(std::vector<Bullet*>& bullets);
 	void pattern0_spellcard(std::vector<Bullet*>& bullets);
 	void pattern1(std::vector<Bullet*>& bullets);

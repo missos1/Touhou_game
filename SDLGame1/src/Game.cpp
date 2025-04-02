@@ -16,6 +16,9 @@ SDL_Renderer* Game::Grenderer = nullptr; // Define the static renderer
 GameState Game::state = GameState::LOADING; // Initial game state
 GameState Game::prevState = GameState::LOADING; // Previous game state
 
+int Game::BGM_volume = 128; // Initial BGM volume
+int Game::SE_volume = 128; // Initial SE volume 
+
 Uint32 Game::GameStartTime = 0; // Game start time
 
 int Game::PLAYSCORE = 0; // Player score
