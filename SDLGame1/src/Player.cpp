@@ -22,7 +22,7 @@ Player::Player(double x, double y)
     srcRect = { 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT }; // sprite size
     destRect = { static_cast<int>(x), static_cast<int>(y), PLAYER_WIDTH * 2, PLAYER_HEIGHT * 2 }; // display size (scaled up)    
 
-    ssrcRect_amu_0 = { 162, 18, 13, 13 };
+    srcRect_amu_0 = { 162, 18, 13, 13 };
     srcRect_amu_1 = srcRect_amu_0;
     destRect_amu_0 = { static_cast<int>(x), static_cast<int>(y), 13 * 2, 13 * 2 };
     destRect_amu_1 = destRect_amu_0;
@@ -116,8 +116,8 @@ void Player::update() {
             frameTime = 0.0f;
             isFlipped = false;
             currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
-            srcRect.x = currentFrameIdle * PLAYER_WIDTH;
             srcRect.y = 0;
+            srcRect.x = currentFrameIdle * PLAYER_WIDTH;
         }
     }
 
@@ -161,13 +161,9 @@ void Player::update() {
 }
 
 void Player::render() {
-    if (isMovingright) {
-        SDL_RenderCopyEx(Game::Grenderer, rightTexture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
-    }
-    else {
-        SDL_RenderCopy(Game::Grenderer, texture, &srcRect, &destRect);
-    }
-
+    
+    SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+    
     if (isFocusing) {
         static int angle = 0;
         angle = (angle + 1 + 360) % 360;
