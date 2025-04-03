@@ -81,7 +81,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    boss = new Boss(410, 120);
+    boss = new Boss(-100, 120);
 
     Mix_AllocateChannels(64); // Allocate audio channels
 
@@ -165,9 +165,8 @@ void Game::run() {
         }
 
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
+            SoundManager::StopMusic();
             Game::GameStartTime = SDL_GetTicks(); // Store the start time
-            SoundManager::StopMusic(); // Stop menu music
-            SoundManager::PlayMusic("Stage_theme", -1, 255); // Play stage music
             //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
         }
 
@@ -196,7 +195,7 @@ void Game::handleEvents() {
 
     else if (state == GameState::PLAYING) {
         player->handleInput(keys); // Handle player input
-        boss->debug_ani(keys); // debug boss animation
+        //boss->debug_ani(keys); // debug boss animation
 
         static Uint32 lastShotTime = 0;
         Uint32 currentTime = SDL_GetTicks();
@@ -229,7 +228,7 @@ void Game::ObjHandling() {
     }
 
     //EnemyLayout::spawnHorizontal(enemies, -30, 300, 4, EnemyType::RED_FA,enemy_bullets, player);
-    EnemyLayout::stage(enemies, enemy_bullets, player); // Execute stage
+    EnemyLayout::stage(enemies, enemy_bullets, player, boss); // Execute stage
     //EnemyLayout::spawnVerticalWave(enemies, 5);
 }
 
@@ -271,12 +270,12 @@ void Game::render() {
 
     else if (state == GameState::PLAYING) {
 
-        for (Bullet* bullet : player_bullets) {
-            bullet->render(); // Render player bullets
-        }
-
         for (Item* item : items) {
             item->render(); // Render items
+        }
+
+        for (Bullet* bullet : player_bullets) {
+            bullet->render(); // Render player bullets
         }
 
         for (Enemy* enemy : enemies) {

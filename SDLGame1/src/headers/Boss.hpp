@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <ctime>
+#include <iostream>
 #include "TextureManager.hpp"
 #include "SoundManager.hpp"
 
@@ -20,6 +21,7 @@ enum class Phase {
 	PHASE0_SC,
 	PHASE1,
 	PHASE1_SC,
+	RETURNING,
 };
 
 class Boss {
@@ -31,9 +33,9 @@ public:
 	void render();
 
 	void debug_ani(const Uint8* keys);
-
-	void movement0();
-	void movement1();
+	void moveinscreen();
+	void move_returning();
+	void move_phase0();
 
 	void pattern0(std::vector<Bullet*>& bullets);
 	void pattern0_spellcard(std::vector<Bullet*>& bullets);
@@ -47,6 +49,7 @@ public:
 	void updatehp(int in_hp) { hp = in_hp; }
 	int getPoint() const { return point; }
 	int getHPperphase() const;
+	Phase getPhase() const;
 
 private:
 	double vx, vy; // velocity

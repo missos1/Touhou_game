@@ -157,7 +157,7 @@ void Sidebar::render_playerhp(Player* player) {
     }
 
     graze_texture = TextureManager::LoadFontTexture(grazeStr.c_str(), font0, white);
-    SDL_Rect grazeRect = { 1010, 323, 60, 20 };
+    SDL_Rect grazeRect = { 1010, 323, 45, 20 };
     SDL_RenderCopy(Game::Grenderer, graze_texture, NULL, &grazeRect);
 
     if (power_texture) {

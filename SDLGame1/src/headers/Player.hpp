@@ -48,13 +48,13 @@ private:
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 2.0;
+    double powerlv = 5.0;
     int graze;
     bool isFocusing;
     bool isIdle = true;
     bool affectedbytimestop;
 
-    const int PLAYER_HEIGHT = 50;
+    const int PLAYER_HEIGHT = 48;
     const int PLAYER_WIDTH = 32;
 
     int currentFrame;

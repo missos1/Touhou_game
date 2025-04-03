@@ -4,9 +4,10 @@
 #include "headers/Items.hpp"
 #include "headers/Game.hpp"
 
+
 Boss::Boss(double x, double y)
-	: xPos(x), yPos(y) , destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, isIdle(true),
-	hp(0), vx(0), vy(10), hitbox{ 0, 0, 0, 0 }, spellcard_isactive(false){
+	: xPos(x), yPos(y), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, isIdle(true),
+	hp(0), vx(0), vy(0), hitbox{ 0, 0, 0, 0 }, spellcard_isactive(false), phase(Phase::IDLE) {
 
 	Boss_texture = TextureManager::LoadTexture("res/Enemy/Flandre.png");
 
@@ -57,6 +58,20 @@ void Boss::debug_ani(const Uint8* keys) {
 	}
 }
 
+void Boss::moveinscreen() {
+	/*std::cout << "movement(): called" << std::endl;*/
+	if (xPos >= 410 && yPos == 120) {
+		phase = Phase::PHASE0;
+		vx = 0;
+		vy = 0;
+		xPos = 410;
+		yPos = 120;
+	}
+	else {
+		vx = 20;
+	}
+}
+
 void Boss::update() {
 	if (vx != 0 || vy != 0) {
 		if (vx > 0) isFlipped = true;
@@ -64,7 +79,7 @@ void Boss::update() {
 
 		isIdle = false;
 		isMoving = true;
-	} 
+	}
 	else if (vx == 0 && vy == 0) {
 		isIdle = true;
 	}
@@ -73,13 +88,13 @@ void Boss::update() {
 
 	if (isMoving) {
 		if (currentFrame < 1 && !isIdle) { // left right animation  
-			if (frameTime >= 1.5f ) { // if less than 1 then increment to next fram
+			if (frameTime >= 1.5f) { // if less than 1 then increment to next fram
 				frameTime = 0.0f;
 				currentFrame++;
 				if (currentFrame >= 1) currentFrame = 1;
 			}
 		}
-		else if (currentFrame > 0 && isIdle) { // if key is released then buffers to slowly play frame back
+		else if (currentFrame > 0 && isIdle) { // if is idling after moving then buffers to slowly play frame back
 			if (frameTime >= 0.1f) {
 				frameTime = 0.0f;
 				currentFrame--;
@@ -113,5 +128,6 @@ void Boss::render() {
 	SDL_RenderCopyEx(Game::Grenderer, Boss_texture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 }
 
-
- 
+Phase Boss::getPhase() const {
+	return phase;
+}

@@ -4,15 +4,16 @@
 #include "headers/Bullets.hpp"
 #include "headers/EnemyLayout.hpp"
 #include "headers/SoundManager.hpp"
+#include "headers/Boss.hpp"
 #include <iostream>
 #include <cmath>
 #define endl "\n"
 
-void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player) {
+void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 
 	double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
-	double elapsed = SDL_GetTicks() / 1000.0 - initTime; // Time elapsed since the game started in seconds
+	double elapsed = SDL_GetTicks() / 1000.0 - initTime + 85.0; // Time elapsed since the game started in seconds
 	elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
 
 	std::cout << "elapsed: " << elapsed << endl;
@@ -42,6 +43,9 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			spawntime_1.push_back(y);
 		}
 
+		if (elapsed == 2.0) {
+			SoundManager::PlayMusic("Stage_theme", -1, 255); // Play stage music
+		}
 
 		if (elapsed == 5.0) {
 			enemies.emplace_back(new Enemy(1000, -40, -7, EnemyType::SPARKLE, MovementType::DiagonalNESW));
@@ -216,6 +220,27 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 					}
 					break;
 				}
+			}
+
+		}
+
+		if (elapsed >= 90.0) {
+			if (elapsed == 90.0) {
+				SoundManager::StopMusic();
+			}
+			if (elapsed == 91.0) {
+				SoundManager::PlayMusic("Boss_theme", -1, 255);
+			}
+
+			Phase phase = boss->getPhase();
+
+			switch (phase) {
+			case Phase::IDLE:
+				boss->moveinscreen();
+				break;
+			/*case Phase::PHASE1:
+				boss->move_phase0();
+				break;*/
 			}
 		}
 	}
