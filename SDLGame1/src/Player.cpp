@@ -148,7 +148,7 @@ void Player::update() {
         destRect_amu_1.y = destRect_amu_0.y;
     }
     static int prevpowerlv = 1;
-    int pwlv = powerlv;
+    int pwlv = static_cast<int>(powerlv);
     if (pwlv != prevpowerlv) {
         if (pwlv > prevpowerlv) {
             SoundManager::PlaySound("pl_powerup", 0, 255);

@@ -46,6 +46,7 @@ public:
     static GameState state;
     static GameState prevState;
     static Uint32 GameStartTime;
+    static Uint32 GameExitTime;
 
     static SDL_Texture* Misc_player_text;
     static SDL_Texture* enemybullet_text;
@@ -59,7 +60,6 @@ public:
 	static int SE_volume;
     
     static int PLAYSCORE;
-    static bool isTimeStopped;
 
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
     void ObjHandling();

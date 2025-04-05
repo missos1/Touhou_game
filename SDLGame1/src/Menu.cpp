@@ -41,10 +41,11 @@ void Menu::handleInput(const Uint8* keys) {
             if (selectedOption == 0) {
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::MENU;
-                SoundManager::PlaySound("ok", 0, 128);
+                SoundManager::PlaySound("ok", 0, 32);
             }
             else {
                 Game::state = GameState::EXIT; // Quit game
+				Game::GameExitTime = SDL_GetTicks();
                 SoundManager::PlaySound("cancel", 0, 32);
             }
             keyPressed = true;

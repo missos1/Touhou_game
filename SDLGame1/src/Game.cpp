@@ -20,6 +20,7 @@ int Game::BGM_volume = 128; // Initial BGM volume
 int Game::SE_volume = 128; // Initial SE volume 
 
 Uint32 Game::GameStartTime = 0; // Game start time
+Uint32 Game::GameExitTime = 0; // Game exit time
 
 int Game::PLAYSCORE = 0; // Player score
 
@@ -207,7 +208,7 @@ void Game::handleEvents() {
         }
     }
 
-    else if (state == GameState::EXIT) isRunning = false; // Exit game
+    else if (state == GameState::EXIT && SDL_GetTicks() - GameExitTime >= 500) isRunning = false; // Exit game
 }
 
 void Game::ObjHandling() {
