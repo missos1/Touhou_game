@@ -164,7 +164,7 @@ void Game::run() {
         }
 
         if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
-            SoundManager::PlayMusic("Mainmenu", -1, 255); // Play menu music
+            SoundManager::PlayMusic("Mainmenu", -1, Game::BGM_volume); // Play menu music
         }
 
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {

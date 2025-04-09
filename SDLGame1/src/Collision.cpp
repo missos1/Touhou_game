@@ -28,7 +28,7 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
             if (player->getPlayerstate() == PlayerState::NORMAL) {
                 player->updatePlayerhp(-1); // Decrease player's HP
                 player->updatePlayerpower(-0.3); // Decrease player's power
-                SoundManager::PlaySound("pldead", 0, 64); // Play player hit sound
+                SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
             }
             //std::cout << "hp: " << player->getPlayerhp() << std::endl; // Debug: print player's HP
 
@@ -58,7 +58,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
                 Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
 
                 //std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
-                SoundManager::PlaySound("entakedmg", 0, 16); // Play enemy hit sound
+                SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 4); // Play enemy hit sound
 
                 if (enemies[j]->getEnemyhp() <= 0) { // Check if enemy is dead
 
@@ -101,7 +101,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
                     countspawn++;
 
                     items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, type)); // Spawn item
-                    SoundManager::PlaySound("endie0", 0, 16); // Play enemy death sound
+                    SoundManager::PlaySound("endie0", 0, Game::SE_volume / 4); // Play enemy death sound
 
                     delete enemies[j];  // Delete enemy
                     enemies.erase(enemies.begin() + j); // Remove enemy from vector
@@ -146,7 +146,7 @@ void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* playe
             }
             delete items[i]; // Delete item
             items.erase(items.begin() + i); // Remove item from vector
-            SoundManager::PlaySound("collect_item", 0, 64); // Play item collect sound
+            SoundManager::PlaySound("collect_item", 0, Game::SE_volume / 2); // Play item collect sound
         }
     }
 }
