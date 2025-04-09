@@ -82,7 +82,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    boss = new Boss(-100, 120);
+    boss = new Boss(-150, 120);
 
     Mix_AllocateChannels(64); // Allocate audio channels
 
@@ -154,12 +154,14 @@ void Game::run() {
     while (isRunning) { // Main game loop
         frameStart = SDL_GetTicks(); // Get start time of the frame
 
-        if (state == GameState::LOADING && SDL_GetTicks() >= 2000) { // Transition from loading to menu state
-            state = GameState::MENU;
-        }
+
         handleEvents(); // Handle input events
         update(); // Update game state
         render(); // Render game state
+
+        if (state == GameState::LOADING && SDL_GetTicks() >= 2000) { // Transition from loading to menu state
+            state = GameState::MENU;
+        }
 
         if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
             SoundManager::PlayMusic("Mainmenu", -1, 255); // Play menu music
@@ -167,9 +169,9 @@ void Game::run() {
 
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
             SoundManager::StopMusic();
-            Game::GameStartTime = SDL_GetTicks(); // Store the start time
             //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
         }
+
 
         Game::prevState = Game::state; // Update previous state
 
@@ -225,7 +227,7 @@ void Game::ObjHandling() {
     }
 
     for (int i = (int)items.size() - 1; i >= 0; i--) { // Update items
-        items[i]->update();
+        items[i]->update(player);
     }
 
     //EnemyLayout::spawnHorizontal(enemies, -30, 300, 4, EnemyType::RED_FA,enemy_bullets, player);
@@ -245,6 +247,7 @@ void Game::update() {
         ObjHandling(); // Update game objects
         CollisionCheck::EnemyColli(player_bullets, enemies, items, player); // Check collisions with enemies
         CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
+        CollisionCheck::DeleleOffScreen(enemy_bullets, player_bullets, enemies, items); // Deleting objects offscreen
     }
 }
 
@@ -271,6 +274,8 @@ void Game::render() {
 
     else if (state == GameState::PLAYING) {
 
+        boss->render();
+
         for (Item* item : items) {
             item->render(); // Render items
         }
@@ -283,7 +288,6 @@ void Game::render() {
             enemy->render(); // Render enemies
         }
 
-        boss->render();
 
         player->render(); // Render player
 
@@ -322,6 +326,7 @@ void Game::clean() {
     SoundManager::Clean(); // Clean up sounds
     SDL_DestroyRenderer(Grenderer); // Destroy renderer
     Mix_CloseAudio(); // Close audio
+    TTF_Quit(); // Close font
     SDL_DestroyWindow(window); // Destroy window
     SDL_Quit(); // Quit SDL
 }

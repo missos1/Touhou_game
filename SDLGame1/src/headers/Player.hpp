@@ -10,6 +10,12 @@ class Bullet;
 class Game;
 class Enemy;
 
+enum class PlayerState {
+    NORMAL,
+    GOT_HIT,
+    INVINC,
+};
+
 class Player {
 public:
     Player(double x, double y);
@@ -30,11 +36,10 @@ public:
     SDL_Rect getGrazingBox() const { return hitbox_destRect; }
     SDL_Rect getHitbox() const { return hitbox_ingame; }
     double getPlayerpowerlv() const { return powerlv; }
+    PlayerState getPlayerstate() const { return state; }
 
 private:
     SDL_Texture* texture;
-    SDL_Texture* amulet_text;
-    SDL_Texture* rightTexture;
     SDL_Texture* hitbox_texture;
     SDL_Rect hitbox_destRect;
     SDL_Rect srcRect, destRect;
@@ -48,11 +53,12 @@ private:
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 5.0;
+    double powerlv = 4.0;
     int graze;
     bool isFocusing;
     bool isIdle = true;
-    bool affectedbytimestop;
+
+    PlayerState state;
 
     const int PLAYER_HEIGHT = 48;
     const int PLAYER_WIDTH = 32;

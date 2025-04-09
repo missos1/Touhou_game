@@ -47,7 +47,7 @@ public:
 	void rndriceShoot(std::vector<Bullet*>& bullets, int density);
 	void aimedShoot(std::vector<Bullet*>& bullets, int x ,int y);
 	void circleroundShoot(std::vector<Bullet*>& bullets, int density);
-	void deathShoot(std::vector<Bullet*>& bullets, int density);
+	void rndcircleShoot(std::vector<Bullet*>& bullets, int density);
 
 	int initX; // store where the enemy was spawned
 	int initY;

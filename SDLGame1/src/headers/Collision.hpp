@@ -14,11 +14,15 @@ class Enemy;
 class SoundManager;
 class Item;
 
+
 class CollisionCheck {
 public:
 	static void PlayerColli(std::vector<Bullet*>& bullets, Player* player, std::vector<Item*>& items);
 	static void EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items, Player* player);
 	//static void BossColli(std::vector<Bullet*>& bullets,);
+	//static void EnemyCalculation();
+	static void ItemGetCalculation(std::vector<Item*>& items, Player* player);
+	static void DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<Bullet*>& player_bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items);
 };
 
 #endif 

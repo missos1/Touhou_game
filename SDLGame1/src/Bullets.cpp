@@ -52,8 +52,20 @@ Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
 		hitbox = { static_cast<int>(y), static_cast<int>(x), L_HITBOX_SIZE , L_HITBOX_SIZE };
 		break;
-	case Bullettype::ENEMY_RICE: // Rice bullet
+	case Bullettype::ENEMY_RICE_RD: // Rice bullet
+		spriteXpos = DEFAULT_X + L_RED; spriteYpos = RICE_Y; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
+		break;
+	case Bullettype::ENEMY_RICE_BL: // Rice bullet
 		spriteXpos = DEFAULT_X + L_BLUE; spriteYpos = RICE_Y; spriteW = 16; spriteH = 16;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
+		break;
+	case Bullettype::ENEMY_RICE_GR: // Rice bullet
+		spriteXpos = DEFAULT_X + L_GREEN; spriteYpos = RICE_Y; spriteW = 16; spriteH = 16;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
 		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
@@ -77,7 +89,9 @@ void Bullet::update() {
 	destRect.x = static_cast<int>(xPos); // Update sprite x position
 	destRect.y = static_cast<int>(yPos); // Update sprite y position
 	switch (type) {
-	case Bullettype::ENEMY_RICE:
+	case Bullettype::ENEMY_RICE_BL:
+	case Bullettype::ENEMY_RICE_GR:
+	case Bullettype::ENEMY_RICE_RD:
 	case Bullettype::ENEMY_KUNAI_RD:
 	case Bullettype::ENEMY_KUNAI_BL: // Small hitboxes
 	case Bullettype::ENEMY_KUNAI_GR: // Small hitboxes
@@ -112,7 +126,9 @@ void Bullet::render() {
 		SDL_SetTextureAlphaMod(playerbullet_text, 100); // Set transparency
 		SDL_RenderCopy(Game::Grenderer, playerbullet_text, &srcRect, &destRect); // Render needle
 		break;
-	case Bullettype::ENEMY_RICE:
+	case Bullettype::ENEMY_RICE_GR:
+	case Bullettype::ENEMY_RICE_BL:
+	case Bullettype::ENEMY_RICE_RD:
 	case Bullettype::ENEMY_KUNAI_RD:
 	case Bullettype::ENEMY_KUNAI_GR:
 	case Bullettype::ENEMY_KNIFE:

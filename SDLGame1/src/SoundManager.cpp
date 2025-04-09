@@ -18,9 +18,9 @@ bool SoundManager::LoadSound(const std::string& id, const char* fileName) {
 		return false;
 	}
 
-	for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) {
-		std::cout << pair.first << endl; // Debug: print loaded sound effect IDs
-	}
+	//for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) {
+	//	std::cout << pair.first << endl; // Debug: print loaded sound effect IDs
+	//}
 
 	soundEffects[id] = sound; // Add sound effect to the map
 	return true;
@@ -43,9 +43,9 @@ bool SoundManager::LoadMusic(const std::string& id, const char* fileName) {
 		return false;
 	}
 
-	for (std::pair<const std::string, Mix_Music*>& pair : musicTracks) {
-		std::cout << pair.first << endl; // Debug: print loaded music track IDs
-	}
+	//for (std::pair<const std::string, Mix_Music*>& pair : musicTracks) {
+	//	std::cout << pair.first << endl; // Debug: print loaded music track IDs
+	//}
 
 	musicTracks[id] = music; // Add music track to the map
 	return true;

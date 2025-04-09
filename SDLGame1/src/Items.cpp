@@ -6,7 +6,7 @@
 
 Item::Item(double x, double y, Itemtype type) :
 	hitbox{ 0, 0, 0, 0 }, xPos(x), yPos(y), type(type),
-	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, fallspeed(0), item_point(0) {
+	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, fallspeed(0), item_point(0), TrackPlayer(false) {
 	item_text = Game::enemybullet_text; // Get item texture
 
 	srand(time
@@ -42,19 +42,31 @@ Item::~Item() {
 	// Destructor
 }
 
-void Item::update() {
-	fallspeed += 0.05; // Increase fall speed
-	if (fallspeed >= 5) fallspeed = 5.0; // Cap fall speed
+void Item::update(Player* player) {
+	if (player->getY() <= 250 && yPos <= PLAY_AREA_Y_MAX) TrackPlayer = true;
 
-	if (fallspeed <= 0) {
-		double angle = (rand() % 60 + 60) * M_PI / 180.0;;
-		xPos += cos(angle) * fallspeed;
-		yPos += sin(angle) * fallspeed;
+	if (TrackPlayer) {
+		double deltax = player->getX() - destRect.x;
+		double deltay = player->getY() - destRect.y;
+		double angle = atan2((long double)deltay, (long double)deltax);
+		xPos += cos(angle) * 20;
+		yPos += sin(angle) * 20;
 	}
 	else {
-		xPos += 0.0; // Update x position (no change)
-		yPos += fallspeed; // Update y position
+		fallspeed += 0.05; // Increase fall speed
+		if (fallspeed >= 5) fallspeed = 5.0; // Cap fall speed
+
+		if (fallspeed <= 0) {
+			double angle = (rand() % 60 + 60) * M_PI / 180.0;;
+			xPos += cos(angle) * fallspeed;
+			yPos += sin(angle) * fallspeed;
+		}
+		else {
+			xPos += 0.0; // Update x position (no change)
+			yPos += fallspeed; // Update y position
+		}
 	}
+		
 
 	destRect.x = static_cast<int>(xPos); // Update destination rectangle x position
 	destRect.y = static_cast<int>(yPos); // Update destination rectangle y position

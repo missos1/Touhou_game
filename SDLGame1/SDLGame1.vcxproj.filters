@@ -368,6 +368,9 @@
     <ClInclude Include="src\headers\Boss.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\Background.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -403,9 +406,6 @@
     <Image Include="res\bullets.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\player\Reimu_sprite2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Enemy\Blue_fa.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -433,9 +433,6 @@
     <Image Include="res\Enemy\Sparkle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\SIDEBAR_NUMBER.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\SIDEBAR_PLAYER.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -456,7 +453,20 @@
     </Image>
     <Image Include="res\player\Reimu_sprite(2).png">
       <Filter>Resource Files</Filter>
-    </Image>  </ItemGroup>
+    </Image>
+    <Image Include="res\Enemy\SpellCardEffects.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Enemy\Flandre_SpellCard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\player\Reimu_og.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
   <ItemGroup>
     <Library Include="lib\SDL2.lib" />
     <Library Include="lib\SDL2_image.lib" />

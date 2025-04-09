@@ -207,12 +207,10 @@ void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
 		double speed = 3 + std::rand() % 2;
 		double velx = cos(angle) * speed;
 		double vely = sin(angle) * speed;
-		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE));
+		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE_BL));
 	}
 	SoundManager::PlaySound("enshoot0", 0, 16);
 }
-
-
 
 void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) {
 	double deltax = playerX - destRect.x; 
@@ -222,8 +220,8 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
 	std::vector<double> spdvar = { 3.6, 4, 4.2, 4.5, 5, 6, 7 ,8 };
-	for (double offset : buffer) {
-		for (double speed : spdvar) {
+	for (const double& offset : buffer) {
+		for (const double& speed : spdvar) {
 			double velx = cos(angle + offset) * speed;
 			double vely = sin(angle +offset) * speed;
 			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_BL));
@@ -239,7 +237,7 @@ void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
 	for (int i = 0; i < density; ++i) {
 		double angle = (2 * M_PI / density) * i;
 		std::vector<double> spdvar = { 3 , 3.5};
-		for (double speed : spdvar) {
+		for (const double& speed : spdvar) {
 			double velx = cos(angle) * speed;
 			double vely = sin(angle) * speed;
 			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1));
@@ -249,7 +247,7 @@ void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
 	fired = true;
 }
 
-void Enemy::deathShoot(std::vector<Bullet*>& bullets, int density) {
+void Enemy::rndcircleShoot(std::vector<Bullet*>& bullets, int density) {
 	for (int i = 0; i < density; ++i) {
 		double randomOffset = (rand() % 360) * (M_PI / 180.0);
 		double angle = ((2 * M_PI / density) * i) + randomOffset;

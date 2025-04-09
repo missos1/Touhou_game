@@ -7,6 +7,8 @@
 #include "TextureManager.hpp"
 
 class Game;
+class Player;
+
 enum class Itemtype {
 	POINT,
 	POWER_S,
@@ -14,11 +16,12 @@ enum class Itemtype {
 	FULLPOWER,
 	ONEUP,
 };
+
 class Item {
 public:
 	Item(double x, double y, Itemtype type);
 	~Item();
-	void update();
+	void update(Player* player);
 	void render();
 
 	int getPoint() const { return item_point; }
@@ -35,6 +38,8 @@ private:
 	Itemtype type;
 	SDL_Rect srcRect, destRect;
 	SDL_Rect hitbox;
+
+	bool TrackPlayer;
 
 	const int ITEM_Y = 25;
 	const int ITEM_POWER_S = 306;

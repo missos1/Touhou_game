@@ -126,6 +126,7 @@
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
+    <ClInclude Include="src\headers\Background.hpp" />
     <ClInclude Include="src\headers\Boss.hpp" />
     <ClInclude Include="src\headers\Collision.hpp" />
     <ClInclude Include="src\headers\Enemy.hpp" />
@@ -140,15 +141,18 @@
     <ClInclude Include="src\headers\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\Background.png" />
     <Image Include="res\BGTEXTURE.png" />
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
     <Image Include="res\Enemy\Flandre.png" />
+    <Image Include="res\Enemy\Flandre_SpellCard.png" />
     <Image Include="res\Enemy\Red_fa.png" />
     <Image Include="res\Enemy\Sakuya_idle.png" />
     <Image Include="res\Enemy\Sakuya_move.png" />
     <Image Include="res\Enemy\Sparkle.png" />
+    <Image Include="res\Enemy\SpellCardEffects.png" />
     <Image Include="res\Enemy\White_fa.png" />
     <Image Include="res\Menu\Loading.png" />
     <Image Include="res\Menu\Menu_bg.png" />
@@ -159,12 +163,11 @@
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png" />
     <Image Include="res\player\hitbox.png" />
+    <Image Include="res\player\Reimu_og.png" />
     <Image Include="res\player\Reimu_sprite(2).png" />
     <Image Include="res\player\Reimu_sprite.png" />
-    <Image Include="res\player\Reimu_sprite2.png" />
     <Image Include="res\sidebar.png" />
     <Image Include="res\SIDEBAR_HP.png" />
-    <Image Include="res\SIDEBAR_NUMBER.png" />
     <Image Include="res\SIDEBAR_PLAYER.png" />
     <Image Include="res\SIDEBAR_POWER.png" />
     <Image Include="res\SIDEBAR_TITLE.png" />

@@ -25,9 +25,9 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
         texture_Map[fileStr] = texture; // Store texture in cache
     }
 
-    for (std::pair<const std::string, SDL_Texture*>& pair : texture_Map) {
-        std::cout << pair.first << endl; // Debug: print loaded texture IDs
-    }
+    //for (std::pair<const std::string, SDL_Texture*>& pair : texture_Map) {
+    //    std::cout << pair.first << endl; // Debug: print loaded texture IDs
+    //}
 
     return texture; // Return the loaded texture
 }
@@ -55,5 +55,29 @@ void TextureManager::cleanup() {
         SDL_DestroyTexture(pair.second); // Destroy each texture
     }
     texture_Map.clear(); // Clear the texture map
+}
+
+void TextureManager::render_text(const std::string& text, TTF_Font* font, SDL_Color color, SDL_Texture*& texture, int x, int y) {
+    if (texture) SDL_DestroyTexture(texture);
+    texture = LoadFontTexture(text.c_str(), font, color);
+
+    int textW = 0, textH = 0;
+    TTF_SizeText(font, text.c_str(), &textW, &textH);
+
+    SDL_Rect destRect = { x, y, textW, textH };
+    SDL_RenderCopy(Game::Grenderer, texture, nullptr, &destRect);
+}
+
+void TextureManager::render_from_texture(SDL_Texture* texture, int x, int y, int multipiler) {
+    if (multipiler <= 0) {
+        std::cout << "Invalid multiplier" << endl;
+        return;
+    }
+
+    int textureW = 0, textureH = 0;
+    SDL_QueryTexture(texture, nullptr, nullptr, &textureW, &textureH);
+
+    SDL_Rect destRect = { x, y, textureW * multipiler, textureH * multipiler };
+    SDL_RenderCopy(Game::Grenderer, texture, nullptr, &destRect);
 }
 

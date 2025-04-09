@@ -11,11 +11,11 @@
 
 void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
-
-	double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
-	double elapsed = SDL_GetTicks() / 1000.0 - initTime + 85.0; // Time elapsed since the game started in seconds
-	elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
-
+	//else if (static_cast<int>(Game::GameStartTime) != 0) { 
+		double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
+		double elapsed = static_cast<double>(SDL_GetTicks()) / 1000.0 - initTime; // Time elapsed since the game started in seconds
+		elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
+	//}
 	std::cout << "elapsed: " << elapsed << endl;
 	//std::cout << "initTime: " << initTime << endl;
 	//std::cout << "realtime: " << tmp << endl;
@@ -216,7 +216,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				case EnemyType::SPARKLE:
 					if (currentTime - enemyLastShootTime[enemies[i]] > 2500) {
 						enemyLastShootTime[enemies[i]] = currentTime;
-						enemies[i]->deathShoot(bullets, 4);
+						enemies[i]->rndcircleShoot(bullets, 4);
 					}
 					break;
 				}
@@ -232,15 +232,13 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				SoundManager::PlayMusic("Boss_theme", -1, 255);
 			}
 
-			Phase phase = boss->getPhase();
-
-			switch (phase) {
+			switch (boss->getPhase()) {
 			case Phase::IDLE:
 				boss->moveinscreen();
 				break;
-			/*case Phase::PHASE1:
-				boss->move_phase0();
-				break;*/
+			case Phase::PHASE0:
+				boss->phase0(bullets, player);
+				break;
 			}
 		}
 	}

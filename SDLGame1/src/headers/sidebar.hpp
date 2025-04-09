@@ -18,23 +18,21 @@ public:
 
 private:
 	SDL_Texture* bg_texture;
-	SDL_Texture* digit_texture;
 	SDL_Texture* powerngraze_texture;
-	SDL_Texture* graze_texture;
-	SDL_Texture* power_texture;
 	SDL_Texture* title_texture;
 	SDL_Texture* hp_texture;
 	SDL_Texture* player_texture;
 
+	SDL_Texture* text_texture;
+
 	SDL_Rect destRect;
-	SDL_Rect desRect_title;
-	SDL_Rect destRect_power;
-	SDL_Rect srcRect_digit;
-	SDL_Rect destRect_digit;
 	SDL_Rect destRect_hp;
 
+	SDL_Color white = { 255, 255 ,255 };
+	SDL_Color light_gray = { 200, 200, 200 };
 
 	TTF_Font* font0;
+	TTF_Font* font1;
 	int tileSize;
 
 	const int DIGIT_SIZE = 16;

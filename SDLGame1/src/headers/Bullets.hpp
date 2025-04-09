@@ -9,16 +9,17 @@
 
 class Game;
 
-enum class Bullettype {
+enum class Bullettype { // types of bullets
     PLAYER_0,
     PLAYER_1,
     ENEMY_KUNAI_RD,
     ENEMY_KUNAI_BL,
     ENEMY_KUNAI_GR,
-    ENEMY_KNIFE,// types of bullets/bullet patterns
-    ENEMY_RICE,
+    ENEMY_KNIFE,
+    ENEMY_RICE_RD,
+    ENEMY_RICE_BL,
+    ENEMY_RICE_GR,
     ENEMY_ROUND1,
-	ENEMY_3,
 };
 
 class Bullet {

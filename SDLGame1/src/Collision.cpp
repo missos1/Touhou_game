@@ -25,69 +25,23 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
         if (SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) { // Check if bullet hits player
             delete bullets[i]; // Delete bullet
             bullets.erase(bullets.begin() + i); // Remove bullet from vector
-            player->updatePlayerhp(-1); // Decrease player's HP
-            player->updatePlayerpower(-0.3); // Decrease player's power
-            SoundManager::PlaySound("pldead", 0, 64); // Play player hit sound
+            if (player->getPlayerstate() == PlayerState::NORMAL) {
+                player->updatePlayerhp(-1); // Decrease player's HP
+                player->updatePlayerpower(-0.3); // Decrease player's power
+                SoundManager::PlaySound("pldead", 0, 64); // Play player hit sound
+            }
             //std::cout << "hp: " << player->getPlayerhp() << std::endl; // Debug: print player's HP
 
             /*if (player->getPlayerhp() <= 0) {
                 delete player; // Crash game if player HP is 0 (test)
             }*/
         }
-
-        else if (bullets[i]->getY() < -100 ||
-            bullets[i]->getY() > WIN_HEIGHT + 100 ||  // Offscreen deletion
-            bullets[i]->getX() < -100 ||
-            bullets[i]->getX() > WIN_WIDTH + 100) {
-            delete bullets[i]; // Delete bullet
-            bullets.erase(bullets.begin() + i); // Remove bullet from vector
-        }
     }
 
     // Check collision between player and items
-    for (int i = (int)items.size() - 1; i >= 0; i--) {
-        SDL_Rect item_hitbox = items[i]->getHitbox(); // Get item's hitbox
-        SDL_Rect player_grazebox = player->getGrazingBox(); // Get player's grazing box
-        SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
-
-        if (SDL_HasIntersection(&player_grazebox, &item_hitbox)) { // Check if player collects item
-            if (items[i]->getType() == Itemtype::POINT) {
-                Game::PLAYSCORE += items[i]->getPoint() + (items[i]->getPoint() * player->getGraze() / 100); // Increase score based on graze count
-            }
-            else {
-                Game::PLAYSCORE += items[i]->getPoint(); // Increase score
-            }
-
-            Itemtype type = items[i]->getType(); // Get item type
-            switch (type) {
-            case Itemtype::FULLPOWER: // Full power item
-                player->updatePlayerpower(5.0); // Increase player's power
-                break;
-            case Itemtype::POWER_S: // Small power item
-                player->updatePlayerpower(0.02); // Increase player's power
-                break;
-            case Itemtype::POWER_L: // Large power item
-                player->updatePlayerpower(0.16); // Increase player's power
-                break;
-            case Itemtype::ONEUP: // 1-Up item
-                player->updatePlayerhp(1); // Increase player's HP
-                break;
-            }
-
-            delete items[i]; // Delete item
-            items.erase(items.begin() + i); // Remove item from vector
-            SoundManager::PlaySound("collect_item", 0, 64); // Play item collect sound
-        }
-
-        else if (items[i]->getY() < -200 ||
-                items[i]->getY() > WIN_HEIGHT + 500 ||  // Offscreen deletion
-                items[i]->getX() < -200 ||
-                items[i]->getX() > WIN_WIDTH + 500) {
-                delete items[i]; // Delete item
-                items.erase(items.begin() + i); // Remove item from vector
-        }
-    }
+    ItemGetCalculation(items, player);
 }
+
 
 void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items, Player* player) {
     static int countspawn = 1; // Count for item spawn
@@ -103,7 +57,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
 
                 Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
 
-                std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
+                //std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
                 SoundManager::PlaySound("entakedmg", 0, 16); // Play enemy hit sound
 
                 if (enemies[j]->getEnemyhp() <= 0) { // Check if enemy is dead
@@ -159,6 +113,55 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
         }
     }
 
+}
+
+void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* player) {
+    for (int i = (int)items.size() - 1; i >= 0; i--) {
+        SDL_Rect item_hitbox = items[i]->getHitbox(); // Get item's hitbox
+        SDL_Rect player_grazebox = player->getGrazingBox(); // Get player's grazing box
+        SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
+
+        if (SDL_HasIntersection(&player_grazebox, &item_hitbox)) { // Check if player collects item
+            if (items[i]->getType() == Itemtype::POINT) {
+                Game::PLAYSCORE += items[i]->getPoint() + (items[i]->getPoint() * player->getGraze() / 100); // Increase score based on graze count
+            }
+            else {
+                Game::PLAYSCORE += items[i]->getPoint(); // Increase score
+            }
+
+            Itemtype type = items[i]->getType(); // Get item type
+            switch (type) {
+            case Itemtype::FULLPOWER: // Full power item
+                player->updatePlayerpower(5.0); // Increase player's power
+                break;
+            case Itemtype::POWER_S: // Small power item
+                player->updatePlayerpower(0.05); // Increase player's power
+                break;
+            case Itemtype::POWER_L: // Large power item
+                player->updatePlayerpower(0.16); // Increase player's power
+                break;
+            case Itemtype::ONEUP: // 1-Up item
+                player->updatePlayerhp(1); // Increase player's HP
+                break;
+            }
+            delete items[i]; // Delete item
+            items.erase(items.begin() + i); // Remove item from vector
+            SoundManager::PlaySound("collect_item", 0, 64); // Play item collect sound
+        }
+    }
+}
+
+void CollisionCheck::DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<Bullet*>& player_bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items) {
+    for (int i = (int)items.size() - 1; i >= 0; i--) {
+        if (items[i]->getY() < -200 ||
+            items[i]->getY() > WIN_HEIGHT + 500 ||  // Offscreen deletion
+            items[i]->getX() < -200 ||
+            items[i]->getX() > WIN_WIDTH + 500) {
+            delete items[i]; // Delete item
+            items.erase(items.begin() + i); // Remove item from vector
+        }
+    }
+
     for (int j = (int)enemies.size() - 1; j >= 0; j--) {
         if (enemies[j]->getY() < -500 ||
             enemies[j]->getY() > 1000 ||  // Offscreen deletion
@@ -169,14 +172,23 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
         }
     }
 
-    for (int i = (int)bullets.size() - 1; i >= 0; i--) {
-        if (bullets[i]->getX() > PLAY_AREA_X_MAX + 20 ||
-            bullets[i]->getX() < PLAY_AREA_X_MIN - 10 ||
-            bullets[i]->getY() > PLAY_AREA_Y_MAX ||
-            bullets[i]->getY() < PLAY_AREA_Y_MIN - 10) { // Offscreen deletion
-            delete bullets[i];
-            bullets.erase(bullets.begin() + i);
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
+        if (player_bullets[i]->getX() > PLAY_AREA_X_MAX + 20 ||
+            player_bullets[i]->getX() < PLAY_AREA_X_MIN - 10 ||
+            player_bullets[i]->getY() > PLAY_AREA_Y_MAX ||
+            player_bullets[i]->getY() < PLAY_AREA_Y_MIN - 10) { // Offscreen deletion
+            delete player_bullets[i];
+            player_bullets.erase(player_bullets.begin() + i);
+        }
+    }
+
+    for (int i = static_cast<int>(bullets.size() - 1); i >= 0; i--) {
+        if (bullets[i]->getY() < -100 ||
+            bullets[i]->getY() > WIN_HEIGHT + 100 ||  // Offscreen deletion
+            bullets[i]->getX() < -100 ||
+            bullets[i]->getX() > WIN_WIDTH + 100) {
+            delete bullets[i]; // Delete bullet
+            bullets.erase(bullets.begin() + i); // Remove bullet from vector
         }
     }
 }
-
