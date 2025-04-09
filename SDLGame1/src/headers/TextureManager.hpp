@@ -14,7 +14,7 @@ public:
     static SDL_Texture* LoadTexture(const char* fileName); // get texture from files
     static SDL_Texture* LoadFontTexture(const char* text, TTF_Font* font, SDL_Color color);
     static void render_text(const std::string& text, TTF_Font* font, SDL_Color color, SDL_Texture*& texture, int x, int y);
-    static void render_from_texture(SDL_Texture* texture, int x, int y, int multipiler);
+    static void render_from_texture(SDL_Texture* texture, int x, int y, int multipiler, double angle, SDL_RendererFlip flip);
 
     static void cleanup(); // clean up
 

@@ -144,7 +144,7 @@ void Player::update() {
     int pwlv = static_cast<int>(powerlv);
     if (pwlv != prevpowerlv) {
         if (pwlv > prevpowerlv) {
-            SoundManager::PlaySound("pl_powerup", 0, 255);
+            SoundManager::PlaySound("pl_powerup", 0, Game::SE_volume);
             prevpowerlv = pwlv;
         }
         else if (pwlv < prevpowerlv) {
@@ -165,8 +165,7 @@ void Player::update() {
             state = PlayerState::NORMAL;
             invincendTime = 0;
         }
-    }
-    
+    } 
 }
 
 void Player::render() {
@@ -255,7 +254,7 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) const {
         double vx = angle;
         bullets.emplace_back(new Bullet(hitbox_ingame.x - 15, hitbox_ingame.y, vx, bulletspeed, Bullettype::PLAYER_0));
     }
-    SoundManager::PlaySound("plshoot", 0, 64);
+    SoundManager::PlaySound("plshoot", 0, Game::SE_volume);
 }
 
 void Player::updatePlayerhp(int input) {
@@ -264,7 +263,7 @@ void Player::updatePlayerhp(int input) {
 }
 
 void Player::updateGraze() {
-    SoundManager::PlaySound("graze", 0, 64); // Play graze sound
+    SoundManager::PlaySound("graze", 0, Game::SE_volume); // Play graze sound
     graze++;
 }
 

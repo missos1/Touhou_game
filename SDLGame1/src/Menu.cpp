@@ -24,17 +24,17 @@ void Menu::handleInput(const Uint8* keys) {
     if (!keyPressed) {
         if (keys[SDL_SCANCODE_S]) {
             selectedOption = (selectedOption + 1) % 2; // Toggle between 0 and 1
-            SoundManager::PlaySound("select", 0, 32);
+            SoundManager::PlaySound("select", 0, Game::SE_volume);
             keyPressed = true;
         }
         if (keys[SDL_SCANCODE_W]) {
             selectedOption = (selectedOption - 1 + 2) % 2; // Wrap around
-            SoundManager::PlaySound("select", 0, 32);
+            SoundManager::PlaySound("select", 0, Game::SE_volume);
             keyPressed = true;
         }
         if (keys[SDL_SCANCODE_ESCAPE]) {
             selectedOption = 1; // Select ESC 
-            SoundManager::PlaySound("cancel", 0, 32);
+            SoundManager::PlaySound("cancel", 0, Game::SE_volume);
             keyPressed = true;
         }
         if (keys[SDL_SCANCODE_RETURN] || keys[SDL_SCANCODE_SPACE]) {
@@ -42,12 +42,12 @@ void Menu::handleInput(const Uint8* keys) {
                 Game::GameStartTime = SDL_GetTicks(); // Store the start time            
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::MENU;
-                SoundManager::PlaySound("ok", 0, 32);
+                SoundManager::PlaySound("ok", 0, Game::SE_volume);
             }
             else {
                 Game::state = GameState::EXIT; // Quit game
 				Game::GameExitTime = SDL_GetTicks(); // Store the quit time
-                SoundManager::PlaySound("cancel", 0, 32);
+                SoundManager::PlaySound("cancel", 0, Game::SE_volume);
             }
             keyPressed = true;
         }

@@ -60,13 +60,11 @@ public:
 	int getBosshp() const { return hp; }
 	void updatehp(int in_hp) { hp = in_hp; }
 	int getPoint() const { return point; }
-	int getHPperphase() const;
 	Phase getPhase() const;
 
 private:
 	double vx, vy; // velocity
 	double xPos, yPos; // position in cartesian plane
-	double speed; // speed
 	Phase phase;
 	BossState state;
 	int hp;// hp

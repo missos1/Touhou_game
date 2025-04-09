@@ -7,7 +7,7 @@
 #include <iomanip>
 
 Sidebar::Sidebar()
-    : tileSize(0), bg_texture(nullptr), title_texture(nullptr),
+    : tileSize(0), bg_texture(nullptr), title_texture(nullptr), text_texture(nullptr),
     destRect{ 0, 0, 0, 0 }, destRect_hp{ 0, 0, 0, 0} {
 
     bg_texture = TextureManager::LoadTexture("res/BGTEXTURE.png");
@@ -82,9 +82,9 @@ void Sidebar::render(int winW, int winH, Player* player) {
 
 	// render title
 
-    TextureManager::render_from_texture(title_texture, 910, 590, 2);
-    TextureManager::render_from_texture(powerngraze_texture, 910, 280, 2);
-    TextureManager::render_from_texture(player_texture, 910, 230, 2);
+    TextureManager::render_from_texture(title_texture, 910, 590, 2, 0, SDL_FLIP_NONE);
+    TextureManager::render_from_texture(powerngraze_texture, 910, 280, 2, 0, SDL_FLIP_NONE);
+    TextureManager::render_from_texture(player_texture, 910, 230, 2, 0, SDL_FLIP_NONE);
 }
 
 void Sidebar::render_score(int score, int Highscore) {

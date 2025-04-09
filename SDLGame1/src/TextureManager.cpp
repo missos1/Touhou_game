@@ -68,7 +68,7 @@ void TextureManager::render_text(const std::string& text, TTF_Font* font, SDL_Co
     SDL_RenderCopy(Game::Grenderer, texture, nullptr, &destRect);
 }
 
-void TextureManager::render_from_texture(SDL_Texture* texture, int x, int y, int multipiler) {
+void TextureManager::render_from_texture(SDL_Texture* texture, int x, int y, int multipiler, double angle, SDL_RendererFlip flip) {
     if (multipiler <= 0) {
         std::cout << "Invalid multiplier" << endl;
         return;
@@ -78,6 +78,6 @@ void TextureManager::render_from_texture(SDL_Texture* texture, int x, int y, int
     SDL_QueryTexture(texture, nullptr, nullptr, &textureW, &textureH);
 
     SDL_Rect destRect = { x, y, textureW * multipiler, textureH * multipiler };
-    SDL_RenderCopy(Game::Grenderer, texture, nullptr, &destRect);
+    SDL_RenderCopyEx(Game::Grenderer, texture, nullptr, &destRect, angle, nullptr, flip);
 }
 

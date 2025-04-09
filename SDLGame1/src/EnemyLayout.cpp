@@ -44,7 +44,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 		}
 
 		if (elapsed == 2.0) {
-			SoundManager::PlayMusic("Stage_theme", -1, 255); // Play stage music
+			SoundManager::PlayMusic("Stage_theme", -1, Game::BGM_volume); // Play stage music
 		}
 
 		if (elapsed == 5.0) {
@@ -229,7 +229,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 				SoundManager::StopMusic();
 			}
 			if (elapsed == 91.0) {
-				SoundManager::PlayMusic("Boss_theme", -1, 255);
+				SoundManager::PlayMusic("Boss_theme", -1, Game::BGM_volume);
 			}
 
 			switch (boss->getPhase()) {

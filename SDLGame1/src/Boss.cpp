@@ -113,8 +113,7 @@ void Boss::render() {
 
 	static int angle = 0;
 	angle = (angle + 1 + 360) % 360;
-	destRect_circle = { destRect.x - 50, destRect.y - 40, 60 * 4, 59 * 4 };
-	SDL_RenderCopyEx(Game::Grenderer, Circle_texture, &srcRect_circle, &destRect_circle, angle, nullptr, SDL_FLIP_NONE);
+	TextureManager::render_from_texture(Circle_texture, destRect.x - 50, destRect.y - 40, 4, angle, SDL_FLIP_NONE);
 }
 
 void Boss::debug_ani(const Uint8* keys) {
@@ -215,7 +214,7 @@ void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
 			circleroundShoot(bullets, 20, Bullettype::ENEMY_RICE_BL, 3.5);
 			circleroundShoot(bullets, 38, Bullettype::ENEMY_RICE_GR, 3.3);
 			lastshootTime_0 = currentTime;
-			SoundManager::PlaySound("enshoot1", 0, 255);
+			SoundManager::PlaySound("enshoot1", 0, Game::SE_volume);
 		}
 
 		//if (currentTime - lastshootTime_1 >= 600) {
