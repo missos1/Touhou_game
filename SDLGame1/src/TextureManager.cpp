@@ -58,7 +58,10 @@ void TextureManager::cleanup() {
 }
 
 void TextureManager::render_text(const std::string& text, TTF_Font* font, SDL_Color color, SDL_Texture*& texture, int x, int y) {
-    if (texture) SDL_DestroyTexture(texture);
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
+    }
     texture = LoadFontTexture(text.c_str(), font, color);
 
     int textW = 0, textH = 0;
