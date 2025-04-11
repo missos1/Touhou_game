@@ -18,6 +18,10 @@ const int PLAY_AREA_X_MAX = 820;
 const int PLAY_AREA_Y_MIN = 10;
 const int PLAY_AREA_Y_MAX = 855;
 const int PLAYER_HB_SIZE = 10;
+const int PLAYER_OG_X = 415;
+const int PLAYER_OG_Y = 680;
+const int BOSS_OG_X = -150;
+const int BOSS_OG_Y = 120;
 
 class Bullet;
 class Player;
@@ -46,7 +50,10 @@ public:
     static GameState state;
     static GameState prevState;
     static Uint32 GameStartTime;
+    static Uint32 GamecurrentTime;
+	static Uint32 GamePauseStartTime;
     static Uint32 GameExitTime;
+    static Uint32 GamePauseTotalTime;
 
     static SDL_Texture* Misc_player_text;
     static SDL_Texture* enemybullet_text;
@@ -66,6 +73,8 @@ public:
     bool initText();
     bool initSM();
     void handleEvents();
+    void pauseGame(const SDL_Event& event);
+    void resetObject();
     void update();
     void render();
     void clean();
@@ -74,8 +83,6 @@ public:
     bool running() const { return isRunning; }
 
 private:
-
-
     bool isRunning;
     SDL_Window* window;
 

@@ -12,17 +12,22 @@
 void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 	//else if (static_cast<int>(Game::GameStartTime) != 0) { 
-		double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
-		double elapsed = static_cast<double>(SDL_GetTicks()) / 1000.0 - initTime; // Time elapsed since the game started in seconds
-		elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
+		double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
+		double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
+		double now = static_cast<double>(SDL_GetTicks()); // Get the current time
+		double elapsed = now - initTime - aggregatedPauseTime; // Get the elapsed time
+		Game::GamecurrentTime = elapsed; // Update the current time
+		elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;
 	//}
 	std::cout << "elapsed: " << elapsed << endl;
+	std::cout << "currentTest: " << Game::GamecurrentTime << endl;
 	//std::cout << "initTime: " << initTime << endl;
 	//std::cout << "realtime: " << tmp << endl;
 
 	if (elapsed < 0.0) return; // If elapsed time is negative, return early
 
-	if (elapsed != lastexecuteTime) { // Check if the elapsed time is different from the last execution time
+	if (elapsed != lastexecuteTime && Game::state == GameState::PLAYING ) { // Check if the elapsed time is different from the last execution time
+
 		lastexecuteTime = elapsed; // Update the last execution time
 
 		int loop_0 = 10; // Number of enemies in the first loop
@@ -179,7 +184,6 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 		if (elapsed == 60.0) {
 			enemies.emplace_back(new Enemy(-20, 100, 4, EnemyType::WHITE_FA, MovementType::Lshape));
 		}
-		Uint32 currentTime = SDL_GetTicks(); // Get the current time in milliseconds
 
 		static std::unordered_map<Enemy*, Uint32> enemyLastShootTime; // Store the last shoot time for each enemy
 
@@ -191,15 +195,15 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 
 				switch (enemies[i]->getType()) {
 				case EnemyType::RED_FA:
-					if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
-						enemyLastShootTime[enemies[i]] = currentTime;
+					if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
+						enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 						enemies[i]->rndriceShoot(bullets, 4);
 					}
 					break;
 
 				case EnemyType::WHITE_FA:
-					if (currentTime - enemyLastShootTime[enemies[i]] > 1000) {
-						enemyLastShootTime[enemies[i]] = currentTime;
+					if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
+						enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 						enemies[i]->rndriceShoot(bullets, 3);
 					}
 
@@ -214,8 +218,8 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 					}
 					break;
 				case EnemyType::SPARKLE:
-					if (currentTime - enemyLastShootTime[enemies[i]] > 2500) {
-						enemyLastShootTime[enemies[i]] = currentTime;
+					if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 2500) {
+						enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 						enemies[i]->rndcircleShoot(bullets, 4);
 					}
 					break;

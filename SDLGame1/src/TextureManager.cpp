@@ -38,7 +38,7 @@ SDL_Texture* TextureManager::LoadFontTexture(const char* text, TTF_Font* font, S
         return nullptr;
     }
 
-    SDL_Surface* tempTextSurface = TTF_RenderText_Blended(font, text, color);
+    SDL_Surface* tempTextSurface = TTF_RenderText_Solid(font, text, color);
     if (!tempTextSurface) {
         std::cout << "Failed to load text: " << TTF_GetError() << endl;
         return nullptr;
@@ -58,7 +58,10 @@ void TextureManager::cleanup() {
 }
 
 void TextureManager::render_text(const std::string& text, TTF_Font* font, SDL_Color color, SDL_Texture*& texture, int x, int y) {
-    if (texture) SDL_DestroyTexture(texture);
+    if (texture) {
+        SDL_DestroyTexture(texture);
+        texture = nullptr;
+    }
     texture = LoadFontTexture(text.c_str(), font, color);
 
     int textW = 0, textH = 0;

@@ -123,7 +123,7 @@ void Enemy::update() {
 void Enemy::render() {
 	if (type == EnemyType::SPARKLE) {
 		static int angle = 0;
-		angle = (angle + 7 + 360) % 360;
+		if (Game::state != GameState::PAUSE) angle = (angle + 7 + 360) % 360;
 		SDL_RenderCopyEx(Game::Grenderer, Enemy_texture, &srcRect, &destRect, angle, nullptr, SDL_FLIP_NONE);
 	}
 
@@ -166,13 +166,13 @@ void Enemy::Lshape() {
 		if (std::abs(xPos - initX) >= 300) {
 			movingHorizontal = false;
 			pause = true;
-			pauseStart = SDL_GetTicks();
+			pauseStart = Game::GamecurrentTime;
 			vx = 0.0;
 			vy = 0.0;
 		}
 	}
 	else if (pause) {
-		if (SDL_GetTicks() - pauseStart >= 1000) {
+		if (Game::GamecurrentTime - pauseStart >= 1000) {
 			pause = false;
 		}
 	}

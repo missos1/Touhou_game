@@ -19,6 +19,8 @@ public:
 	static bool LoadMusic(const std::string& id, const char* fileName);
 	static void PlayMusic(const std::string& id, int loop, int vol);
 	static void StopMusic();
+	static void PauseMusic();
+	static void ResumeMusic();
 	static void Clean();
 
 private:

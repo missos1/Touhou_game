@@ -112,8 +112,15 @@ void Boss::render() {
 	SDL_RenderCopyEx(Game::Grenderer, Boss_texture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 
 	static int angle = 0;
-	angle = (angle + 1 + 360) % 360;
+	if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
 	TextureManager::render_from_texture(Circle_texture, destRect.x - 50, destRect.y - 40, 4, angle, SDL_FLIP_NONE);
+}
+
+void Boss::resetValue() {
+	xPos = BOSS_OG_X;
+	yPos = BOSS_OG_Y;
+	phase = Phase::IDLE;
+	vx = vy = 0;
 }
 
 void Boss::debug_ani(const Uint8* keys) {
@@ -152,7 +159,7 @@ void Boss::phase0(std::vector<Bullet*>& bullets, Player* player) {
 	const double speed = 4.0;
 
 	static Uint32 stationaryTime = 0;
-	Uint32 currentTime = SDL_GetTicks();
+
 
 	static bool stationary = true;
 	static bool movingRight = false;
@@ -160,14 +167,14 @@ void Boss::phase0(std::vector<Bullet*>& bullets, Player* player) {
 
 	if (justspawned) {
 		justspawned = false;
-		stationaryTime = currentTime;
+		stationaryTime = Game::GamecurrentTime;
 	}
 
 	// Move left and right between leftLimit and rightLimit
 	if (stationary) {
 		vx = 0;
 		vy = 0;
-		if (currentTime - stationaryTime >= 3000) {
+		if (Game::GamecurrentTime - stationaryTime >= 3000) {
 			stationary = false;
 		}
 	}
@@ -176,7 +183,7 @@ void Boss::phase0(std::vector<Bullet*>& bullets, Player* player) {
 		if (xPos >= rightLimit) {
 			movingRight = false;
 			stationary = true;
-			stationaryTime = currentTime;
+			stationaryTime = Game::GamecurrentTime;
 		}
 	}
 	else {
@@ -184,7 +191,7 @@ void Boss::phase0(std::vector<Bullet*>& bullets, Player* player) {
 		if (xPos <= leftLimit) {
 			movingRight = true;
 			stationary = true;
-			stationaryTime = currentTime;
+			stationaryTime = Game::GamecurrentTime;
 		}
 	}
 
@@ -206,27 +213,26 @@ void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
 	static Uint32 lastshootTime_0 = 0;
 	static Uint32 lastshootTime_1 = 0;
 	static Uint32 lastshootTime_2 = 0;
-	Uint32 currentTime = SDL_GetTicks();
 
 	if (!isIdle) {
-		if (currentTime - lastshootTime_0 >= 400) {
+		if (Game::GamecurrentTime - lastshootTime_0 >= 400) {
 			circleroundShoot(bullets, 15, Bullettype::ENEMY_RICE_RD, 4);
 			circleroundShoot(bullets, 20, Bullettype::ENEMY_RICE_BL, 3.5);
 			circleroundShoot(bullets, 38, Bullettype::ENEMY_RICE_GR, 3.3);
-			lastshootTime_0 = currentTime;
+			lastshootTime_0 = Game::GamecurrentTime;
 			SoundManager::PlaySound("enshoot1", 0, Game::SE_volume);
 		}
 
-		//if (currentTime - lastshootTime_1 >= 600) {
+		//if (Game::GamecurrentTime - lastshootTime_1 >= 600) {
 		//	//aimedcircleroundShoot(bullets, 40, Bullettype::ENEMY_KNIFE, player->getX(), player->getY(), 5);
-		//	lastshootTime_1 = currentTime;
+		//	lastshootTime_1 = Game::GamecurrentTime;
 		//}
 	}
 	else {
-		if (currentTime - lastshootTime_2 >= 500) {
+		if (Game::GamecurrentTime - lastshootTime_2 >= 500) {
 			//aimedShoot(bullets, Bullettype::ENEMY_RICE, player->getX(), player->getY(), 6);
 			rndShoot(bullets, 10, Bullettype::ENEMY_KNIFE, 5);
-			lastshootTime_2 = currentTime;
+			lastshootTime_2 = Game::GamecurrentTime;
 		}
 	}
 }

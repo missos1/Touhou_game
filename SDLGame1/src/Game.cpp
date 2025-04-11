@@ -22,6 +22,10 @@ int Game::SE_volume = 128; // Initial SE volume
 Uint32 Game::GameStartTime = 0; // Game start time
 //Uint32 Game::GamePauseTime
 Uint32 Game::GameExitTime = 0; // Game exit time
+Uint32 Game::GamePauseStartTime = 0; // pausing's variable handler
+
+Uint32 Game::GamePauseTotalTime = 0; // Game pause total time
+Uint32 Game::GamecurrentTime = 0; // Game pause time
 
 int Game::PLAYSCORE = 0; // Player score
 
@@ -77,13 +81,13 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    player = new Player(410, 680); // Create player
+    player = new Player(PLAYER_OG_X, PLAYER_OG_Y); // Create player
     if (!player) {
         std::cout << "Player Creation Failed! Error: " << SDL_GetError() << endl;
         return false;
     }
 
-    boss = new Boss(-150, 120);
+    boss = new Boss(BOSS_OG_X, BOSS_OG_Y);
 
     Mix_AllocateChannels(64); // Allocate audio channels
 
@@ -152,7 +156,8 @@ void Game::run() {
     int allocatedChannels = Mix_AllocateChannels(-1); // Allocate audio channels
     std::cout << "Currently allocated channels: " << allocatedChannels << endl;
 
-    while (isRunning) { // Main game loop
+    while (running()) { // Main game loop
+
         frameStart = SDL_GetTicks(); // Get start time of the frame
 
 
@@ -160,19 +165,20 @@ void Game::run() {
         update(); // Update game state
         render(); // Render game state
 
+
         if (state == GameState::LOADING && SDL_GetTicks() >= 2000) { // Transition from loading to menu state
             state = GameState::MENU;
         }
 
         if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
             SoundManager::PlayMusic("Mainmenu", -1, Game::BGM_volume); // Play menu music
+            resetObject();
         }
 
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
             SoundManager::StopMusic();
             //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
         }
-
 
         Game::prevState = Game::state; // Update previous state
 
@@ -184,46 +190,50 @@ void Game::run() {
 }
 
 void Game::handleEvents() {
+
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) { // If the user closes the window
             isRunning = false;  // Set isRunning to false
         }
+
+        pauseGame(event);
+
+        if (state == GameState::MENU) {
+            MENU->handleInput(event); // Handle menu input
+        }
+        else if (state == GameState::PAUSE) {
+            sidebar->handleInputs_pausescreen(event);
+        }
     }
 
-    const Uint8* keys = SDL_GetKeyboardState(NULL); // Get keyboard state
+	const Uint8* keys = SDL_GetKeyboardState(nullptr); // Get the current state of the keyboard
 
-    if (state == GameState::MENU) {
-        MENU->handleInput(keys); // Handle menu input
-    }
-
-    //if (keys[SDL_SCANCODE_P]) { // pause game
-    //        if (Game::state == GameState::PLAYING) {
-    //            Game::state = GameState::PAUSE;
-    //            Game::prevState = GameState::PLAYING;
-    //        }
-    //        else if (Game::state == GameState::PAUSE) {
-    //            Game::state = GameState::PLAYING;
-    //        }
-    //    }
-
-
-    else if (state == GameState::PLAYING) {
-
+    if (state == GameState::PLAYING) {
         player->handleInput(keys); // Handle player input
         //boss->debug_ani(keys); // debug boss animation
 
         static Uint32 lastShotTime = 0;
-        Uint32 currentTime = SDL_GetTicks();
-        if (keys[SDL_SCANCODE_SPACE] && currentTime - lastShotTime > 90) { // Handle shooting
+        if (keys[SDL_SCANCODE_SPACE] && Game::GamecurrentTime - lastShotTime > 90) { // Handle shooting
             int powerlv = 0;
             player->playerShoot(player_bullets);
             //player->testshoot(player_bullets);
-            lastShotTime = currentTime;
+            lastShotTime = Game::GamecurrentTime;
         }
     }
 
-    else if (state == GameState::EXIT && SDL_GetTicks() - GameExitTime >= 500) isRunning = false; // Exit game
+    else if (state == GameState::EXIT && SDL_GetTicks() - GameExitTime >= 200) isRunning = false; // Exit game
+}
+
+void Game::pauseGame(const SDL_Event& event) {
+    if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_ESCAPE && state == GameState::PLAYING) {
+            state = GameState::PAUSE;
+            GamePauseStartTime = SDL_GetTicks();
+            prevState = GameState::PLAYING;
+			std::cout << "Game paused at: " << GamePauseStartTime << " ms" << endl;
+        }
+    }
 }
 
 void Game::ObjHandling() {
@@ -283,8 +293,6 @@ void Game::render() {
         MENU->render(); // Render menu
     }
 
-
-
     else if (state == GameState::PLAYING || state == GameState::PAUSE) {
 
         boss->render();
@@ -300,7 +308,6 @@ void Game::render() {
         for (Enemy* enemy : enemies) {
             enemy->render(); // Render enemies
         }
-
 
         player->render(); // Render player
 
@@ -342,6 +349,31 @@ void Game::clean() {
     TTF_Quit(); // Close font
     SDL_DestroyWindow(window); // Destroy window
     SDL_Quit(); // Quit SDL
+}
+
+void Game::resetObject() {
+    for (Bullet* bullet : player_bullets) {
+        delete bullet;
+    }
+    player_bullets.clear();
+
+    for (Bullet* bullet : enemy_bullets) {
+        delete bullet;
+    }
+    enemy_bullets.clear();
+
+    for (Enemy* enemy : enemies) {
+        delete enemy;
+    }
+    enemies.clear();
+
+    for (Item* item : items) {
+        delete item;
+    }
+    items.clear();
+
+    if (boss) boss->resetValue();
+    if (player) player->resetValue();
 }
 
 

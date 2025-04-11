@@ -376,7 +376,7 @@
     <Image Include="res\player\Reimu_sprite.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\BGTEXTURE.png">
+    <Image Include="res\FRAMETEXTURE.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\sidebar.png">
