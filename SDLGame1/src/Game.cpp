@@ -20,6 +20,7 @@ int Game::BGM_volume = 128; // Initial BGM volume
 int Game::SE_volume = 128; // Initial SE volume 
 
 Uint32 Game::GameStartTime = 0; // Game start time
+//Uint32 Game::GamePauseTime
 Uint32 Game::GameExitTime = 0; // Game exit time
 
 int Game::PLAYSCORE = 0; // Player score
@@ -33,7 +34,7 @@ SDL_Texture* Game::Enemy_texture_sparkle = nullptr;
 SDL_Texture* Game::Menu_texture = nullptr;
 
 Game::Game()
-    : window(nullptr), isRunning(false), player(nullptr), // Initialize game variables
+    : window(nullptr), isRunning(false), player(nullptr), boss(nullptr), // Initialize game variables
     frameStart(0), frameTime(0), sidebar(nullptr), MENU(nullptr) {
 }
 
@@ -196,7 +197,19 @@ void Game::handleEvents() {
         MENU->handleInput(keys); // Handle menu input
     }
 
+    //if (keys[SDL_SCANCODE_P]) { // pause game
+    //        if (Game::state == GameState::PLAYING) {
+    //            Game::state = GameState::PAUSE;
+    //            Game::prevState = GameState::PLAYING;
+    //        }
+    //        else if (Game::state == GameState::PAUSE) {
+    //            Game::state = GameState::PLAYING;
+    //        }
+    //    }
+
+
     else if (state == GameState::PLAYING) {
+
         player->handleInput(keys); // Handle player input
         //boss->debug_ani(keys); // debug boss animation
 
@@ -272,7 +285,7 @@ void Game::render() {
 
 
 
-    else if (state == GameState::PLAYING) {
+    else if (state == GameState::PLAYING || state == GameState::PAUSE) {
 
         boss->render();
 

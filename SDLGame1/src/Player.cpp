@@ -61,6 +61,7 @@ void Player::handleInput(const Uint8* keys) {
         if (keys[SDL_SCANCODE_A]) dx = -speed;
         if (keys[SDL_SCANCODE_D]) dx = speed;
     }
+	
 }
 
 void Player::update() {
