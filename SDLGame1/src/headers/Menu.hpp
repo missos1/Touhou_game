@@ -12,7 +12,7 @@ public:
 	Menu();
 	~Menu();
 
-	void handleInput(const Uint8* keys);
+	void handleInput(const SDL_Event& event);
 	void render();
 
 private:

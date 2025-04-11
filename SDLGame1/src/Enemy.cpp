@@ -123,7 +123,7 @@ void Enemy::update() {
 void Enemy::render() {
 	if (type == EnemyType::SPARKLE) {
 		static int angle = 0;
-		angle = (angle + 7 + 360) % 360;
+		if (Game::state != GameState::PAUSE) angle = (angle + 7 + 360) % 360;
 		SDL_RenderCopyEx(Game::Grenderer, Enemy_texture, &srcRect, &destRect, angle, nullptr, SDL_FLIP_NONE);
 	}
 

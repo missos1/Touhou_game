@@ -116,6 +116,13 @@ void Boss::render() {
 	TextureManager::render_from_texture(Circle_texture, destRect.x - 50, destRect.y - 40, 4, angle, SDL_FLIP_NONE);
 }
 
+void Boss::resetValue() {
+	xPos = BOSS_OG_X;
+	yPos = BOSS_OG_Y;
+	phase = Phase::IDLE;
+	vx = vy = 0;
+}
+
 void Boss::debug_ani(const Uint8* keys) {
 	vx = vy = 0;
 	if (keys[SDL_SCANCODE_UP]) vy = -4;

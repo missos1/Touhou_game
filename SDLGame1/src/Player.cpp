@@ -50,6 +50,10 @@ void Player::handleInput(const Uint8* keys) {
         speed = focusSpeed;
         isFocusing = true;
     }
+    else if (state == PlayerState::GOT_HIT) {
+        speed = 0;
+        isFocusing = false;
+    }
     else {
         speed = baseSpeed;
         isFocusing = false;
@@ -64,54 +68,8 @@ void Player::handleInput(const Uint8* keys) {
 }
 
 void Player::update() {
-    if ((int)dx != 0) {
-        if (dx > 0) isFlipped = true; // flags for animations
-        else isFlipped = false;
-
-        isIdle = false;
-        isMovingright = true;
-    }
-    else if ((int)dx == 0) {
-        isIdle = true;
-        
-    }
-
-    frameTime += Ani_speed;
-    // not gonna lie this is pain to figure out
-    if (isMovingright) {
-        if (currentFrame <= 7 && !isIdle) { // left right animation  
-            if (frameTime >= 0.5f && currentFrame < 4) { // if less than 4 then increment to next fram
-                frameTime = 0.0f;
-                currentFrame++; 
-            }
-            else if (currentFrame >= 4 && frameTime >= 1.0f) { // if more than 4 then looping from 7 to 4
-                frameTime = 0.0f;
-                ++currentFrame;
-                if (currentFrame >= 7) currentFrame = 4;
-            }
-        }
-        else if (currentFrame > 0 && isIdle) { // if key is released then buffers to slowly play frame back
-            if (currentFrame > 4) currentFrame = 4;
-            if (frameTime >= 0.01f) {
-                frameTime = 0.0f;
-                currentFrame--;              
-            }
-        }
-        else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle animation
-            isMovingright = false; 
-        }
-        srcRect.x = currentFrame * PLAYER_WIDTH;
-        srcRect.y = PLAYER_HEIGHT;
-    }
-    else {
-        if (frameTime >= 1.0f && currentFrame == 0 && isIdle) { // idle animation
-            frameTime = 0.0f;
-            isFlipped = false;
-            currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
-            srcRect.y = 0;
-            srcRect.x = currentFrameIdle * PLAYER_WIDTH;
-        }
-    }
+    animation();
+    powerlvhandle();
 
     destRect.x += (int) dx;
     destRect.y += (int) dy; 
@@ -140,30 +98,29 @@ void Player::update() {
         destRect_amu_1.y = destRect_amu_0.y;
     }
 
-    static int prevpowerlv = 1;
-    int pwlv = static_cast<int>(powerlv);
-    if (pwlv != prevpowerlv) {
-        if (pwlv > prevpowerlv) {
-            SoundManager::PlaySound("pl_powerup", 0, Game::SE_volume);
-            prevpowerlv = pwlv;
-        }
-        else if (pwlv < prevpowerlv) {
-            prevpowerlv = pwlv;
-        }
-    }
-
     static Uint32 invincendTime = 0;
+    static Uint32 waitTime = 0;
+    static bool firsttimerun = true;
+
     Uint32 currentTime = SDL_GetTicks();
     if (state == PlayerState::GOT_HIT) {
-        invincendTime = currentTime + 3000;
-        destRect.x = 410;
-        destRect.y = 680;
-        state = PlayerState::INVINC;
+        if (firsttimerun) {
+            waitTime = currentTime + 500;
+            firsttimerun = false;
+        }
+
+        if (currentTime >= waitTime) {
+            invincendTime = currentTime + 3000;
+            destRect.x = 410;
+            destRect.y = 680;
+            state = PlayerState::INVINC;
+            firsttimerun = true;
+        }
+        
     }
     else if (state == PlayerState::INVINC) {
         if (currentTime >= invincendTime) {
             state = PlayerState::NORMAL;
-            invincendTime = 0;
         }
     } 
 }
@@ -174,7 +131,7 @@ void Player::render() {
     if (state == PlayerState::GOT_HIT) {
         SDL_SetTextureAlphaMod(texture, 0);
     } 
-    else if (state == PlayerState::INVINC) {
+    else if (state == PlayerState::INVINC && Game::state != GameState::PAUSE) {
         static int opacity_player = 0;
         Uint32 currentTime = SDL_GetTicks();
         static Uint32 dimmedTime = 0;
@@ -193,11 +150,11 @@ void Player::render() {
     
     if (isFocusing) {
         static int angle = 0;
-        angle = (angle + 1 + 360) % 360;
+        if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
 
-        if (state == PlayerState::INVINC) opacity = 0;
+        if (state == PlayerState::INVINC || state == PlayerState::GOT_HIT) opacity = 0;
         else opacity = (opacity >= 255 ? 255 : opacity + 5);
-
+        
         SDL_SetTextureAlphaMod(hitbox_texture, opacity);
         SDL_RenderCopyEx(Game::Grenderer, hitbox_texture, nullptr, &hitbox_destRect, angle, nullptr, SDL_FLIP_NONE);
     }
@@ -208,21 +165,30 @@ void Player::render() {
     if (powerlv >= 3) {
         //std::cout << angle << std::endl;
         static int angle = 0;
-        angle = (angle + 10 + 360) % 360;
+        if (Game::state != GameState::PAUSE) angle = (angle + 10 + 360) % 360;
+
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
     //SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
     //SDL_RenderFillRect(Game::Grenderer, &hitbox_ingame);
+}
 
+void Player::resetValue() {
+    powerlv = 1.00;
+    hp = 4;
+    graze = 0;
+    destRect.x = PLAYER_OG_X;
+    destRect.y = PLAYER_OG_Y;
 }
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) const {
     // powerlv manager
+    if (state == PlayerState::GOT_HIT) return;
+
     double bulletspeed = -50.0;
     std::vector<int> angle;
     std::vector<std::pair<int, int>> position;
-
 
     switch ((int) powerlv) {
     case 1:
@@ -271,4 +237,72 @@ void Player::updatePlayerpower(double input) {
     powerlv += input;
     if (powerlv >= 5.0) powerlv = 5.0;
     else if (powerlv <= 1.0) powerlv = 1.0;
+}
+
+
+// Private functions below
+
+void Player::animation() {
+    if ((int)dx != 0) {
+        if (dx > 0) isFlipped = true; // flags for animations
+        else isFlipped = false;
+
+        isIdle = false;
+        isMovingright = true;
+    }
+    else if ((int)dx == 0) {
+        isIdle = true;
+
+    }
+
+    frameTime += Ani_speed;
+    // not gonna lie this is pain to figure out
+    if (isMovingright) {
+        if (currentFrame <= 7 && !isIdle) { // left right animation  
+            if (frameTime >= 0.5f && currentFrame < 4) { // if less than 4 then increment to next fram
+                frameTime = 0.0f;
+                currentFrame++;
+            }
+            else if (currentFrame >= 4 && frameTime >= 1.0f) { // if more than 4 then looping from 7 to 4
+                frameTime = 0.0f;
+                ++currentFrame;
+                if (currentFrame >= 7) currentFrame = 4;
+            }
+        }
+        else if (currentFrame > 0 && isIdle) { // if key is released then buffers to slowly play frame back
+            if (currentFrame > 4) currentFrame = 4;
+            if (frameTime >= 0.01f) {
+                frameTime = 0.0f;
+                currentFrame--;
+            }
+        }
+        else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle animation
+            isMovingright = false;
+        }
+        srcRect.x = currentFrame * PLAYER_WIDTH;
+        srcRect.y = PLAYER_HEIGHT;
+    }
+    else {
+        if (frameTime >= 1.0f && currentFrame == 0 && isIdle) { // idle animation
+            frameTime = 0.0f;
+            isFlipped = false;
+            currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
+            srcRect.y = 0;
+            srcRect.x = currentFrameIdle * PLAYER_WIDTH;
+        }
+    }
+}
+
+void Player::powerlvhandle() {
+    static int prevpowerlv = 1;
+    int pwlv = static_cast<int>(powerlv);
+    if (pwlv != prevpowerlv) {
+        if (pwlv > prevpowerlv) {
+            SoundManager::PlaySound("pl_powerup", 0, Game::SE_volume);
+            prevpowerlv = pwlv;
+        }
+        else if (pwlv < prevpowerlv) {
+            prevpowerlv = pwlv;
+        }
+    }
 }

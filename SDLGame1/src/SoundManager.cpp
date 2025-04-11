@@ -65,6 +65,14 @@ void SoundManager::StopMusic() {
 	Mix_HaltMusic(); // Stop playing music
 }
 
+void SoundManager::PauseMusic() {
+	Mix_PausedMusic();
+}
+
+void SoundManager::ResumeMusic() {
+	Mix_ResumeMusic();
+}
+
 void SoundManager::Clean() {
 	for (std::pair<const std::string, Mix_Chunk*>& pair : soundEffects) { // Iterate through sound effects
 		Mix_FreeChunk(pair.second); // Free the sound effect

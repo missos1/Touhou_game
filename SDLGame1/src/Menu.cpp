@@ -18,44 +18,40 @@ Menu::Menu() : bg { 0, 0, 0, 0 }, selectedOption(0) {
 
 Menu::~Menu() {}
 
-void Menu::handleInput(const Uint8* keys) {
-    static bool keyPressed = false;
-
-    if (!keyPressed) {
-        if (keys[SDL_SCANCODE_S]) {
+void Menu::handleInput(const SDL_Event& event) {
+    if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.sym) {
+        case SDLK_s:
             selectedOption = (selectedOption + 1) % 2; // Toggle between 0 and 1
             SoundManager::PlaySound("select", 0, Game::SE_volume);
-            keyPressed = true;
-        }
-        if (keys[SDL_SCANCODE_W]) {
+            break;
+        case SDLK_w:
             selectedOption = (selectedOption - 1 + 2) % 2; // Wrap around
             SoundManager::PlaySound("select", 0, Game::SE_volume);
-            keyPressed = true;
-        }
-        if (keys[SDL_SCANCODE_ESCAPE]) {
-            selectedOption = 1; // Select ESC 
+            break;
+        case SDLK_ESCAPE:
+            selectedOption = 1; // Select ESC
             SoundManager::PlaySound("cancel", 0, Game::SE_volume);
-            keyPressed = true;
-        }
-        if (keys[SDL_SCANCODE_RETURN] || keys[SDL_SCANCODE_SPACE]) {
+            break;
+        case SDLK_RETURN:
+        case SDLK_SPACE:
             if (selectedOption == 0) {
                 Game::GameStartTime = SDL_GetTicks(); // Store the start time            
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::MENU;
+
                 SoundManager::PlaySound("ok", 0, Game::SE_volume);
             }
             else {
                 Game::state = GameState::EXIT; // Quit game
-				Game::GameExitTime = SDL_GetTicks(); // Store the quit time
+                Game::GameExitTime = SDL_GetTicks(); // Store the quit time
+
                 SoundManager::PlaySound("cancel", 0, Game::SE_volume);
             }
-            keyPressed = true;
+            break;
+        default:
+            break;
         }
-
-    }
-
-    if (!keys[SDL_SCANCODE_W] && !keys[SDL_SCANCODE_S] && !keys[SDL_SCANCODE_RETURN] && !keys[SDL_SCANCODE_ESCAPE]) {
-        keyPressed = false; // Reset key press state
     }
 }
 

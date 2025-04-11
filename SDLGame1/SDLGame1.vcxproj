@@ -142,7 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Background.png" />
-    <Image Include="res\BGTEXTURE.png" />
+    <Image Include="res\FRAMETEXTURE.png" />
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />

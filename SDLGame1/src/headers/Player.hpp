@@ -24,7 +24,10 @@ public:
     void handleInput(const Uint8* keys);
     void update();
     void render();
+    void resetValue();
     void playerShoot(std::vector<Bullet*>& bullets) const;
+    
+    
     void updatePlayerpower(double input);
     void updatePlayerhp(int input);
     void updateGraze();
@@ -39,6 +42,8 @@ public:
     PlayerState getPlayerstate() const { return state; }
 
 private:
+    void animation();
+    void powerlvhandle();
     SDL_Texture* texture;
     SDL_Texture* hitbox_texture;
     SDL_Rect hitbox_destRect;

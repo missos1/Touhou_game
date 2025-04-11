@@ -12,9 +12,11 @@
 void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
 	//else if (static_cast<int>(Game::GameStartTime) != 0) { 
-		double initTime = static_cast<double>(Game::GameStartTime / 1000); // Initial game start time in seconds
-		double elapsed = static_cast<double>(SDL_GetTicks()) / 1000.0 - initTime; // Time elapsed since the game started in seconds
-		elapsed = round(elapsed * 10) / 10 + 0.0; // Round elapsed time to 1 decimal place
+		double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
+		double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
+		double now = static_cast<double>(SDL_GetTicks()); // Get the current time
+		double elapsed = (now - initTime - aggregatedPauseTime) / 1000.0; // Get the elapsed time
+		elapsed = round(elapsed * 10.0) / 10.0;
 	//}
 	std::cout << "elapsed: " << elapsed << endl;
 	//std::cout << "initTime: " << initTime << endl;
@@ -22,7 +24,8 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 
 	if (elapsed < 0.0) return; // If elapsed time is negative, return early
 
-	if (elapsed != lastexecuteTime) { // Check if the elapsed time is different from the last execution time
+	if (elapsed != lastexecuteTime && Game::state == GameState::PLAYING ) { // Check if the elapsed time is different from the last execution time
+
 		lastexecuteTime = elapsed; // Update the last execution time
 
 		int loop_0 = 10; // Number of enemies in the first loop

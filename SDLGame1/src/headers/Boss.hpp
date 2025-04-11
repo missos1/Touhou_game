@@ -36,6 +36,7 @@ public:
 
 	void update();
 	void render();
+	void resetValue();
 
 	void debug_ani(const Uint8* keys);
 	void moveinscreen();
