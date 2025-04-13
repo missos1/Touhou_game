@@ -175,6 +175,13 @@ void Game::run() {
             resetObject();
         }
 
+		if (Game::prevState != GameState::PAUSE && Game::state == GameState::PAUSE) {
+			SoundManager::PauseMusic(); // Pause music
+		}
+        else if (Game::prevState == GameState::PAUSE && Game::state == GameState::PLAYING) {
+            SoundManager::ResumeMusic(); // Resume music
+        }
+
         if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
             SoundManager::StopMusic();
             //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;

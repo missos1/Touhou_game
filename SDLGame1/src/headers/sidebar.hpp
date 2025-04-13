@@ -35,6 +35,7 @@ private:
 	SDL_Color white = { 255, 255, 255 };
 	SDL_Color red = { 255, 0, 0 };
 	SDL_Color light_gray = { 200, 200, 200 };
+	SDL_Color gray = { 128, 128, 128 };
 	SDL_Color dark_gray = { 50, 50, 50 };
 
 	TTF_Font* font0;

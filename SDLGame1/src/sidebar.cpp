@@ -177,7 +177,7 @@ void Sidebar::render_pausescreen() {
     SDL_SetRenderDrawColor(Game::Grenderer, 10, 200, 255, 50); // Grey
     SDL_RenderFillRect(Game::Grenderer, &opaque);
 
-    TextureManager::render_text("PAUSE", font1, dark_gray, text_texture, 400, 390);
+    TextureManager::render_text("PAUSE", font1, gray, text_texture, 400, 390);
     TextureManager::render_text("UNPAUSE", font0, (selectedOption == 0) ? red : white, text_texture, 405, 440);
     TextureManager::render_text("EXIT", font0, (selectedOption == 1) ? red : white, text_texture, 440, 470);
 }

@@ -9,8 +9,6 @@ Item::Item(double x, double y, Itemtype type) :
 	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, fallspeed(0), item_point(0), TrackPlayer(false) {
 	item_text = Game::enemybullet_text; // Get item texture
 
-	srand(time
-	(0));
 	switch (type) {
 	case Itemtype::POWER_S: // Small power item
 		srcRect = { ITEM_POWER_S, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture

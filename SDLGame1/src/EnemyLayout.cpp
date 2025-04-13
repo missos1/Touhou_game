@@ -11,18 +11,18 @@
 
 void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bullets, Player* player, Boss* boss) {
 	static double lastexecuteTime = -1.0; // Last execution time for spawning enemies
-	//else if (static_cast<int>(Game::GameStartTime) != 0) { 
-		double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
-		double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
-		double now = static_cast<double>(SDL_GetTicks()); // Get the current time
-		double elapsed = now - initTime - aggregatedPauseTime; // Get the elapsed time
-		Game::GamecurrentTime = elapsed; // Update the current time
-		elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;
-	//}
-	std::cout << "elapsed: " << elapsed << endl;
-	std::cout << "currentTest: " << Game::GamecurrentTime << endl;
+
+	double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
+	double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
+	double now = static_cast<double>(SDL_GetTicks()); // Get the current time
+	double elapsed = now - initTime - aggregatedPauseTime; // Get the elapsed time
+	Game::GamecurrentTime = static_cast<Uint32>(elapsed); // Update the current time
+	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0; // rounding to 1 decimal place
+
+	std::cout << "elapsed: " << elapsed << "sec" << endl;
+	std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;
 	//std::cout << "initTime: " << initTime << endl;
-	//std::cout << "realtime: " << tmp << endl;
+	//std::cout << "realSDLtime: " << now << endl;
 
 	if (elapsed < 0.0) return; // If elapsed time is negative, return early
 
@@ -218,14 +218,16 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 					}
 					break;
 				case EnemyType::SPARKLE:
-					if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 2500) {
+					if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
 						enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 						enemies[i]->rndcircleShoot(bullets, 4);
 					}
 					break;
 				}
 			}
-
+			else {
+				enemyLastShootTime[enemies[i]] = Game::GamecurrentTime + rand() % 2000; // Reset the last shoot time if the enemy is off-screen
+			}
 		}
 
 		if (elapsed >= 90.0) {
