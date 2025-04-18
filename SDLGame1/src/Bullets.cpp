@@ -137,7 +137,7 @@ void Bullet::render() {
 	case Bullettype::ENEMY_KUNAI_BL:
 	case Bullettype::ENEMY_ROUND1:
 		double angle = atan2(vy, vx) * 180 / M_PI; // Calculate angle for direction
-		SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90, nullptr, SDL_FLIP_NONE); // Render bullet with direction
+		SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90.0, nullptr, SDL_FLIP_NONE); // Render bullet with direction
 		break;
 	}
 	//SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255);

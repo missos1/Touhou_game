@@ -5,6 +5,7 @@
 #include "headers/Collision.hpp"
 #include "headers/SoundManager.hpp"
 #include "headers/Items.hpp"
+#include "headers/Boss.hpp"
 
 void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, std::vector<Item*>& items) {
     // Check collision between player and enemy bullets
@@ -70,8 +71,8 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
                         enemies[j]->getType() == EnemyType::WHITE_FA ||
                         enemies[j]->getType() == EnemyType::BLUE_FA ) {
                         for (int k = 0; k < 3; ++k) {
-                            int randomX = enemy_hitbox.x + (rand() % 201 - 100);  // Random X offset between -100 and 100
-                            int randomY = enemy_hitbox.y + (rand() % 201 - 100);  // Random Y offset between -100 and 100
+                            int randomX = enemy_hitbox.x + ((rand() % 201) - 100);  // Random X offset between -100 and 100
+                            int randomY = enemy_hitbox.y + ((rand() % 201) - 100);  // Random Y offset between -100 and 100
                             items.emplace_back(new Item(randomX, randomY, Itemtype::POINT));
                         }
 
@@ -87,11 +88,11 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
                             type = Itemtype::POWER_L;
                             countspawn = 1;
                         }
-                        else if (countspawn % 2 == 0){
-                            type = Itemtype::POINT;
+                        else if (countspawn % 3 == 0){
+                            type = Itemtype::POWER_S;
                         }
                         else {
-                            type = Itemtype::POWER_S;
+                            type = Itemtype::POINT;
                         }
                     }
                     else {
@@ -191,4 +192,22 @@ void CollisionCheck::DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<
             bullets.erase(bullets.begin() + i); // Remove bullet from vector
         }
     }
+}
+
+void CollisionCheck::BossColli(std::vector<Bullet*>& player_bullets, Boss* boss, std::vector<Item*>& items) {
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
+        SDL_Rect boss_hitbox = boss->getBossHitbox();
+        SDL_Rect bullet_hitbox = player_bullets[i]->getHitbox(); // Get bullet's hitbox
+        if (SDL_HasIntersection(&boss_hitbox, &bullet_hitbox)) { // Check if bullet hits 
+            int bullet_dmg = player_bullets[i]->getDmg(); // Get bullet's damage
+            boss->takeDamage(bullet_dmg);
+            Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
+
+            SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 10); // Play enemy hit sound
+
+            delete player_bullets[i]; // Delete bullet
+            player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
+        }
+    }
+
 }

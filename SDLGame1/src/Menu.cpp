@@ -36,7 +36,7 @@ void Menu::handleInput(const SDL_Event& event) {
         case SDLK_RETURN:
         case SDLK_SPACE:
             if (selectedOption == 0) {
-                Game::GameStartTime = SDL_GetTicks(); // Store the start time            
+                Game::GameStartTime = SDL_GetTicks64(); // Store the start time            
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::MENU;
 
@@ -44,7 +44,7 @@ void Menu::handleInput(const SDL_Event& event) {
             }
             else {
                 Game::state = GameState::EXIT; // Quit game
-                Game::GameExitTime = SDL_GetTicks(); // Store the quit time
+                Game::GameExitTime = SDL_GetTicks64(); // Store the quit time
 
                 SoundManager::PlaySound("cancel", 0, Game::SE_volume);
             }

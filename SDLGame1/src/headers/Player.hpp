@@ -27,7 +27,6 @@ public:
     void resetValue();
     void playerShoot(std::vector<Bullet*>& bullets) const;
     
-    
     void updatePlayerpower(double input);
     void updatePlayerhp(int input);
     void updateGraze();
@@ -58,7 +57,7 @@ private:
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 4.0;
+    double powerlv = 5.0;
     int graze;
     bool isFocusing;
     bool isIdle = true;

@@ -19,13 +19,13 @@ GameState Game::prevState = GameState::LOADING; // Previous game state
 int Game::BGM_volume = 128; // Initial BGM volume
 int Game::SE_volume = 128; // Initial SE volume 
 
-Uint32 Game::GameStartTime = 0; // Game start time
-//Uint32 Game::GamePauseTime
-Uint32 Game::GameExitTime = 0; // Game exit time
-Uint32 Game::GamePauseStartTime = 0; // pausing's variable handler
+Uint64 Game::GameStartTime = 0; // Game start time
+//Uint64 Game::GamePauseTime
+Uint64 Game::GameExitTime = 0; // Game exit time
+Uint64 Game::GamePauseStartTime = 0; // pausing's variable handler
 
-Uint32 Game::GamePauseTotalTime = 0; // Game pause total time
-Uint32 Game::GamecurrentTime = 0; // Game pause time
+Uint64 Game::GamePauseTotalTime = 0; // Game pause total time
+Uint64 Game::GamecurrentTime = 0; // Game pause time
 
 int Game::PLAYSCORE = 0; // Player score
 
@@ -89,7 +89,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     boss = new Boss(BOSS_OG_X, BOSS_OG_Y);
 
-    Mix_AllocateChannels(64); // Allocate audio channels
+    Mix_AllocateChannels(32); // Allocate audio channels
 
     if (!initText() || !initSM()) { // Initialize textures and sound manager
         return false;
@@ -129,13 +129,14 @@ bool Game::initText() {
 
 bool Game::initSM() {
     if (!SoundManager::LoadSound("pldead", "res/sound/pldead00.wav")) return false; // Load sounds
+    if (!SoundManager::LoadSound("plheal", "res/sound/extend.wav")) return false; 
     if (!SoundManager::LoadSound("graze", "res/sound/graze.wav")) return false;
     if (!SoundManager::LoadSound("plshoot", "res/sound/plst00.wav")) return false;
     if (!SoundManager::LoadSound("enshoot0", "res/sound/tan00.wav")) return false;
     if (!SoundManager::LoadSound("enshoot1", "res/sound/tan01.wav")) return false;
-    if (!SoundManager::LoadSound("enshoot2", "res/sound/tan02.wav")) return false;
     if (!SoundManager::LoadSound("endie0", "res/sound/enep00.wav")) return false;
     if (!SoundManager::LoadSound("endie1", "res/sound/enep01.wav")) return false;
+    if (!SoundManager::LoadSound("enshoot2", "res/sound/tan02.wav")) return false;
     if (!SoundManager::LoadSound("entakedmg", "res/sound/damage00.wav")) return false;
     if (!SoundManager::LoadSound("select", "res/sound/select00.wav")) return false;
     if (!SoundManager::LoadSound("ok", "res/sound/ok00.wav")) return false;
@@ -158,7 +159,7 @@ void Game::run() {
 
     while (running()) { // Main game loop
 
-        frameStart = SDL_GetTicks(); // Get start time of the frame
+        frameStart = SDL_GetTicks64(); // Get start time of the frame
 
 
         handleEvents(); // Handle input events
@@ -166,7 +167,7 @@ void Game::run() {
         render(); // Render game state
 
 
-        if (state == GameState::LOADING && SDL_GetTicks() >= 2000) { // Transition from loading to menu state
+        if (state == GameState::LOADING && SDL_GetTicks64() >= 2000) { // Transition from loading to menu state
             state = GameState::MENU;
         }
 
@@ -189,7 +190,7 @@ void Game::run() {
 
         Game::prevState = Game::state; // Update previous state
 
-        frameTime = SDL_GetTicks() - frameStart; // Calculate frame time
+        frameTime = SDL_GetTicks64() - frameStart; // Calculate frame time
         if (frameDelay > frameTime) {
             SDL_Delay(frameDelay - frameTime); // Delay to maintain 60 FPS
         }
@@ -220,7 +221,7 @@ void Game::handleEvents() {
         player->handleInput(keys); // Handle player input
         //boss->debug_ani(keys); // debug boss animation
 
-        static Uint32 lastShotTime = 0;
+        static Uint64 lastShotTime = 0;
         if (keys[SDL_SCANCODE_SPACE] && Game::GamecurrentTime - lastShotTime > 90) { // Handle shooting
             int powerlv = 0;
             player->playerShoot(player_bullets);
@@ -229,16 +230,16 @@ void Game::handleEvents() {
         }
     }
 
-    else if (state == GameState::EXIT && SDL_GetTicks() - GameExitTime >= 200) isRunning = false; // Exit game
+    else if (state == GameState::EXIT && SDL_GetTicks64() - GameExitTime >= 200) isRunning = false; // Exit game
 }
 
 void Game::pauseGame(const SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_ESCAPE && state == GameState::PLAYING) {
             state = GameState::PAUSE;
-            GamePauseStartTime = SDL_GetTicks();
+            GamePauseStartTime = SDL_GetTicks64();
             prevState = GameState::PLAYING;
-			std::cout << "Game paused at: " << GamePauseStartTime << " ms" << endl;
+			//std::cout << "Game paused at: " << GamePauseStartTime << " ms" << endl;
         }
     }
 }
@@ -272,11 +273,12 @@ void Game::update() {
         ////    std::cout << "playscore: " << PLAYSCORE << endl; // Debug: print player score
         ////    prevscore = PLAYSCORE;
         ////}
-        boss->update();
+        boss->update(enemy_bullets, items);
         player->update(); // Update player
         ObjHandling(); // Update game objects
         CollisionCheck::EnemyColli(player_bullets, enemies, items, player); // Check collisions with enemies
         CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
+        CollisionCheck::BossColli(player_bullets, boss, items); // Check collisions with boss
         CollisionCheck::DeleleOffScreen(enemy_bullets, player_bullets, enemies, items); // Deleting objects offscreen
     }
 }
@@ -301,6 +303,8 @@ void Game::render() {
     }
 
     else if (state == GameState::PLAYING || state == GameState::PAUSE) {
+
+        sidebar->render_background();
 
         boss->render();
 

@@ -65,6 +65,33 @@
     <ClInclude Include="src\headers\TextureManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\sidebar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Bullets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Enemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\EnemyLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\SoundManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Collision.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Items.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Boss.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\begin_code.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -203,6 +230,9 @@
     <ClInclude Include="include\SDL_misc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\SDL_mixer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\SDL_mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -329,6 +359,9 @@
     <ClInclude Include="include\SDL_touch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\SDL_ttf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\SDL_types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -339,36 +372,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\SDL_vulkan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\sidebar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Bullets.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\EnemyLayout.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\SoundManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Collision.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Items.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Boss.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Background.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -468,20 +471,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\SDL2.lib" />
-    <Library Include="lib\SDL2_image.lib" />
-    <Library Include="lib\SDL2main.lib" />
-    <Library Include="lib\SDL2test.lib" />
-    <Library Include="lib\SDL2_mixer.lib" />
-    <Library Include="lib\SDL2_ttf.lib" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="lib\SDL2.pdb" />
     <None Include="lib\SDL2_image.pdb" />
-    <None Include="include\cmake\SDL2\cmake\sdl2-config.cmake" />
-    <None Include="include\cmake\SDL2\cmake\sdl2-config-version.cmake" />
-    <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config.cmake" />
-    <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config-version.cmake" />
     <None Include="SDL2_mixer.dll" />
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
@@ -590,5 +581,13 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\DFPPOPCorn-W12.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\SDL2.lib" />
+    <Library Include="lib\SDL2_image.lib" />
+    <Library Include="lib\SDL2_mixer.lib" />
+    <Library Include="lib\SDL2_ttf.lib" />
+    <Library Include="lib\SDL2main.lib" />
+    <Library Include="lib\SDL2test.lib" />
   </ItemGroup>
 </Project>

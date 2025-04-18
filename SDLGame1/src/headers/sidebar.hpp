@@ -14,6 +14,7 @@ public:
 	~Sidebar();
 
 	void render(int winW, int winH, Player* player);
+	void render_background();
 	void handleInputs_pausescreen(const SDL_Event& event);
 
 private:
@@ -26,6 +27,7 @@ private:
 	SDL_Texture* title_texture;
 	SDL_Texture* hp_texture;
 	SDL_Texture* player_texture;
+	SDL_Texture* background_texture;
 
 	SDL_Texture* text_texture;
 

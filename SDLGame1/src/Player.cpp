@@ -99,8 +99,8 @@ void Player::update() {
         destRect_amu_1.y = destRect_amu_0.y;
     }
 
-    static Uint32 invincendTime = 0;
-    static Uint32 waitTime = 0;
+    static Uint64 invincendTime = 0;
+    static Uint64 waitTime = 0;
     static bool firsttimerun = true;
 
     if (state == PlayerState::GOT_HIT) {
@@ -114,6 +114,7 @@ void Player::update() {
             destRect.x = 410;
             destRect.y = 680;
             state = PlayerState::INVINC;
+            static Uint64 waitTime = 0;
             firsttimerun = true;
         }
         
@@ -121,19 +122,18 @@ void Player::update() {
     else if (state == PlayerState::INVINC) {
         if (Game::GamecurrentTime >= invincendTime) {
             state = PlayerState::NORMAL;
+            invincendTime = 0;
         }
     } 
 }
 
 void Player::render() {
-    static int opacity = 0;
-
     if (state == PlayerState::GOT_HIT) {
         SDL_SetTextureAlphaMod(texture, 0);
     } 
     else if (state == PlayerState::INVINC && Game::state != GameState::PAUSE) {
         static int opacity_player = 0;
-        static Uint32 dimmedTime = 0;
+        static Uint64 dimmedTime = 0;
         if (Game::GamecurrentTime - dimmedTime >= 200) {
             opacity_player += 255;
             if (opacity_player > 255) opacity_player = 0;
@@ -147,19 +147,21 @@ void Player::render() {
 
     SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     
+    static int opacity = 0;
+
     if (isFocusing) {
         static int angle = 0;
         if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
-
-        if (state == PlayerState::INVINC || state == PlayerState::GOT_HIT) opacity = 0;
-        else opacity = (opacity >= 255 ? 255 : opacity + 5);
         
         SDL_SetTextureAlphaMod(hitbox_texture, opacity);
         SDL_RenderCopyEx(Game::Grenderer, hitbox_texture, nullptr, &hitbox_destRect, angle, nullptr, SDL_FLIP_NONE);
+        if (opacity >= 255) opacity = 255;
+        else opacity += 5;
     }
     else {
         opacity = 0;
     }
+    
 
     if (powerlv >= 3) {
         //std::cout << angle << std::endl;
@@ -174,11 +176,12 @@ void Player::render() {
 }
 
 void Player::resetValue() {
-    powerlv = 1.00;
+    powerlv = 5.00;
     hp = 4;
     graze = 0;
     destRect.x = PLAYER_OG_X;
     destRect.y = PLAYER_OG_Y;
+    state = PlayerState::NORMAL;
 }
 
 void Player::playerShoot(std::vector<Bullet*>& bullets) const {
@@ -201,11 +204,11 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) const {
         position = { { 3, -10 } };
         break;
     case 4:
-        angle = { 7, 2, -2, -7 };
+        angle = { 8, 3, -3, -8 };
         position = { { 20, 1 }, { -16, 1} };
         break;
     case 5:
-        angle = { 8, 4, 0, -4, -8 };
+        angle = { 11, 6, 0, -6, -11 };
         position = { { 20, -30}, { -16, -30 }, { 3, -10 } };
         break;
     }
@@ -224,6 +227,7 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) const {
 
 void Player::updatePlayerhp(int input) {
     if (input < 0) state = PlayerState::GOT_HIT;
+    else if (input > 0) SoundManager::PlaySound("plheal", 0, Game::SE_volume);
     hp += input;
 }
 

@@ -20,7 +20,7 @@ Item::Item(double x, double y, Itemtype type) :
 		break;
 	case Itemtype::POINT: // Point item
 		srcRect = { ITEM_POINT, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
-		item_point = 10000; // Set item point value
+		item_point = 20000; // Set item point value
 		break;
 	case Itemtype::FULLPOWER: // Full power item
 		srcRect = { ITEM_FULLPOWER, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
@@ -29,6 +29,12 @@ Item::Item(double x, double y, Itemtype type) :
 	case Itemtype::ONEUP: // 1-Up item
 		srcRect = { ITEM_ONEUP, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
 		item_point = 3000; // Set item point value
+		break;
+	case Itemtype::STAR:
+		srcRect = { ITEM_STAR, ITEM_Y, spriteW, spriteH }; // Set source rectangle for texture
+		item_point = 1000; // Set item point value
+		break;
+	default:
 		break;
 	}
 	destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 }; // Set destination rectangle for rendering
@@ -41,12 +47,18 @@ Item::~Item() {
 }
 
 void Item::update(Player* player) {
-	if (player->getY() <= 250 && yPos <= PLAY_AREA_Y_MAX) TrackPlayer = true;
+	if ((player->getY() <= 250 || type == Itemtype::STAR) 
+		&& yPos <= PLAY_AREA_Y_MAX
+		&& yPos >= PLAY_AREA_Y_MIN
+		&& xPos <= PLAY_AREA_X_MAX
+		&& xPos >= PLAY_AREA_X_MIN) TrackPlayer = true;
+
+	
 
 	if (TrackPlayer) {
 		double deltax = player->getX() - destRect.x;
 		double deltay = player->getY() - destRect.y;
-		double angle = atan2((long double)deltay, (long double)deltax);
+		double angle = atan2(static_cast<long double>(deltay), static_cast<long double>(deltax));
 		xPos += cos(angle) * 20;
 		yPos += sin(angle) * 20;
 	}

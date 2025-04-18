@@ -78,7 +78,7 @@ private:
 
 	bool movingHorizontal;
 	bool pause;
-	Uint32 pauseStart;
+	Uint64 pauseStart;
 
 	void BezierCurve();
 	Point P0, P1, P2;

@@ -3,6 +3,7 @@
 #include "headers/Player.hpp"
 #include "headers/SoundManager.hpp"
 #include <iostream>
+#include <vector>
 #include <string>
 #include <sstream>
 #include <iomanip>
@@ -16,6 +17,7 @@ Sidebar::Sidebar()
     powerngraze_texture = TextureManager::LoadTexture("res/SIDEBAR_POWER.png");
     hp_texture = TextureManager::LoadTexture("res/SIDEBAR_HP.png");
     player_texture = TextureManager::LoadTexture("res/SIDEBAR_PLAYER.png");
+    background_texture = TextureManager::LoadTexture("res/Background.png");
     font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 24);
     font1 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 36);
 }
@@ -92,6 +94,23 @@ void Sidebar::render(int winW, int winH, Player* player) {
     }
 }
 
+void Sidebar::render_background() {
+    int w, h;
+    SDL_QueryTexture(background_texture, nullptr, nullptr, &w, &h);
+    SDL_SetTextureAlphaMod(background_texture, 90);
+
+    static std::vector<int> yPos = { 0, 0 - h * 3 };
+    
+    //SDL_Rect bg_destRect_0 = { 45, 20, w * 2, h * 2};
+    //SDL_Rect bg_destRect_1 = { 10, yPos + h * 2, w * 2, h * 2 };
+
+    for (int& i : yPos) {
+        SDL_Rect bg_destRect= { 10, i, w * 3, h * 3 };
+        SDL_RenderCopy(Game::Grenderer, background_texture, nullptr, &bg_destRect);
+        if (Game::state != GameState::PAUSE) i += 5;
+        if (i >= h * 3) i = 0 - h * 3;
+    }
+}
 
 void Sidebar::handleInputs_pausescreen(const SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
@@ -113,7 +132,7 @@ void Sidebar::handleInputs_pausescreen(const SDL_Event& event) {
             if (selectedOption == 0) {           
                 Game::state = GameState::PLAYING; // Start the game
                 Game::prevState = GameState::PAUSE;
-                Game::GamePauseTotalTime += SDL_GetTicks() - Game::GamePauseStartTime;
+                Game::GamePauseTotalTime += SDL_GetTicks64() - Game::GamePauseStartTime;
                 SoundManager::PlaySound("ok", 0, Game::SE_volume);
             }
             else {

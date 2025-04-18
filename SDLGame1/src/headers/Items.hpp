@@ -15,6 +15,7 @@ enum class Itemtype {
 	POWER_L,
 	FULLPOWER,
 	ONEUP,
+	STAR, 
 };
 
 class Item {
@@ -47,6 +48,7 @@ private:
 	const int ITEM_POWER_L = 338;
 	const int ITEM_FULLPOWER = 370;
 	const int ITEM_ONEUP = 386;
+	const int ITEM_STAR = 402;
 	const int spriteW = 16, spriteH = 16;
 };
 #endif 

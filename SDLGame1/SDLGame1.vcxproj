@@ -80,6 +80,7 @@
     <ClInclude Include="include\SDL_messagebox.h" />
     <ClInclude Include="include\SDL_metal.h" />
     <ClInclude Include="include\SDL_misc.h" />
+    <ClInclude Include="include\SDL_mixer.h" />
     <ClInclude Include="include\SDL_mouse.h" />
     <ClInclude Include="include\SDL_mutex.h" />
     <ClInclude Include="include\SDL_name.h" />
@@ -122,11 +123,11 @@
     <ClInclude Include="include\SDL_thread.h" />
     <ClInclude Include="include\SDL_timer.h" />
     <ClInclude Include="include\SDL_touch.h" />
+    <ClInclude Include="include\SDL_ttf.h" />
     <ClInclude Include="include\SDL_types.h" />
     <ClInclude Include="include\SDL_version.h" />
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
-    <ClInclude Include="src\headers\Background.hpp" />
     <ClInclude Include="src\headers\Boss.hpp" />
     <ClInclude Include="src\headers\Collision.hpp" />
     <ClInclude Include="src\headers\Enemy.hpp" />
@@ -174,18 +175,6 @@
     <Image Include="res\Titlescreens&amp;menus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\SDL2.lib" />
-    <Library Include="lib\SDL2main.lib" />
-    <Library Include="lib\SDL2test.lib" />
-    <Library Include="lib\SDL2_image.lib" />
-    <Library Include="lib\SDL2_mixer.lib" />
-    <Library Include="lib\SDL2_ttf.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="include\cmake\SDL2\cmake\sdl2-config-version.cmake" />
-    <None Include="include\cmake\SDL2\cmake\sdl2-config.cmake" />
-    <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config-version.cmake" />
-    <None Include="include\cmake\SDL2_image\cmake\sdl2_image-config.cmake" />
     <None Include="lib\SDL2.pdb" />
     <None Include="lib\SDL2_image.pdb" />
     <None Include="SDL2.dll" />
@@ -244,6 +233,14 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\DFPPOPCorn-W12.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\SDL2.lib" />
+    <Library Include="lib\SDL2main.lib" />
+    <Library Include="lib\SDL2test.lib" />
+    <Library Include="lib\SDL2_image.lib" />
+    <Library Include="lib\SDL2_mixer.lib" />
+    <Library Include="lib\SDL2_ttf.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

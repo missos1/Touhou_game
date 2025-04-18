@@ -14,13 +14,13 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 
 	double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
 	double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
-	double now = static_cast<double>(SDL_GetTicks()); // Get the current time
-	double elapsed = now - initTime - aggregatedPauseTime; // Get the elapsed time
-	Game::GamecurrentTime = static_cast<Uint32>(elapsed); // Update the current time
+	double now = static_cast<double>(SDL_GetTicks64()); // Get the current time
+	double elapsed = now - initTime - aggregatedPauseTime + 85000; // Get the elapsed time
+	Game::GamecurrentTime = static_cast<Uint64>(elapsed); // Update the current time
 	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0; // rounding to 1 decimal place
 
-	std::cout << "elapsed: " << elapsed << "sec" << endl;
-	std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;
+	//std::cout << "elapsed: " << elapsed << "sec" << endl;
+	//std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;
 	//std::cout << "initTime: " << initTime << endl;
 	//std::cout << "realSDLtime: " << now << endl;
 
@@ -185,7 +185,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			enemies.emplace_back(new Enemy(-20, 100, 4, EnemyType::WHITE_FA, MovementType::Lshape));
 		}
 
-		static std::unordered_map<Enemy*, Uint32> enemyLastShootTime; // Store the last shoot time for each enemy
+		static std::unordered_map<Enemy*, Uint64> enemyLastShootTime; // Store the last shoot time for each enemy
 
 		for (int i = (int)enemies.size() - 1; i >= 0; i--) {
 			if (enemies[i]->getX() < PLAY_AREA_X_MAX &&
@@ -237,7 +237,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			if (elapsed == 91.0) {
 				SoundManager::PlayMusic("Boss_theme", -1, Game::BGM_volume);
 			}
-
+			
 			switch (boss->getPhase()) {
 			case Phase::IDLE:
 				boss->moveinscreen();
@@ -245,7 +245,12 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			case Phase::PHASE0:
 				boss->phase0(bullets, player);
 				break;
+			case Phase::PHASE0_SC:
+				boss->phase0_spellcard(bullets, player);
+				break;
 			}
+
+			std::cout << boss->getBosshp() << endl;
 		}
 	}
 }

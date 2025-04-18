@@ -49,11 +49,11 @@ public:
 	static SDL_Renderer* Grenderer;
     static GameState state;
     static GameState prevState;
-    static Uint32 GameStartTime;
-    static Uint32 GamecurrentTime;
-	static Uint32 GamePauseStartTime;
-    static Uint32 GameExitTime;
-    static Uint32 GamePauseTotalTime;
+    static Uint64 GameStartTime;
+    static Uint64 GamecurrentTime;
+	static Uint64 GamePauseStartTime;
+    static Uint64 GameExitTime;
+    static Uint64 GamePauseTotalTime;
 
     static SDL_Texture* Misc_player_text;
     static SDL_Texture* enemybullet_text;
@@ -99,9 +99,9 @@ private:
     Sidebar* sidebar;
 
     const int FPS = 60;
-    const int frameDelay = 1000 / FPS;  // frame stuff
-    Uint32 frameStart;
-    int frameTime;
+    const Uint64 frameDelay = 1000 / FPS;  // frame stuff
+    Uint64 frameStart;
+    Uint64 frameTime;
 
     
 };
