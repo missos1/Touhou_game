@@ -5,9 +5,12 @@
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include "TextureManager.hpp"
+#include "SoundManager.hpp"
 
 class Game;
 class Player;
+class Enemy;
+class Boss;
 
 enum class Itemtype {
 	POINT,
@@ -24,6 +27,9 @@ public:
 	~Item();
 	void update(Player* player);
 	void render();
+
+	static void enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player);
+	static void boss_drop(Boss* boss, std::vector<Item*>& items);
 
 	int getPoint() const { return item_point; }
 	int getX() const { return hitbox.x; }

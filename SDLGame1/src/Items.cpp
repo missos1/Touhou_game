@@ -86,3 +86,47 @@ void Item::render() {
 	SDL_RenderCopy(Game::Grenderer, item_text, &srcRect, &destRect); // Render item
 }
 
+void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
+	SDL_Rect enemy_hitbox = enemy->getEnHitbox(); // Get enemy's hitbox
+	Itemtype type; // Item type
+
+	if (enemy->getType() == EnemyType::RED_FA ||
+		enemy->getType() == EnemyType::WHITE_FA ||
+		enemy->getType() == EnemyType::BLUE_FA) {
+		for (int k = 0; k < 3; ++k) {
+			int randomX = enemy_hitbox.x + ((rand() % 201) - 100);  // Random X offset between -100 and 100
+			int randomY = enemy_hitbox.y + ((rand() % 201) - 100);  // Random Y offset between -100 and 100
+			items.emplace_back(new Item(randomX, randomY, Itemtype::POINT));
+		}
+
+		items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, Itemtype::POWER_L));
+
+		if (enemy->getType() != EnemyType::WHITE_FA) return;
+
+		items.emplace_back(new Item(enemy_hitbox.x + 60, enemy_hitbox.y - 40, Itemtype::POWER_L));
+	}
+
+
+	static int countspawn = 1; // Count for item spawn
+
+	type = Itemtype::POINT; // Default item type
+
+	if (player->getPlayerpowerlv() < 5.0) { // Determine item type
+		if (countspawn % 31 == 0) {
+			type = Itemtype::POWER_L;
+			countspawn = 1;
+		}
+		else if (countspawn % 3 == 0) {
+			type = Itemtype::POWER_S;
+		}
+
+		countspawn++;
+	}
+
+	items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, type)); // Spawn item
+	SoundManager::PlaySound("endie0", 0, Game::SE_volume / 4); // Play enemy death sound
+}
+
+void Item::boss_drop(Boss* boss, std::vector<Item*>& items) {
+
+}

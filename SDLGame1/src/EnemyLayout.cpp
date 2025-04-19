@@ -15,7 +15,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 	double initTime = static_cast<double>(Game::GameStartTime); // Get gameinitTime
 	double aggregatedPauseTime = static_cast<double>(Game::GamePauseTotalTime); // Get total pause time after each pause
 	double now = static_cast<double>(SDL_GetTicks64()); // Get the current time
-	double elapsed = now - initTime - aggregatedPauseTime + 85000; // Get the elapsed time
+	double elapsed = now - initTime - aggregatedPauseTime; // Get the elapsed time
 	Game::GamecurrentTime = static_cast<Uint64>(elapsed); // Update the current time
 	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0; // rounding to 1 decimal place
 

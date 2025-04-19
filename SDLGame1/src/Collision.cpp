@@ -17,26 +17,28 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
 
         SDL_Rect bullet_hitbox = bullets[i]->getHitbox(); // Get bullet's hitbox
 
-        if (SDL_HasIntersection(&player_grazebox, &bullet_hitbox) && !bullets[i]->getGrazeState()) { // Check if bullet grazes player
-            bullets[i]->GrazeUpdate(); // Update graze state
-            player->updateGraze();
-            std::cout << "graze: " << player->getGraze() << std::endl; // Debug: print graze count
-        }
+        if (!SDL_HasIntersection(&player_grazebox, &bullet_hitbox) || bullets[i]->getGrazeState()) continue; // Check if bullet grazes player
 
-        if (SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) { // Check if bullet hits player
-            delete bullets[i]; // Delete bullet
-            bullets.erase(bullets.begin() + i); // Remove bullet from vector
-            if (player->getPlayerstate() == PlayerState::NORMAL) {
-                player->updatePlayerhp(-1); // Decrease player's HP
-                player->updatePlayerpower(-0.3); // Decrease player's power
-                SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
-            }
-            //std::cout << "hp: " << player->getPlayerhp() << std::endl; // Debug: print player's HP
+        bullets[i]->GrazeUpdate(); // Update graze state
+        player->updateGraze();
+        std::cout << "graze: " << player->getGraze() << std::endl; // Debug: print graze count
 
-            /*if (player->getPlayerhp() <= 0) {
-                delete player; // Crash game if player HP is 0 (test)
-            }*/
+        if (!SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) continue; // Check if bullet hits player
+
+        delete bullets[i]; // Delete bullet
+        bullets.erase(bullets.begin() + i); // Remove bullet from vector
+
+        if (player->getPlayerstate() == PlayerState::NORMAL) {
+            player->updatePlayerhp(-1); // Decrease player's HP
+            player->updatePlayerpower(-0.3); // Decrease player's power
+            SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
         }
+        //std::cout << "hp: " << player->getPlayerhp() << std::endl; // Debug: print player's HP
+
+        /*if (player->getPlayerhp() <= 0) {
+            delete player; // Crash game if player HP is 0 (test)
+        }*/
+        
     }
 
     // Check collision between player and items
@@ -45,7 +47,7 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
 
 
 void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items, Player* player) {
-    static int countspawn = 1; // Count for item spawn
+    
     for (int i = (int)bullets.size() - 1; i >= 0; i--) {
         for (int j = (int)enemies.size() - 1; j >= 0; j--) { // Iterate through enemies
             SDL_Rect bullet_hitbox = bullets[i]->getHitbox(); // Get bullet's hitbox
@@ -53,67 +55,30 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
 
             int bullet_dmg = bullets[i]->getDmg(); // Get bullet's damage
 
-            if (SDL_HasIntersection(&enemy_hitbox, &bullet_hitbox)) { // Check if bullet hits enemy
-                enemies[j]->updatehp(enemies[j]->getEnemyhp() - bullet_dmg); // Update enemy's HP
+            if (!SDL_HasIntersection(&enemy_hitbox, &bullet_hitbox)) continue; // Check if bullet hits enemy
 
-                Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
+            enemies[j]->updatehp(enemies[j]->getEnemyhp() - bullet_dmg); // Update enemy's HP
 
-                //std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
-                SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 4); // Play enemy hit sound
+            Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
 
-                if (enemies[j]->getEnemyhp() <= 0) { // Check if enemy is dead
+            //std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
+            SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 4); // Play enemy hit sound
 
-                    Game::PLAYSCORE += enemies[j]->getPoint(); // Gain point for every enemies eliminated
+            if (enemies[j]->getEnemyhp() > 0) continue; // Check if enemy is dead
 
-                    Itemtype type;
+            Game::PLAYSCORE += enemies[j]->getPoint(); // Gain point for every enemies eliminated
 
-                    if (enemies[j]->getType() == EnemyType::RED_FA ||
-                        enemies[j]->getType() == EnemyType::WHITE_FA ||
-                        enemies[j]->getType() == EnemyType::BLUE_FA ) {
-                        for (int k = 0; k < 3; ++k) {
-                            int randomX = enemy_hitbox.x + ((rand() % 201) - 100);  // Random X offset between -100 and 100
-                            int randomY = enemy_hitbox.y + ((rand() % 201) - 100);  // Random Y offset between -100 and 100
-                            items.emplace_back(new Item(randomX, randomY, Itemtype::POINT));
-                        }
+			Item::enemy_drop(enemies[j], items, player); // Drop item from enemy
 
-                        items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, Itemtype::POWER_L));
-
-                        if (enemies[j]->getType() == EnemyType::WHITE_FA) {
-                            items.emplace_back(new Item(enemy_hitbox.x + 60, enemy_hitbox.y - 40, Itemtype::POWER_L));
-                        }
-                    }         
-
-                    if (player->getPlayerpowerlv() < 5.0) { // Determine item type
-                        if (countspawn % 31 == 0) {
-                            type = Itemtype::POWER_L;
-                            countspawn = 1;
-                        }
-                        else if (countspawn % 3 == 0){
-                            type = Itemtype::POWER_S;
-                        }
-                        else {
-                            type = Itemtype::POINT;
-                        }
-                    }
-                    else {
-                        type = Itemtype::POINT;
-                    }
-
-                    countspawn++;
-
-                    items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, type)); // Spawn item
-                    SoundManager::PlaySound("endie0", 0, Game::SE_volume / 4); // Play enemy death sound
-
-                    delete enemies[j];  // Delete enemy
-                    enemies.erase(enemies.begin() + j); // Remove enemy from vector
-                }
-                delete bullets[i]; // Delete bullet
-                bullets.erase(bullets.begin() + i); // Remove bullet from vector
-                break;
-            }
+            delete enemies[j];  // Delete enemy
+            enemies.erase(enemies.begin() + j); // Remove enemy from vector
+            
+            delete bullets[i]; // Delete bullet
+            bullets.erase(bullets.begin() + i); // Remove bullet from vector
+            break;
+            
         }
     }
-
 }
 
 void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* player) {
@@ -122,33 +87,36 @@ void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* playe
         SDL_Rect player_grazebox = player->getGrazingBox(); // Get player's grazing box
         SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
 
-        if (SDL_HasIntersection(&player_grazebox, &item_hitbox)) { // Check if player collects item
-            if (items[i]->getType() == Itemtype::POINT) {
-                Game::PLAYSCORE += items[i]->getPoint() + (items[i]->getPoint() * player->getGraze() / 100); // Increase score based on graze count
-            }
-            else {
-                Game::PLAYSCORE += items[i]->getPoint(); // Increase score
-            }
+        if (!SDL_HasIntersection(&player_grazebox, &item_hitbox)) continue; // Check if player collects item
 
-            Itemtype type = items[i]->getType(); // Get item type
-            switch (type) {
-            case Itemtype::FULLPOWER: // Full power item
-                player->updatePlayerpower(5.0); // Increase player's power
-                break;
-            case Itemtype::POWER_S: // Small power item
-                player->updatePlayerpower(0.05); // Increase player's power
-                break;
-            case Itemtype::POWER_L: // Large power item
-                player->updatePlayerpower(0.16); // Increase player's power
-                break;
-            case Itemtype::ONEUP: // 1-Up item
-                player->updatePlayerhp(1); // Increase player's HP
-                break;
-            }
-            delete items[i]; // Delete item
-            items.erase(items.begin() + i); // Remove item from vector
-            SoundManager::PlaySound("collect_item", 0, Game::SE_volume / 2); // Play item collect sound
+        if (items[i]->getType() == Itemtype::POINT) {
+            Game::PLAYSCORE += items[i]->getPoint() + (items[i]->getPoint() * player->getGraze() / 100); // Increase score based on graze count
         }
+        else {
+            Game::PLAYSCORE += items[i]->getPoint(); // Increase score
+        }
+
+        Itemtype type = items[i]->getType(); // Get item type
+
+        switch (type) {
+        case Itemtype::FULLPOWER: // Full power item
+            player->updatePlayerpower(5.0); // Increase player's power
+            break;
+        case Itemtype::POWER_S: // Small power item
+            player->updatePlayerpower(0.05); // Increase player's power
+            break;
+        case Itemtype::POWER_L: // Large power item
+            player->updatePlayerpower(0.16); // Increase player's power
+            break;
+        case Itemtype::ONEUP: // 1-Up item
+            player->updatePlayerhp(1); // Increase player's HP
+            break;
+        }
+
+        delete items[i]; // Delete item
+        items.erase(items.begin() + i); // Remove item from vector
+        SoundManager::PlaySound("collect_item", 0, Game::SE_volume / 2); // Play item collect sound
+        
     }
 }
 
@@ -195,20 +163,22 @@ void CollisionCheck::DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<
 }
 
 void CollisionCheck::BossColli(std::vector<Bullet*>& player_bullets, Boss* boss, std::vector<Item*>& items) {
-    if (boss->getPhase() != Phase::IDLE) {
-        for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
-            SDL_Rect boss_hitbox = boss->getBossHitbox();
-            SDL_Rect bullet_hitbox = player_bullets[i]->getHitbox(); // Get bullet's hitbox
-            if (SDL_HasIntersection(&boss_hitbox, &bullet_hitbox)) { // Check if bullet hits 
-                int bullet_dmg = player_bullets[i]->getDmg(); // Get bullet's damage
-                boss->takeDamage(bullet_dmg);
-                Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
+    if (boss->getPhase() == Phase::IDLE) return;
 
-                SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 10); // Play enemy hit sound
+    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) { 
+        SDL_Rect boss_hitbox = boss->getBossHitbox();
+        SDL_Rect bullet_hitbox = player_bullets[i]->getHitbox(); // Get bullet's hitbox
 
-                delete player_bullets[i]; // Delete bullet
-                player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
-            }
-        }
+        if (!SDL_HasIntersection(&boss_hitbox, &bullet_hitbox)) continue; // Check if bullet hits 
+
+        int bullet_dmg = player_bullets[i]->getDmg(); // Get bullet's damage
+        boss->takeDamage(bullet_dmg);
+        Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
+
+        SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 10); // Play enemy hit sound
+
+        delete player_bullets[i]; // Delete bullet
+        player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
+    
     }
 }
