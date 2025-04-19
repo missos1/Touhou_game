@@ -195,19 +195,20 @@ void CollisionCheck::DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<
 }
 
 void CollisionCheck::BossColli(std::vector<Bullet*>& player_bullets, Boss* boss, std::vector<Item*>& items) {
-    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
-        SDL_Rect boss_hitbox = boss->getBossHitbox();
-        SDL_Rect bullet_hitbox = player_bullets[i]->getHitbox(); // Get bullet's hitbox
-        if (SDL_HasIntersection(&boss_hitbox, &bullet_hitbox)) { // Check if bullet hits 
-            int bullet_dmg = player_bullets[i]->getDmg(); // Get bullet's damage
-            boss->takeDamage(bullet_dmg);
-            Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
+    if (boss->getPhase() != Phase::IDLE) {
+        for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
+            SDL_Rect boss_hitbox = boss->getBossHitbox();
+            SDL_Rect bullet_hitbox = player_bullets[i]->getHitbox(); // Get bullet's hitbox
+            if (SDL_HasIntersection(&boss_hitbox, &bullet_hitbox)) { // Check if bullet hits 
+                int bullet_dmg = player_bullets[i]->getDmg(); // Get bullet's damage
+                boss->takeDamage(bullet_dmg);
+                Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
 
-            SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 10); // Play enemy hit sound
+                SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 10); // Play enemy hit sound
 
-            delete player_bullets[i]; // Delete bullet
-            player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
+                delete player_bullets[i]; // Delete bullet
+                player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
+            }
         }
     }
-
 }

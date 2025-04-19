@@ -248,9 +248,14 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			case Phase::PHASE0_SC:
 				boss->phase0_spellcard(bullets, player);
 				break;
+			case Phase::PHASE1:
+				boss->phase1(bullets, player);
+				break;
+			case Phase::PHASE1_SC:
+				boss->phase1_spellcard(bullets, player);
+				break;
 			}
-
-			std::cout << boss->getBosshp() << endl;
+			//std::cout << boss->getBosshp() << endl;
 		}
 	}
 }

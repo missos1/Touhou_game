@@ -53,8 +53,6 @@ void Item::update(Player* player) {
 		&& xPos <= PLAY_AREA_X_MAX
 		&& xPos >= PLAY_AREA_X_MIN) TrackPlayer = true;
 
-	
-
 	if (TrackPlayer) {
 		double deltax = player->getX() - destRect.x;
 		double deltay = player->getY() - destRect.y;

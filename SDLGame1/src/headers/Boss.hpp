@@ -40,10 +40,10 @@ public:
 
 	void debug_ani(const Uint8* keys);
 	void moveinscreen();
-	void move_returning(double targetX, double targetY);
 	void phase0(std::vector<Bullet*>& bullets, Player* player);
 	void phase0_spellcard(std::vector<Bullet*>& bullets, Player* player);
 	void phase1(std::vector<Bullet*>& bullets, Player* player);
+	void phase1_spellcard(std::vector<Bullet*>& bullets, Player* player);
 
 	int getX() const { return destRect.x; }
 	int getY() const { return destRect.y; }
@@ -56,6 +56,12 @@ public:
 	void clearScreen(std::vector<Bullet*>& bullets, std::vector<Item*>& items);
 
 private:
+	void animation();
+
+	void movement_returning(double targetX, double targetY, double speed);
+	void stationary();
+	void movement_random(double speed, Uint64 idle_cooldown);
+
 	void pattern0(std::vector<Bullet*>& bullets, Player* player);
 	void pattern0_spellcard(std::vector<Bullet*>& bullets, Player* player);
 	void pattern1(std::vector<Bullet*>& bullets, Player* player);
@@ -104,6 +110,8 @@ private:
 	const int spriteW = 64, spriteH = 74;
 	const int spriteW_center = spriteW / 2;
 	const int spriteH_center = spriteH / 2;
+	const int BOSS_DEFAULT_X = 410;
+	const int BOSS_DEFAULT_Y = 180;
 };
 
 #endif // !BOSS_HPP
