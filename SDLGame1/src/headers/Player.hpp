@@ -32,8 +32,8 @@ public:
     void updateGraze();
     
     int getGraze() const { return graze; }
-    int getY() const { return hitbox_ingame.y - 20; }
     int getX() const { return hitbox_ingame.x - 10; }
+    int getY() const { return hitbox_ingame.y - 20; }
     int getPlayerhp() const { return hp; }
     SDL_Rect getGrazingBox() const { return hitbox_destRect; }
     SDL_Rect getHitbox() const { return hitbox_ingame; }

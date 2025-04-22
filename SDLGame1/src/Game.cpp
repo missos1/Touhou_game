@@ -16,8 +16,12 @@ SDL_Renderer* Game::Grenderer = nullptr; // Define the static renderer
 GameState Game::state = GameState::LOADING; // Initial game state
 GameState Game::prevState = GameState::LOADING; // Previous game state
 
-int Game::BGM_volume = 128; // Initial BGM volume
-int Game::SE_volume = 128; // Initial SE volume 
+TTF_Font* Game::font0 = nullptr; // Font for text rendering
+TTF_Font* Game::font1 = nullptr; // Font for text rendering
+TTF_Font* Game::font2 = nullptr; // Font for text rendering
+
+int Game::BGM_volume = 32; // Initial BGM volume
+int Game::SE_volume = 32; // Initial SE volume 
 
 Uint64 Game::GameStartTime = 0; // Game start time
 //Uint64 Game::GamePauseTime
@@ -101,6 +105,15 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    font0 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 24);
+    font1 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 36);
+    font2 = TTF_OpenFont("res/DFPPOPCorn-W12.ttf", 48);
+
+	if (!font0 || !font1) {
+		std::cout << "Font Loading Failed! Error: " << TTF_GetError() << endl; // Load fonts
+		return false;
+	}
+
     isRunning = true; // Set isRunning to true if initialization is successful
     return true;
 }
@@ -145,6 +158,10 @@ bool Game::initSM() {
     if (!SoundManager::LoadSound("enemypowerup0", "res/sound/power0.wav")) return false;
     if (!SoundManager::LoadSound("enemypowerup1", "res/sound/power1.wav")) return false;
     if (!SoundManager::LoadSound("pl_powerup", "res/sound/powerup.wav")) return false;
+    if (!SoundManager::LoadSound("kira0", "res/sound/kira00.wav")) return false;
+    if (!SoundManager::LoadSound("kira1", "res/sound/kira01.wav")) return false;
+    if (!SoundManager::LoadSound("kira2", "res/sound/kira02.wav")) return false;
+	if (!SoundManager::LoadSound("timeout", "res/sound/timeout.wav")) return false;
 
     if (!SoundManager::LoadMusic("Mainmenu", "res/OST/A Dream that is more Scarlet than Red.mp3")) return false; // Load music
     if (!SoundManager::LoadMusic("Stage_theme", "res/OST/The Centennial Festival for Magical Girls.mp3")) return false;
@@ -166,35 +183,43 @@ void Game::run() {
         update(); // Update game state
         render(); // Render game state
 
-
-        if (state == GameState::LOADING && SDL_GetTicks64() >= 2000) { // Transition from loading to menu state
-            state = GameState::MENU;
-        }
-
-        if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
-            SoundManager::PlayMusic("Mainmenu", -1, Game::BGM_volume); // Play menu music
-            resetObject();
-        }
-
-		if (Game::prevState != GameState::PAUSE && Game::state == GameState::PAUSE) {
-			SoundManager::PauseMusic(); // Pause music
-		}
-        else if (Game::prevState == GameState::PAUSE && Game::state == GameState::PLAYING) {
-            SoundManager::ResumeMusic(); // Resume music
-        }
-
-        if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
-            SoundManager::StopMusic();
-            //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
-        }
-
-        Game::prevState = Game::state; // Update previous state
-
+        stateHandling();
+        
         frameTime = SDL_GetTicks64() - frameStart; // Calculate frame time
         if (frameDelay > frameTime) {
             SDL_Delay(frameDelay - frameTime); // Delay to maintain 60 FPS
         }
     }
+}
+
+void Game::stateHandling() {
+    if (state == GameState::LOADING && SDL_GetTicks64() >= 2000) { // Transition from loading to menu state
+        state = GameState::MENU;
+    }
+
+    if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
+        SoundManager::PlayMusic("Mainmenu", -1, Game::BGM_volume); // Play menu music
+        resetObject();
+    }
+
+    if (Game::prevState == GameState::PLAYING && Game::state == GameState::RESTARTING) {
+		state = GameState::PLAYING; // Restart game
+        resetObject();
+    }
+
+    if (Game::prevState != GameState::PAUSE && Game::state == GameState::PAUSE) {
+        SoundManager::PauseMusic(); // Pause music
+    }
+    else if (Game::prevState == GameState::PAUSE && Game::state == GameState::PLAYING) {
+        SoundManager::ResumeMusic(); // Resume music
+    }
+
+    if (Game::prevState == GameState::MENU && Game::state == GameState::PLAYING) {
+        SoundManager::StopMusic();
+        //std::cout << "Game started at: " << Game::GameStartTime << " ms" << endl;
+    }
+
+    Game::prevState = Game::state; // Update previous state
 }
 
 void Game::handleEvents() {
@@ -326,7 +351,7 @@ void Game::render() {
             bullet->render(); // Render enemy bullets
         }
 
-        sidebar->render(winW, winH, player); // Render sidebar
+        sidebar->render(winW, winH, player, boss); // Render sidebar
     }
 
     SDL_RenderPresent(Grenderer); // Present the renderer
@@ -334,9 +359,13 @@ void Game::render() {
 
 void Game::clean() {
     delete MENU; // Clean up menu
+	MENU = nullptr; // Set menu to nullptr
     delete boss;
+	boss = nullptr; // Set boss to nullptr
     delete player; // Clean up player
+	player = nullptr; // Set player to nullptr
     delete sidebar; // Clean up sidebar
+	sidebar = nullptr; // Set sidebar to nullptr
     for (Bullet* bullet : player_bullets) {
         delete bullet; // Clean up player bullets
     }
@@ -349,6 +378,9 @@ void Game::clean() {
     for (Item* item : items) {
         delete item; // Clean up items
     }
+    TTF_CloseFont(font0); // Close fonts
+    TTF_CloseFont(font1);
+    TTF_CloseFont(font2);
     enemies.clear(); // Clear enemy vector
     player_bullets.clear(); // Clear player bullet vector
     enemy_bullets.clear(); // Clear enemy bullet vector

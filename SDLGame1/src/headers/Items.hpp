@@ -36,8 +36,12 @@ public:
 	int getY() const { return hitbox.y; }
 	SDL_Rect getHitbox() const { return hitbox; }
 	Itemtype getType() const { return type; }
+	
 
 private:
+	static inline int randomspawn(int range, int node, int pos) {
+		return (pos + (rand() % range) + node);
+	}
 	SDL_Texture* item_text;
 	double xPos, yPos;
 	double fallspeed;

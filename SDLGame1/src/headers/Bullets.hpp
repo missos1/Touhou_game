@@ -20,11 +20,13 @@ enum class Bullettype { // types of bullets
     ENEMY_RICE_BL,
     ENEMY_RICE_GR,
     ENEMY_ROUND1,
+	ENEMY_PEARL_BL,
+	ENEMY_PEARL_RD,
 };
 
 class Bullet {
 public:
-    Bullet(double x, double y, double velx, double vely, Bullettype type);
+    Bullet(double x, double y, double velx, double vely, Bullettype type, int Ricochet);
     ~Bullet();
 
     void update();
@@ -37,13 +39,15 @@ public:
     bool getGrazeState() const { return grazed; }
     int getDmg() const { return dmg; }
 
-
 private:
+    void RicochetHandling();
+
     SDL_Texture* playerbullet_text;
     SDL_Texture* enemybullet_text;
     SDL_Rect srcRect, destRect;
     SDL_Rect hitbox;
 
+    int Ricochet;
     int dmg;
 
     bool grazed = false;
@@ -56,6 +60,7 @@ private:
     const int S_HITBOX_SIZE = 8;
     const int M_HITBOX_SIZE = 12;
     const int L_HITBOX_SIZE = 16;
+    const int XL_HITBOX_SIZE = 32;
 
     const int ROUND0_Y = 57;
     const int ROUND1_Y = 73;
@@ -64,7 +69,13 @@ private:
     const int KNIFE_Y = 185;
     const int DEFAULT_X = 306;
 
-    //const int S_
+    const int PEARL_X = 587;
+    const int PEARL_Y = 25;
+
+	const int XL_RED = 0;
+	const int XL_BLUE = 64;
+	const int XL_GREEN = 128;
+	const int XL_YELLOW = 192;
 
     const int L_RED = 32;
     const int L_PINK = 64;

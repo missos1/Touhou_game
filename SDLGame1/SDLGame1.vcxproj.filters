@@ -374,18 +374,15 @@
     <ClInclude Include="include\SDL_vulkan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\FRAMETEXTURE.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\sidebar.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\SIDEBAR_TITLE.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png">
@@ -412,9 +409,6 @@
     <Image Include="res\Enemy\Blue_fa.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Titlescreens&amp;menus.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Menu\Loading.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -436,15 +430,6 @@
     <Image Include="res\Enemy\Sparkle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\SIDEBAR_PLAYER.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\SIDEBAR_POWER.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\SIDEBAR_HP.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -463,10 +448,52 @@
     <Image Include="res\Enemy\Flandre_SpellCard.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Background.png">
+    <Image Include="res\player\Reimu_og.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\player\Reimu_og.png">
+    <Image Include="res\Menu\Game_title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\BGM_unsl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\BGM.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Option.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Option_unsl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Sound.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Menu\Sound_unsl.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\Background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\FRAMETEXTURE.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\SIDEBAR_BOSS_HP.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\SIDEBAR_HP.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\SIDEBAR_PLAYER.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\SIDEBAR_POWER.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\SIDEBAR_TITLE.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Sidebar\Titlescreens&amp;menus.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -477,6 +504,7 @@
     <None Include="SDL2.dll" />
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_ttf.dll" />
+    <None Include="res\Enemy\stage_0_enemies.json" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\sound\cancel00.wav">

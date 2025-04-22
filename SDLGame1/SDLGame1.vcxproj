@@ -36,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="include\begin_code.h" />
     <ClInclude Include="include\close_code.h" />
+    <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\SDL.h" />
     <ClInclude Include="include\SDL_assert.h" />
     <ClInclude Include="include\SDL_atomic.h" />
@@ -142,8 +143,6 @@
     <ClInclude Include="src\headers\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\Background.png" />
-    <Image Include="res\FRAMETEXTURE.png" />
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
@@ -155,10 +154,17 @@
     <Image Include="res\Enemy\Sparkle.png" />
     <Image Include="res\Enemy\SpellCardEffects.png" />
     <Image Include="res\Enemy\White_fa.png" />
+    <Image Include="res\Menu\BGM.png" />
+    <Image Include="res\Menu\BGM_unsl.png" />
+    <Image Include="res\Menu\Game_title.png" />
     <Image Include="res\Menu\Loading.png" />
     <Image Include="res\Menu\Menu_bg.png" />
+    <Image Include="res\Menu\Option.png" />
+    <Image Include="res\Menu\Option_unsl.png" />
     <Image Include="res\Menu\Quit.png" />
     <Image Include="res\Menu\Quit_unsl.png" />
+    <Image Include="res\Menu\Sound.png" />
+    <Image Include="res\Menu\Sound_unsl.png" />
     <Image Include="res\Menu\Start.png" />
     <Image Include="res\Menu\Start_unsl.png" />
     <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
@@ -168,11 +174,14 @@
     <Image Include="res\player\Reimu_sprite(2).png" />
     <Image Include="res\player\Reimu_sprite.png" />
     <Image Include="res\sidebar.png" />
-    <Image Include="res\SIDEBAR_HP.png" />
-    <Image Include="res\SIDEBAR_PLAYER.png" />
-    <Image Include="res\SIDEBAR_POWER.png" />
-    <Image Include="res\SIDEBAR_TITLE.png" />
-    <Image Include="res\Titlescreens&amp;menus.png" />
+    <Image Include="res\Sidebar\Background.png" />
+    <Image Include="res\Sidebar\FRAMETEXTURE.png" />
+    <Image Include="res\Sidebar\SIDEBAR_BOSS_HP.png" />
+    <Image Include="res\Sidebar\SIDEBAR_HP.png" />
+    <Image Include="res\Sidebar\SIDEBAR_PLAYER.png" />
+    <Image Include="res\Sidebar\SIDEBAR_POWER.png" />
+    <Image Include="res\Sidebar\SIDEBAR_TITLE.png" />
+    <Image Include="res\Sidebar\Titlescreens&amp;menus.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\SDL2.pdb" />
@@ -181,6 +190,7 @@
     <None Include="SDL2_image.dll" />
     <None Include="SDL2_mixer.dll" />
     <None Include="SDL2_ttf.dll" />
+    <None Include="res\Enemy\stage_0_enemies.json" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />

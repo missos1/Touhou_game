@@ -125,6 +125,14 @@ void Player::update() {
             invincendTime = 0;
         }
     } 
+
+    if (hp <= 0) {
+        Game::GameStartTime = 0; // Reset time
+        Game::GamePauseTotalTime = 0; // Reset time
+        Game::PLAYSCORE = 0; // Reset score
+        Game::state = GameState::MENU; // Goes back to menu
+        Game::prevState = GameState::PLAYING;
+    }
 }
 
 void Player::render() {
@@ -171,8 +179,8 @@ void Player::render() {
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
-    //SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
-    //SDL_RenderFillRect(Game::Grenderer, &hitbox_ingame);
+    SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
+    SDL_RenderFillRect(Game::Grenderer, &hitbox_ingame);
 }
 
 void Player::resetValue() {
@@ -214,13 +222,13 @@ void Player::playerShoot(std::vector<Bullet*>& bullets) const {
     }
 
     for (const std::pair<int, int>& pos : position) {
-        bullets.emplace_back(new Bullet(destRect_amu_0.x + pos.first, destRect_amu_0.y + pos.second, 0, bulletspeed, Bullettype::PLAYER_1));
-        bullets.emplace_back(new Bullet(destRect_amu_1.x + pos.first, destRect_amu_1.y + pos.second, 0, bulletspeed, Bullettype::PLAYER_1));
+        bullets.emplace_back(new Bullet(destRect_amu_0.x + pos.first, destRect_amu_0.y + pos.second, 0, bulletspeed, Bullettype::PLAYER_1, 0));
+        bullets.emplace_back(new Bullet(destRect_amu_1.x + pos.first, destRect_amu_1.y + pos.second, 0, bulletspeed, Bullettype::PLAYER_1, 0));
     }
     
     for (const int& angle : angle) {
         double vx = angle;
-        bullets.emplace_back(new Bullet(hitbox_ingame.x - 15, hitbox_ingame.y, vx, bulletspeed, Bullettype::PLAYER_0));
+        bullets.emplace_back(new Bullet(hitbox_ingame.x - 15, hitbox_ingame.y, vx, bulletspeed, Bullettype::PLAYER_0, 0));
     }
     SoundManager::PlaySound("plshoot", 0, Game::SE_volume);
 }
@@ -299,13 +307,10 @@ void Player::animation() {
 void Player::powerlvhandle() {
     static int prevpowerlv = 1;
     int pwlv = static_cast<int>(powerlv);
-    if (pwlv != prevpowerlv) {
-        if (pwlv > prevpowerlv) {
-            SoundManager::PlaySound("pl_powerup", 0, Game::SE_volume);
-            prevpowerlv = pwlv;
-        }
-        else if (pwlv < prevpowerlv) {
-            prevpowerlv = pwlv;
-        }
-    }
+    if (pwlv == prevpowerlv) return;
+
+    if (pwlv > prevpowerlv) SoundManager::PlaySound("pl_powerup", 0, Game::SE_volume);
+
+    prevpowerlv = pwlv;
+   
 }

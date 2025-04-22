@@ -1,0 +1,3037 @@
+{
+  "5.0": [
+    {
+      "x": 1000,
+      "y": -40,
+      "speed": -7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNESW"
+    },
+    {
+      "x": 1200,
+      "y": -30,
+      "speed": -7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNESW"
+    },
+    {
+      "x": 920,
+      "y": -20,
+      "speed": -7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNESW"
+    },
+    {
+      "x": 880,
+      "y": 0,
+      "speed": -7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNESW"
+    },
+    {
+      "x": -450,
+      "y": -100,
+      "speed": 7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNWSE"
+    },
+    {
+      "x": -50,
+      "y": -70,
+      "speed": 7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNWSE"
+    },
+    {
+      "x": -70,
+      "y": -80,
+      "speed": 7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNWSE"
+    },
+    {
+      "x": -100,
+      "y": -30,
+      "speed": 7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNWSE"
+    },
+    {
+      "x": -200,
+      "y": -10,
+      "speed": 7,
+      "type": "SPARKLE",
+      "movementType": "DiagonalNWSE"
+    }
+  ],
+  "50.0": [
+    {
+      "x": 850,
+      "y": 200,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    },
+    {
+      "x": -10,
+      "y": 200,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    },
+    {
+      "x": 300,
+      "y": -30,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    },
+    {
+      "x": 410,
+      "y": 0,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    }
+  ],
+  "55.0": [
+    {
+      "x": -10,
+      "y": 300,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    },
+    {
+      "x": -60,
+      "y": 100,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    },
+    {
+      "x": 850,
+      "y": 300,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    },
+    {
+      "x": 900,
+      "y": 100,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    }
+  ],
+  "56.0": [
+    {
+      "x": -20,
+      "y": 150,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    }
+  ],
+  "58.0": [
+    {
+      "x": 870,
+      "y": 300,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    }
+  ],
+  "60.0": [
+    {
+      "x": -20,
+      "y": 100,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    }
+  ],
+  "62.0": [
+    {
+      "x": 880,
+      "y": 150,
+      "speed": 4,
+      "type": "WHITE_FA",
+      "movementType": "Lshape"
+    }
+  ],
+  "63.0": [
+    {
+      "x": 600,
+      "y": -80,
+      "speed": 2,
+      "type": "BLUE_FA",
+      "movementType": "Vertical"
+    },
+    {
+      "x": 500,
+      "y": -90,
+      "speed": 2,
+      "type": "BLUE_FA",
+      "movementType": "Vertical"
+    },
+    {
+      "x": 300,
+      "y": -40,
+      "speed": 2,
+      "type": "BLUE_FA",
+      "movementType": "Vertical"
+    },
+    {
+      "x": 400,
+      "y": -70,
+      "speed": 2,
+      "type": "BLUE_FA",
+      "movementType": "Vertical"
+    },
+    {
+      "x": 200,
+      "y": -70,
+      "speed": 2,
+      "type": "BLUE_FA",
+      "movementType": "Vertical"
+    },
+    {
+      "x": 700,
+      "y": -10,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    },
+    {
+      "x": 600,
+      "y": -10,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    },
+    {
+      "x": 400,
+      "y": -30,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    },
+    {
+      "x": 300,
+      "y": -30,
+      "speed": 0.4,
+      "type": "BLUE_FA",
+      "movementType": "BezierCurve"
+    }
+  ],
+  "10.3": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "10.6": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "10.9": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "11.2": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "11.5": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "11.8": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "12.1": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "12.4": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "12.7": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "13.0": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "13.3": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "13.6": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "13.9": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "14.2": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "14.5": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "14.8": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "15.1": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "15.4": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "15.7": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "16.0": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": -40
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": -40
+    }
+  ],
+  "17.3": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "17.6": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "17.9": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "18.2": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "18.5": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "18.8": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "19.1": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "19.4": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "19.7": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "20.0": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "20.3": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "20.6": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "20.9": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "21.2": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "21.5": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "21.8": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "22.1": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "22.4": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "22.7": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "23.0": [
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -30,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 900,
+      "y": 100
+    },
+    {
+      "movementType": "DiagonalNWSE",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -130,
+      "y": 10
+    },
+    {
+      "movementType": "DiagonalNESW",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 10
+    }
+  ],
+  "27.3": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "27.6": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "27.9": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "28.2": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "28.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "28.8": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "29.1": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "29.4": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "29.7": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "30.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "30.3": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "30.6": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "30.9": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "31.2": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "31.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "31.8": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "32.1": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "32.4": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "32.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "32.7": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    }
+  ],
+  "33.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 200,
+      "y": -30
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 300,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 450,
+      "y": -10
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.8,
+      "type": "SPARKLE",
+      "x": 550,
+      "y": -30
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "33.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "34.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "34.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "35.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "35.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "36.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "36.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "37.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 300
+    }
+  ],
+  "42.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "43.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "43.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "44.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "44.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "45.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "45.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "46.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "46.5": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "47.0": [
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.5,
+      "type": "RED_FA",
+      "x": 410,
+      "y": -35
+    },
+    {
+      "movementType": "BezierCurve",
+      "speed": 0.3,
+      "type": "BLUE_FA",
+      "x": 480,
+      "y": -35
+    }
+  ],
+  "66.3": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "66.6": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "66.9": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "67.2": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "67.5": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "67.8": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "68.1": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "68.4": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "68.7": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "69.0": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "69.3": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "69.6": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "69.9": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "70.2": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "70.5": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "70.8": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "71.1": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "71.4": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "71.7": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "72.0": [
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 230,
+      "y": -20
+    },
+    {
+      "movementType": "Vertical",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 130,
+      "y": -10
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": 20,
+      "y": 320
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": 8.0,
+      "type": "SPARKLE",
+      "x": -10,
+      "y": 210
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1000,
+      "y": 410
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -8.0,
+      "type": "SPARKLE",
+      "x": 1250,
+      "y": 120
+    }
+  ],
+  "75.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "76.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "76.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "77.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "77.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "78.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "78.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "79.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "79.5": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ],
+  "80.0": [
+    {
+      "movementType": "Horizontal",
+      "speed": 3.0,
+      "type": "RED_FA",
+      "x": -40,
+      "y": 200
+    },
+    {
+      "movementType": "Horizontal",
+      "speed": -3.0,
+      "type": "RED_FA",
+      "x": 900,
+      "y": 100
+    }
+  ]
+}
+

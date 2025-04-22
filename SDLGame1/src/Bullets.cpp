@@ -3,11 +3,11 @@
 #include <iostream>
 #include <cmath>
 
-Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
+Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type, int Ricochet)
 	: xPos(x), yPos(y), vx(velx), vy(vely), type(type),
 	destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, // Initialize variables
 	playerbullet_text(nullptr), enemybullet_text(nullptr),
-	savedVx(0), savedVy(0), hitbox{ 0, 0, 0, 0 }, dmg(0) {
+	savedVx(0), savedVy(0), hitbox{ 0, 0, 0, 0 },dmg(0), Ricochet(0) {
 
 	int spriteW = 0, spriteH = 0, spriteXpos = 0, spriteYpos = 0;
 	playerbullet_text = Game::Misc_player_text; // Get player bullet texture
@@ -76,7 +76,21 @@ Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type)
 		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
 		hitbox = { static_cast<int>(y), static_cast<int>(x), M_HITBOX_SIZE , M_HITBOX_SIZE };
 		break;
+	case Bullettype::ENEMY_PEARL_RD: // Large Round bullet
+		spriteXpos = PEARL_X + XL_RED; spriteYpos = PEARL_Y; spriteW = 32; spriteH = 32;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
+		break;
+	case Bullettype::ENEMY_PEARL_BL: // Large Round bullet
+		spriteXpos = PEARL_X + XL_BLUE; spriteYpos = PEARL_Y; spriteW = 64; spriteH = 64;
+		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
+		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), XL_HITBOX_SIZE , XL_HITBOX_SIZE };
+		break;
 	}
+
+	this->Ricochet = Ricochet;
 }
 
 Bullet::~Bullet() {
@@ -84,6 +98,8 @@ Bullet::~Bullet() {
 }
 
 void Bullet::update() {
+	RicochetHandling(); // Handle ricochet logic
+
 	xPos += vx; // Update x position
 	yPos += vy; // Update y position
 	destRect.x = static_cast<int>(xPos); // Update sprite x position
@@ -105,6 +121,11 @@ void Bullet::update() {
 	case Bullettype::ENEMY_ROUND1: // Medium hitbox
 		hitbox.x = destRect.x + 10;
 		hitbox.y = destRect.y + 10;
+		break;
+	case Bullettype::ENEMY_PEARL_RD:
+	case Bullettype::ENEMY_PEARL_BL: // Large hitbox
+		hitbox.x = destRect.x + 48;
+		hitbox.y = destRect.y + 48;
 		break;
 	default: // Default case
 		hitbox.x = destRect.x;
@@ -136,6 +157,8 @@ void Bullet::render() {
 	case Bullettype::ENEMY_KNIFE:
 	case Bullettype::ENEMY_KUNAI_BL:
 	case Bullettype::ENEMY_ROUND1:
+	case Bullettype::ENEMY_PEARL_RD:
+	case Bullettype::ENEMY_PEARL_BL:
 		double angle = atan2(vy, vx) * 180 / M_PI; // Calculate angle for direction
 		SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90.0, nullptr, SDL_FLIP_NONE); // Render bullet with direction
 		break;
@@ -144,3 +167,16 @@ void Bullet::render() {
 	//SDL_RenderFillRect(Game::Grenderer, &hitbox);  // Debug hitboxes
 }
 
+void Bullet::Bullet::RicochetHandling() {
+	if (Ricochet == 0) return; // No ricochet left
+
+
+	if (destRect.x <= PLAY_AREA_X_MIN || destRect.x >= PLAY_AREA_X_MAX + 32) {
+		vx = -vx; // Reverse x velocity
+		Ricochet--;
+	}
+	if (destRect.y <= PLAY_AREA_Y_MIN) {
+		vy = -vy; // Reverse y velocity
+		Ricochet--;
+	}
+}
