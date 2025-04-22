@@ -92,8 +92,6 @@ void EnemyLayout::EnemyShootCondition(std::vector<Enemy*>& enemies, std::vector<
 			if (enemies[i]->getY() <= (enemies[i]->initY - 10) && !enemies[i]->fired) {
 				enemies[i]->circleroundShoot(bullets, 40);
 			}
-			break;
-
 		case EnemyType::BLUE_FA:
 			if (enemies[i]->getY() >= 250 && !enemies[i]->fired) {
 				enemies[i]->aimedShoot(bullets, player_hitbox_x, player_hitbox_y);
