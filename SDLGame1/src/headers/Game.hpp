@@ -13,8 +13,8 @@
 
 const int WIN_WIDTH = 1280;
 const int WIN_HEIGHT = 960;
-const int PLAY_AREA_X_MIN = 20;
-const int PLAY_AREA_X_MAX = 820;
+const int PLAY_AREA_X_MIN = 30;
+const int PLAY_AREA_X_MAX = 840;
 const int PLAY_AREA_Y_MIN = 10;
 const int PLAY_AREA_Y_MAX = 855;
 const int PLAYER_HB_SIZE = 10;
@@ -22,6 +22,15 @@ const int PLAYER_OG_X = 415;
 const int PLAYER_OG_Y = 680;
 const int BOSS_OG_X = -150;
 const int BOSS_OG_Y = 120;
+
+const SDL_Color white = { 255, 255, 255 };
+const SDL_Color red = { 255, 0, 0 };
+const SDL_Color light_gray = { 200, 200, 200 };
+const SDL_Color very_light_gray = { 230, 230, 230 };
+const SDL_Color gray = { 128, 128, 128 };
+const SDL_Color dark_gray = { 50, 50, 50 };
+const SDL_Color yellow = { 255, 255, 0 };
+const SDL_Color pink = { 255, 100, 100 };
 
 class Bullet;
 class Player;
@@ -38,6 +47,7 @@ enum class GameState {
     MENU,
     PLAYING,
     PAUSE,
+    RESTARTING,
     EXIT,
 };
 
@@ -45,6 +55,10 @@ class Game {
 public:
     Game();
     ~Game();
+
+    static TTF_Font* font0;
+    static TTF_Font* font1;
+    static TTF_Font* font2;
 
 	static SDL_Renderer* Grenderer;
     static GameState state;
@@ -74,6 +88,7 @@ public:
     bool initSM();
     void handleEvents();
     void pauseGame(const SDL_Event& event);
+    void stateHandling();
     void resetObject();
     void update();
     void render();
@@ -102,8 +117,6 @@ private:
     const Uint64 frameDelay = 1000 / FPS;  // frame stuff
     Uint64 frameStart;
     Uint64 frameTime;
-
-    
 };
 
 #endif

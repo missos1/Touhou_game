@@ -11,9 +11,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 	speed(speed), Enemy_texture(nullptr), Mtype(Mtype), hp(0), vx(0), vy(0), hitbox{ 0, 0, 0, 0 },
 	movingHorizontal(true), pause(false), pauseStart(0), useBezier(false), bezierT(0.0), point(0) {
 
-	std::cout << "Enemy spawned at: (" << xPos << ", " << yPos << ")" << std::endl;
-
-	
+	//std::cout << "Enemy spawned at: (" << xPos << ", " << yPos << ")" << std::endl;
 
 	totalFrames = 4;
 	Ani_speed = 0.5f;
@@ -123,7 +121,7 @@ void Enemy::update() {
 void Enemy::render() {
 	if (type == EnemyType::SPARKLE) {
 		static int angle = 0;
-		if (Game::state != GameState::PAUSE) angle = (angle + 7 + 360) % 360;
+		if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
 		SDL_RenderCopyEx(Game::Grenderer, Enemy_texture, &srcRect, &destRect, angle, nullptr, SDL_FLIP_NONE);
 	}
 
@@ -207,7 +205,7 @@ void Enemy::rndriceShoot(std::vector<Bullet*>& bullets, int density) {
 		double speed = 3 + std::rand() % 2;
 		double velx = cos(angle) * speed;
 		double vely = sin(angle) * speed;
-		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE_BL));
+		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_RICE_BL, 0));
 	}
 	SoundManager::PlaySound("enshoot0", 0, Game::SE_volume / 4);
 }
@@ -216,7 +214,7 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 	double deltax = playerX - destRect.x; 
 	double deltay = playerY - destRect.y; 
 
-	double angle = atan2((long double) deltay,(long double) deltax);
+	double angle = atan2(static_cast<long double>(deltay), static_cast<long double>(deltax));
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
 	std::vector<double> spdvar = { 3.6, 4, 4.2, 4.5, 5, 6, 7 ,8 };
@@ -224,7 +222,7 @@ void Enemy::aimedShoot(std::vector<Bullet*>& bullets, int playerX, int playerY) 
 		for (const double& speed : spdvar) {
 			double velx = cos(angle + offset) * speed;
 			double vely = sin(angle +offset) * speed;
-			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_BL));
+			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_BL, 0));
 			
 		}
 	}
@@ -240,7 +238,7 @@ void Enemy::circleroundShoot(std::vector<Bullet*>& bullets, int density) {
 		for (const double& speed : spdvar) {
 			double velx = cos(angle) * speed;
 			double vely = sin(angle) * speed;
-			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1));
+			bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_ROUND1, 0));
 		}
 	}
 	SoundManager::PlaySound("enshoot2", 0, Game::SE_volume / 4);
@@ -253,6 +251,6 @@ void Enemy::rndcircleShoot(std::vector<Bullet*>& bullets, int density) {
 		double angle = ((2 * M_PI / density) * i) + randomOffset;
 		double velx = cos(angle) * 3;
 		double vely = sin(angle) * 3;
-		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_GR));
+		bullets.emplace_back(new Bullet(destRect.x, destRect.y, velx, vely, Bullettype::ENEMY_KUNAI_GR, 0));
 	}
 }

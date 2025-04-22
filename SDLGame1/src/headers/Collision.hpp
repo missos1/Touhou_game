@@ -25,6 +25,9 @@ public:
 	static void DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<Bullet*>& player_bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items);
 private:
 	static void ItemGetCalculation(std::vector<Item*>& items, Player* player);
+	static inline bool isOffscreen(int max_X, int max_Y, int min_X, int min_Y, int x, int y) {
+		return (x < min_X || x > max_X || y < min_Y || y > max_Y);
+	}
 };
 
 #endif 

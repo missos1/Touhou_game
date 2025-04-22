@@ -7,7 +7,9 @@
 
 Boss::Boss(double x, double y)
 	: xPos(x), yPos(y), destRect{ 0, 0, 0, 0 }, srcRect{ 0, 0, 0, 0 }, isIdle(true),
-	vx(0), vy(0), hitbox{ 0, 0, 0, 0 }, phase(Phase::IDLE), state(BossState::NORMAL) {
+	vx(0), vy(0), hitbox{ 0, 0, 0, 0 }, phase(Phase::IDLE), state(BossState::NORMAL),
+	currentHP(0), phase_duration(9999999), spellcard_count(3),elapsed(0), phase_time_left(0),
+	destRect_circle{ 0, 0, 0, 0 }, text_texture(nullptr), isFlipped(false), isMoving(false) {
 
 	Boss_texture = TextureManager::LoadTexture("res/Enemy/Flandre.png");
 	Circle_texture = TextureManager::LoadTexture("res/Enemy/circle.png");
@@ -19,17 +21,27 @@ Boss::Boss(double x, double y)
 	currentFrame = 0;
 	currentFrameIdle = 0;
 
-	phaseHP[Phase::IDLE] = 1;
+	phase_time_map[Phase::IDLE] = 9999999;
+	phase_time_map[Phase::PHASE0] = 50;
+	phase_time_map[Phase::PHASE0_SC] = 20;
+	phase_time_map[Phase::PHASE1] = 20;
+	phase_time_map[Phase::PHASE1_SC] = 20;
+	phase_time_map[Phase::PHASE2] = 20;
+	phase_time_map[Phase::PHASE2_SC] = 20;
+
+	phaseHP[Phase::IDLE] = 0;
 	phaseHP[Phase::PHASE0] = 500;
-	phaseHP[Phase::PHASE0_SC] = 3000;
-	phaseHP[Phase::PHASE1] = 3000;
-	phaseHP[Phase::PHASE1_SC] = 4000;
+	phaseHP[Phase::PHASE0_SC] = 500;
+	phaseHP[Phase::PHASE1] = 500;
+	phaseHP[Phase::PHASE1_SC] = 500;
+	phaseHP[Phase::PHASE2] = 500;
+	phaseHP[Phase::PHASE2_SC] = 500;
+	phaseHP[Phase::DEAD] = 0;
 
 	srcRect = { 0, 0, spriteW, spriteH };
 	srcRect_circle = { 0, 0, 60, 59 };
 	destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
 	hitbox = { destRect.x + 16, destRect.y + 16, 96, 96 };
-
 
 	int w, h;
 	SDL_QueryTexture(Spellcard_texture, nullptr, nullptr, &w, &h);
@@ -59,18 +71,20 @@ void Boss::update(std::vector<Bullet*>& bullets, std::vector<Item*>& items) {
 
 	hitbox.x = destRect.x + 16;
 	hitbox.y = destRect.y + 16;
+
+	phase_time_left = phase_duration - elapsed;
 }
 
 void Boss::updatePhase(std::vector<Bullet*>& bullets, std::vector<Item*>& items) {
-	if (currentHP <= 0 && phase != Phase::IDLE) {
+	if ((currentHP <= 0 || phase_time_left <= 0) && phase != Phase::IDLE) {
 		state = BossState::RETURNING;
 		switch (phase) {
 		case Phase::PHASE0:
 			setPhase(Phase::PHASE0_SC);
 			items.emplace_back(new Item(destRect.x + spriteW_center, destRect.y + spriteH_center, Itemtype::ONEUP));
 			SoundManager::PlaySound("enemypowerup1", 0, Game::SE_volume);
+			spellcard_count--;  
 			break;
-
 		case Phase::PHASE0_SC:
 			setPhase(Phase::PHASE1);
 			items.emplace_back(new Item(destRect.x + spriteW_center, destRect.y + spriteH_center, Itemtype::ONEUP));
@@ -82,12 +96,27 @@ void Boss::updatePhase(std::vector<Bullet*>& bullets, std::vector<Item*>& items)
 			setPhase(Phase::PHASE1_SC);
 			SoundManager::PlaySound("enemypowerup1", 0, Game::SE_volume);
 			items.emplace_back(new Item(destRect.x + spriteW_center, destRect.y + spriteH_center, Itemtype::ONEUP));
+			spellcard_count--;
 			break;
 		case Phase::PHASE1_SC:
+			setPhase(Phase::PHASE2);
+			SoundManager::PlaySound("enemypowerup0", 0, Game::SE_volume);
+			break;
+		case Phase::PHASE2:
+			setPhase(Phase::PHASE2_SC);
+			SoundManager::PlaySound("enemypowerup1", 0, Game::SE_volume);
+			items.emplace_back(new Item(destRect.x + spriteW_center, destRect.y + spriteH_center, Itemtype::ONEUP));
+			spellcard_count--;
+			break;
+		case Phase::PHASE2_SC:
+			setPhase(Phase::DEAD);
+			xPos = BOSS_OG_X;
+			yPos = BOSS_OG_Y;
 			//std::cout << "Boss defeated!" << std::endl;
 			//SoundManager::PlaySound("endie0", 5, Game::SE_volume);
 			SoundManager::PlaySound("endie1", 0, Game::SE_volume);
-			resetValue();
+			SoundManager::StopMusic();
+			//resetValue();
 			break;
 		}
 
@@ -97,7 +126,7 @@ void Boss::updatePhase(std::vector<Bullet*>& bullets, std::vector<Item*>& items)
 
 void Boss::render() {
 	static int spellcard_opacity = 0;
-	if (phase == Phase::PHASE0_SC || phase == Phase::PHASE1_SC) {
+	if (phase == Phase::PHASE0_SC || phase == Phase::PHASE1_SC || phase == Phase::PHASE2_SC) {
 		SDL_SetTextureAlphaMod(Spellcard_texture, spellcard_opacity);
 		SDL_RenderCopy(Game::Grenderer, Spellcard_texture, nullptr, &destRect_spellcard);
 		spellcard_opacity += 5;
@@ -113,8 +142,10 @@ void Boss::render() {
 	if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
 	if (Boss::phase != Phase::IDLE) TextureManager::render_from_texture(Circle_texture, destRect.x - 55, destRect.y - 40, 4, angle, SDL_FLIP_NONE);
 
+
 	//SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
 	//SDL_RenderFillRect(Game::Grenderer, &hitbox);
+
 }
 
 
@@ -134,35 +165,36 @@ void Boss::animation() {
 
 	frameTime += Ani_speed;
 
-	if (isMoving) {
-		if (currentFrame < 1 && !isIdle) { // left right animation  
-			if (frameTime >= 1.5f) { // if less than 1 then increment to next fram
-				frameTime = 0.0f;
-				currentFrame++;
-				if (currentFrame >= 1) currentFrame = 1;
-			}
+	if (!isMoving) {
+		if (frameTime >= 1.0f && isIdle) { // idle animation
+			frameTime = 0.0f;
+			currentFrameIdle = (++currentFrameIdle) % totalFrames;
+			srcRect.y = 0;
+			srcRect.x = currentFrameIdle * spriteW;
 		}
-		else if (currentFrame > 0 && isIdle) { // if is idling after moving then buffers to slowly play frame back
-			if (frameTime >= 0.1f) {
-				frameTime = 0.0f;
-				currentFrame--;
-			}
-		}
-		else if (currentFrame == 0 && isIdle) { // after playing animation, return to idle animation
-			isMoving = false;
-		}
-		srcRect.y = spriteH;
-		srcRect.x = currentFrame * spriteW;
 		return;
 	}
-	
-	if (frameTime >= 1.0f && isIdle) { // idle animation
-		frameTime = 0.0f;
-		currentFrameIdle = (currentFrameIdle + 1) % totalFrames;
-		srcRect.y = 0;
-		srcRect.x = currentFrameIdle * spriteW;
+
+	if (currentFrame < 1 && !isIdle) { // left right animation  
+		if (frameTime >= 1.5f) { // if less than 1 then increment to next fram
+			frameTime = 0.0f;
+			currentFrame++;
+		}
+	}
+	else if (currentFrame >= 0 && isIdle) { // if is idling after moving then buffers to slowly play frame back
+		if (currentFrame == 0 && isIdle) { // after playing animation, return to idle animation
+			isMoving = false;
+			return;
+		}
+
+		if (frameTime >= 0.1f) {
+			frameTime = 0.0f;
+			currentFrame--;
+		}
 	}
 	
+	srcRect.y = spriteH;
+	srcRect.x = currentFrame * spriteW;
 }
 
 void Boss::resetValue() {
@@ -171,12 +203,14 @@ void Boss::resetValue() {
 	isIdle = true;
 	phase = Phase::IDLE;
 	state = BossState::NORMAL;
+	spellcard_count = 3;
 	vx = vy = 0;
 }
 
 void Boss::setPhase(Phase newPhase) {
 	phase = newPhase;
 	currentHP = phaseHP[phase]; // Update HP for the new phase
+	phase_duration = phase_time_map[phase] + elapsed; // Update phase time
 }
 
 void Boss::takeDamage(int damage) {
@@ -207,6 +241,10 @@ void Boss::clearScreen(std::vector<Bullet*>& bullets, std::vector<Item*>& items)
 	}
 }
 
+void Boss::getStage_elapsed(const double& elapsed) {
+	this->elapsed = static_cast<int>(elapsed);
+}
+
 void Boss::debug_ani(const Uint8* keys) {
 	vx = vy = 0;
 	if (keys[SDL_SCANCODE_UP]) vy = -4;
@@ -221,10 +259,11 @@ void Boss::debug_ani(const Uint8* keys) {
 // Boss' movement behaviors below
 
 void Boss::moveinscreen() {
-	
-	if (xPos >= 400 && yPos == 120) {
+	if (xPos >= 380 && yPos == 120) {
 		phase = Phase::PHASE0;
 		currentHP = phaseHP[Phase::PHASE0];
+		phase_duration = phase_time_map[Phase::PHASE0] + elapsed; // Update phase time
+		
 		vx = 0;
 		vy = 0;
 		return;
@@ -235,7 +274,7 @@ void Boss::moveinscreen() {
 }
 
 void Boss::movement_returning(double targetX, double targetY, double speed) {
-	const double threshold = 10.0; 
+	const double threshold = 30.0; 
 
 	double dx = targetX - xPos;
 	double dy = targetY - yPos;
@@ -274,13 +313,13 @@ void Boss::movement_random(double speed, Uint64 idle_cooldown) {
 		vy = 0;
 		if (Game::GamecurrentTime - stationaryTime >= idle_cooldown) {
 			stationary = false;
-			rnd_new_xPos = rand() % 600 + 50;
-			rnd_new_yPos = rand() % 200 + 40;
+			rnd_new_xPos = rand() % 600 + 70;
+			rnd_new_yPos = rand() % 200 + 50;
 		}
 		return;
 	}
 	
-	const double threshold = 15.0;
+	const double threshold = 30.0;
 
 	double dx = rnd_new_xPos - xPos;
 	double dy = rnd_new_yPos - yPos;
@@ -314,7 +353,7 @@ void Boss::phase0_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 	}
 	
 	pattern0_spellcard(bullets, player);
-	movement_random(4.0, 10000);
+	movement_random(4.0, 7000);
 	
 }
 
@@ -323,7 +362,8 @@ void Boss::phase1(std::vector<Bullet*>& bullets, Player* player) {
 		movement_returning(410, 180, 4.0);
 		return;
 	}
-	
+	movement_random(4.5, 1000);
+	pattern1(bullets, player);
 }
 
 void Boss::phase1_spellcard(std::vector<Bullet*>& bullets, Player* player) {
@@ -331,9 +371,26 @@ void Boss::phase1_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 		movement_returning(410, 180, 4.0);
 		return;
 	}
-	
+	movement_random(4.5, 4000);
+	pattern1_spellcard(bullets, player);
 }
 
+void Boss::phase2(std::vector<Bullet*>& bullets, Player* player) {
+	if (state == BossState::RETURNING) {
+		movement_returning(410, 180, 4.0);
+		return;
+	}
+	movement_random(4.5, 1000);
+	//pattern2(bullets, player);
+}
+
+void Boss::phase2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
+	if (state == BossState::RETURNING) {
+		movement_returning(410, 280, 4.0);
+		return;
+	}
+	pattern2_spellcard(bullets, player);
+}
 
 // Boss shooting pattern below
 
@@ -341,6 +398,8 @@ void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
 	//static bool reversed = false;
 	static Uint64 lastshootTime_0 = 0;
 	static Uint64 lastshootTime_1 = 0;
+	int player_hitbox_x = player->getX();
+	int player_hitbox_y = player->getY();
 
 	if (Game::GamecurrentTime - lastshootTime_0 >= 700) {
 
@@ -354,13 +413,12 @@ void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
 		std::vector<double> spd = { 4.0, 4.5, 5.0, 5.5 };
 
 		for (const double& i : spd) {
-			aimedcircleroundShoot(bullets, 5, Bullettype::ENEMY_RICE_GR, player->getX(), player->getY(), i);
+			aimedcircleroundShoot(bullets, 5, Bullettype::ENEMY_RICE_GR, player_hitbox_x, player_hitbox_y, i);
 		}
 
 		lastshootTime_1 = Game::GamecurrentTime;
 		//SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
-
 }
 
 void Boss::pattern0_spellcard(std::vector<Bullet*>& bullets, Player* player) {
@@ -386,45 +444,106 @@ void Boss::pattern0_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 		lastshootTime_0 = Game::GamecurrentTime;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
-	
 }
+
+void Boss::pattern1(std::vector<Bullet*>& bullets, Player* player) {
+	static Uint64 lastshootTime_0 = 0;
+	int player_hitbox_x = player->getX();
+	int player_hitbox_y = player->getY();
+
+	if (Game::GamecurrentTime - lastshootTime_0 >= 600) {
+
+		std::vector<double> spd = { 6.0, 6.5, 7.0, 7.5, 7.7, 8.0, 9.0 };
+
+		for (const double& i : spd) {
+			aimedcircleroundShoot(bullets, 5, Bullettype::ENEMY_RICE_BL, player_hitbox_x, player_hitbox_y, i);
+		}
+
+		lastshootTime_0 = Game::GamecurrentTime;
+		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
+	}
+}
+
+void Boss::pattern1_spellcard(std::vector<Bullet*>& bullets, Player* player) {
+	static Uint64 lastshootTime_0 = 0;
+	static Uint64 lastshootTime_1 = 0;
+	int player_hitbox_x = player->getX();
+	int player_hitbox_y = player->getY();
+	if (Game::GamecurrentTime - lastshootTime_0 >= 5000) {
+
+		rndShoot(bullets, 25, Bullettype::ENEMY_KUNAI_RD, 3.0);
+		rndShoot(bullets, 15, Bullettype::ENEMY_KUNAI_BL, 4.0);
+		rndShoot(bullets, 35, Bullettype::ENEMY_KUNAI_GR, 2.0);
+
+		lastshootTime_0 = Game::GamecurrentTime;
+		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
+	}
+
+	if (Game::GamecurrentTime - lastshootTime_1 >= 2000) {
+
+		aimedShoot(bullets, Bullettype::ENEMY_PEARL_BL, player->getX(), player->getY(), 7.0);
+		lastshootTime_1 = Game::GamecurrentTime;
+		SoundManager::PlaySound("kira0", 0, Game::SE_volume);
+	}
+}
+
+void Boss::pattern2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
+	static Uint64 lastshootTime_0 = 0;
+	static Uint64 interval = 3000;
+	static double speed = 3.0;
+	if (Game::GamecurrentTime - lastshootTime_0 >= interval) {
+		rippleShoot(bullets, 60, Bullettype::ENEMY_RICE_BL, 3.0);
+		lastshootTime_0 = Game::GamecurrentTime;
+		speed += 0.05;
+		interval -= 20;
+		if (interval <= 500) interval = 500;
+	}
+}
+
 
 
 // Boss shooting functions below
 
 void Boss::aimedShoot(std::vector<Bullet*>& bullets, Bullettype type, int playerX, int playerY, double speed) {
-	double deltax = playerX - destRect.x;
-	double deltay = playerY - destRect.y;
+	double deltax = playerX - 35 - destRect.x;
+	double deltay = playerY - 35 - destRect.y;
 
 	double angle = atan2(static_cast<long double>(deltay), static_cast<long double>(deltax));
 
 	std::vector<double> buffer = { -M_PI / 6, 0, M_PI / 6 };
-	//std::vector<double> spdvar = { 3.6, 4, 4.2, 4.5, 5, 6, 7 ,8 };
 	for (const double& offset : buffer) {
-		double velx = cos(angle) * speed;
-		double vely = sin(angle) * speed;
-		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type));
+		double velx = cos(angle + offset) * speed;
+		double vely = sin(angle + offset) * speed;
+		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type, 0));
 	}
 }
 
 void Boss::circleroundShoot(std::vector<Bullet*>& bullets, int density, Bullettype type, double speed) {
-	//int m = 10;
 	double offset = rand() % 50;
 	offset /= 10;
 	for (int i = 0; i < density; ++i) {
 		double angle = (2 * M_PI / density) * i;
-		//std::vector<double> spdvar = { 5 };
-		//for (double speed : spdvar) {
-			double velx = cos(angle+offset) * speed;
-			double vely = sin(angle+offset) * speed;
-			bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type));
-		//}
+		double velx = cos(angle + offset) * speed;
+		double vely = sin(angle + offset) * speed;
+		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type, 0));
+	}
+}
+
+void Boss::rippleShoot(std::vector<Bullet*>& bullets, int density, Bullettype type, double speed) {
+	int randomx = rand() % 500 + 100;
+	int randomy = rand() % 150 + 100;
+
+	for (int i = 0; i < density; ++i) {
+		double angle = (2 * M_PI / density) * i;
+		double velx = cos(angle) * speed;
+		double vely = sin(angle) * speed;
+		bullets.emplace_back(new Bullet(randomx, randomy, velx, vely, type, 1));
 	}
 }
 
 void Boss::aimedcircleroundShoot(std::vector<Bullet*>& bullets, int density, Bullettype type, int playerX, int playerY, double speed) {
-	double deltax = playerX - destRect.x;
-	double deltay = playerY - destRect.y;
+	double deltax = playerX - 35 - destRect.x;
+	double deltay = playerY - 35 - destRect.y;
 
 	double base_angle = atan2(static_cast<long double>(deltay), static_cast<long double>(deltax));
 	
@@ -432,7 +551,7 @@ void Boss::aimedcircleroundShoot(std::vector<Bullet*>& bullets, int density, Bul
 		double angle = base_angle + ((2 * M_PI / density) * i);
 		double velx = cos(angle) * speed;
 		double vely = sin(angle) * speed;
-		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type));
+		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type, 0));
 	}
 }
 
@@ -446,7 +565,7 @@ void Boss::spiralShoot(std::vector<Bullet*>& bullets, int density, Bullettype ty
 		//for (double speed : spdvar) {
 		double velx = cos(angle + (Reversed ? -offset : offset)) * speed;
 		double vely = sin(angle + (Reversed ? -offset : offset)) * speed;
-		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type));
+		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type, 0));
 		//}
 	}
 	offset++;
@@ -457,10 +576,10 @@ void Boss::rndShoot(std::vector<Bullet*>& bullets, int density, Bullettype type,
 
 	for (int i = 0; i < density; i++) {
 		double angle = (std::rand() % 180) * M_PI / 180;
-		double tmpspeed = speed + std::rand() % 2;
+		double tmpspeed = speed + static_cast<double>((std::rand() % 15)) / 10;
 		double velx = cos(angle) * tmpspeed;
 		double vely = sin(angle) * tmpspeed;
-		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type));
+		bullets.emplace_back(new Bullet(destRect.x + spriteW_center, destRect.y + spriteH_center, velx, vely, type, 0));
 	}
 }
 

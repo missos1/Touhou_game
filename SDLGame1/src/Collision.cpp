@@ -17,11 +17,11 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
 
         SDL_Rect bullet_hitbox = bullets[i]->getHitbox(); // Get bullet's hitbox
 
-        if (!SDL_HasIntersection(&player_grazebox, &bullet_hitbox) || bullets[i]->getGrazeState()) continue; // Check if bullet grazes player
-
-        bullets[i]->GrazeUpdate(); // Update graze state
-        player->updateGraze();
-        std::cout << "graze: " << player->getGraze() << std::endl; // Debug: print graze count
+        if (SDL_HasIntersection(&player_grazebox, &bullet_hitbox) && !bullets[i]->getGrazeState()) {  // Check if bullet grazes player
+            bullets[i]->GrazeUpdate(); // Update graze state
+            player->updateGraze();
+        //std::cout << "graze: " << player->getGraze() << std::endl; // Debug: print graze count
+        }
 
         if (!SDL_HasIntersection(&player_hitbox, &bullet_hitbox)) continue; // Check if bullet hits player
 
@@ -34,11 +34,6 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
             SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
         }
         //std::cout << "hp: " << player->getPlayerhp() << std::endl; // Debug: print player's HP
-
-        /*if (player->getPlayerhp() <= 0) {
-            delete player; // Crash game if player HP is 0 (test)
-        }*/
-        
     }
 
     // Check collision between player and items
@@ -62,7 +57,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
             Game::PLAYSCORE += bullet_dmg * 10; // Gain score for every dmg dealt
 
             //std::cout << "enemies' hp: " << enemies[j]->getEnemyhp() - bullet_dmg << std::endl; // Debug: print enemy's HP
-            SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 4); // Play enemy hit sound
+            SoundManager::PlaySound("entakedmg", 0, Game::SE_volume / 8); // Play enemy hit sound
 
             if (enemies[j]->getEnemyhp() > 0) continue; // Check if enemy is dead
 
@@ -76,7 +71,6 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
             delete bullets[i]; // Delete bullet
             bullets.erase(bullets.begin() + i); // Remove bullet from vector
             break;
-            
         }
     }
 }
@@ -87,7 +81,10 @@ void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* playe
         SDL_Rect player_grazebox = player->getGrazingBox(); // Get player's grazing box
         SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
 
+
         if (!SDL_HasIntersection(&player_grazebox, &item_hitbox)) continue; // Check if player collects item
+
+        SoundManager::PlaySound("collect_item", 0, Game::SE_volume / 2); // Play item collect sound   
 
         if (items[i]->getType() == Itemtype::POINT) {
             Game::PLAYSCORE += items[i]->getPoint() + (items[i]->getPoint() * player->getGraze() / 100); // Increase score based on graze count
@@ -115,49 +112,36 @@ void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* playe
 
         delete items[i]; // Delete item
         items.erase(items.begin() + i); // Remove item from vector
-        SoundManager::PlaySound("collect_item", 0, Game::SE_volume / 2); // Play item collect sound
-        
     }
 }
 
 void CollisionCheck::DeleleOffScreen(std::vector<Bullet*>& bullets, std::vector<Bullet*>& player_bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items) {
-    for (int i = (int)items.size() - 1; i >= 0; i--) {
-        if (items[i]->getY() < -200 ||
-            items[i]->getY() > WIN_HEIGHT + 500 ||  // Offscreen deletion
-            items[i]->getX() < -200 ||
-            items[i]->getX() > WIN_WIDTH + 500) {
-            delete items[i]; // Delete item
-            items.erase(items.begin() + i); // Remove item from vector
+    for (int i = static_cast<int>(items.size()) - 1; i >= 0; i--) {
+		if (isOffscreen(WIN_WIDTH + 500, WIN_HEIGHT + 500, -200, -200, items[i]->getX(), items[i]->getY())) { // Check if item is offscreen
+			delete items[i]; // Delete item
+			items.erase(items.begin() + i); // Remove item from vector
         }
     }
 
-    for (int j = (int)enemies.size() - 1; j >= 0; j--) {
-        if (enemies[j]->getY() < -500 ||
-            enemies[j]->getY() > 1000 ||  // Offscreen deletion
-            enemies[j]->getX() > 1500 ||
-            enemies[j]->getX() < -500) {
-            delete enemies[j]; // Delete enemy
-            enemies.erase(enemies.begin() + j); // Remove enemy from vector
+    for (int j = static_cast<int>(enemies.size()) - 1; j >= 0; j--) {
+		if (isOffscreen(1500, 1000, -500, -500, enemies[j]->getX(), enemies[j]->getY())) { // Check if enemy is offscreen
+			delete enemies[j]; // Delete enemy
+			enemies.erase(enemies.begin() + j); // Remove enemy from vector
         }
     }
 
-    for (int i = (int)player_bullets.size() - 1; i >= 0; i--) {
-        if (player_bullets[i]->getX() > PLAY_AREA_X_MAX + 20 ||
-            player_bullets[i]->getX() < PLAY_AREA_X_MIN - 10 ||
-            player_bullets[i]->getY() > PLAY_AREA_Y_MAX ||
-            player_bullets[i]->getY() < PLAY_AREA_Y_MIN - 10) { // Offscreen deletion
-            delete player_bullets[i];
-            player_bullets.erase(player_bullets.begin() + i);
+    for (int i = static_cast<int>(player_bullets.size()) - 1; i >= 0; i--) {
+        if (isOffscreen(PLAY_AREA_X_MAX + 20, PLAY_AREA_Y_MAX, PLAY_AREA_X_MIN - 10, PLAY_AREA_Y_MIN - 10, 
+			player_bullets[i]->getX(), player_bullets[i]->getY())) { // Check if player bullet is offscreen
+			delete player_bullets[i]; // Delete player bullet
+			player_bullets.erase(player_bullets.begin() + i); // Remove player bullet from vector
         }
     }
 
-    for (int i = static_cast<int>(bullets.size() - 1); i >= 0; i--) {
-        if (bullets[i]->getY() < -100 ||
-            bullets[i]->getY() > WIN_HEIGHT + 100 ||  // Offscreen deletion
-            bullets[i]->getX() < -100 ||
-            bullets[i]->getX() > WIN_WIDTH + 100) {
-            delete bullets[i]; // Delete bullet
-            bullets.erase(bullets.begin() + i); // Remove bullet from vector
+    for (int i = static_cast<int>(bullets.size()) - 1; i >= 0; i--) {
+		if (isOffscreen(WIN_WIDTH + 100, WIN_HEIGHT + 100, -100, -100, bullets[i]->getX(), bullets[i]->getY())) { // Check if enemy bullet is offscreen
+			delete bullets[i]; // Delete enemy bullet
+			bullets.erase(bullets.begin() + i); // Remove enemy bullet from vector
         }
     }
 }
@@ -179,6 +163,5 @@ void CollisionCheck::BossColli(std::vector<Bullet*>& player_bullets, Boss* boss,
 
         delete player_bullets[i]; // Delete bullet
         player_bullets.erase(player_bullets.begin() + i); // Remove bullet from vector
-    
     }
 }

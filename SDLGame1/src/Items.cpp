@@ -49,9 +49,9 @@ Item::~Item() {
 void Item::update(Player* player) {
 	if ((player->getY() <= 250 || type == Itemtype::STAR) 
 		&& yPos <= PLAY_AREA_Y_MAX
-		&& yPos >= PLAY_AREA_Y_MIN
-		&& xPos <= PLAY_AREA_X_MAX
-		&& xPos >= PLAY_AREA_X_MIN) TrackPlayer = true;
+		&& yPos >= PLAY_AREA_Y_MIN - 100
+		&& xPos <= PLAY_AREA_X_MAX + 20
+		&& xPos >= PLAY_AREA_X_MIN - 20) TrackPlayer = true;
 
 	if (TrackPlayer) {
 		double deltax = player->getX() - destRect.x;
@@ -75,7 +75,6 @@ void Item::update(Player* player) {
 		}
 	}
 		
-
 	destRect.x = static_cast<int>(xPos); // Update destination rectangle x position
 	destRect.y = static_cast<int>(yPos); // Update destination rectangle y position
 	hitbox.x = destRect.x; // Update hitbox x position
@@ -90,22 +89,41 @@ void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
 	SDL_Rect enemy_hitbox = enemy->getEnHitbox(); // Get enemy's hitbox
 	Itemtype type; // Item type
 
+	SoundManager::PlaySound("endie0", 0, Game::SE_volume / 4); // Play enemy death sound
+
 	if (enemy->getType() == EnemyType::RED_FA ||
 		enemy->getType() == EnemyType::WHITE_FA ||
 		enemy->getType() == EnemyType::BLUE_FA) {
-		for (int k = 0; k < 3; ++k) {
-			int randomX = enemy_hitbox.x + ((rand() % 201) - 100);  // Random X offset between -100 and 100
-			int randomY = enemy_hitbox.y + ((rand() % 201) - 100);  // Random Y offset between -100 and 100
+		int loop = 0; // Number of items to spawn based on enemy type
+
+		switch (enemy->getType()) {
+		case EnemyType::RED_FA:
+			loop = 3; // Number of items to spawn
+			break;
+		case EnemyType::WHITE_FA:
+			loop = 10; // Number of items to spawn
+			break;
+		case EnemyType::BLUE_FA:
+			loop = 5; // Number of items to spawn
+			break;
+		}
+
+		for (int k = 0; k < loop; ++k) {
+			int randomX = randomspawn(301, -150, enemy_hitbox.x);  // Random X offset between -150 and 150
+			int randomY = randomspawn(301, -150, enemy_hitbox.y);  // Random Y offset between -150 and 150
 			items.emplace_back(new Item(randomX, randomY, Itemtype::POINT));
 		}
 
-		items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, Itemtype::POWER_L));
+		items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, Itemtype::POWER_L)); // Spawn a large power item
 
-		if (enemy->getType() != EnemyType::WHITE_FA) return;
+		if (enemy->getType() == EnemyType::WHITE_FA) {
+			int randomX = randomspawn(301, -150, enemy_hitbox.x);  // Random X offset between -150 and 150
+			int randomY = randomspawn(301, -150, enemy_hitbox.y);  // Random Y offset between -150 and 150
+			items.emplace_back(new Item(randomX, randomY, Itemtype::POWER_L)); // Spawn a large power item
+		}
 
-		items.emplace_back(new Item(enemy_hitbox.x + 60, enemy_hitbox.y - 40, Itemtype::POWER_L));
+		return;
 	}
-
 
 	static int countspawn = 1; // Count for item spawn
 
@@ -119,12 +137,10 @@ void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
 		else if (countspawn % 3 == 0) {
 			type = Itemtype::POWER_S;
 		}
-
 		countspawn++;
 	}
 
 	items.emplace_back(new Item(enemy_hitbox.x, enemy_hitbox.y, type)); // Spawn item
-	SoundManager::PlaySound("endie0", 0, Game::SE_volume / 4); // Play enemy death sound
 }
 
 void Item::boss_drop(Boss* boss, std::vector<Item*>& items) {

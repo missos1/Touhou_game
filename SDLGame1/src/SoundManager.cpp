@@ -61,6 +61,11 @@ void SoundManager::PlayMusic(const std::string& id, int loop, int vol) {
 	}
 }
 
+void SoundManager::SetVolumeMusic(int vol) {
+	Mix_VolumeMusic(vol); // Set volume for the music track
+}
+
+
 void SoundManager::StopMusic() {
 	Mix_HaltMusic(); // Stop playing music
 }
