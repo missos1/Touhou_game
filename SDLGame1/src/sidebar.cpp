@@ -72,7 +72,7 @@ void Sidebar::render(int winW, int winH, Player* player, Boss* boss) {
         }
     }
 
-    render_score(Game::PLAYSCORE, 0);
+    render_score(Game::PLAYSCORE, Game::HIGHSCORE);
     render_playerhp(player);
     render_boss_hud(boss);
 
@@ -134,6 +134,7 @@ void Sidebar::handleInputs_pausescreen(const SDL_Event& event) {
             Game::prevState = GameState::PLAYING; // Set previous state to PAUSE
 			Game::GameStartTime = SDL_GetTicks64(); // Store the start time
 			Game::GamePauseTotalTime = 0; // Reset pause time
+            Game::PLAYSCORE = 0; // Reset score
         }
         else {
             Game::state = GameState::MENU; // Goes back to menu

@@ -28,7 +28,7 @@ public:
 	void update(Player* player);
 	void render();
 
-	static void enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player);
+	static void enemy_drop(Enemy* enemy, std::vector<Item*>& items);
 	static void boss_drop(Boss* boss, std::vector<Item*>& items);
 
 	int getPoint() const { return item_point; }

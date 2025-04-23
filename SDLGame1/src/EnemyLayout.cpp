@@ -77,14 +77,14 @@ void EnemyLayout::EnemyShootCondition(std::vector<Enemy*>& enemies, std::vector<
 
 		switch (enemies[i]->getType()) {
 		case EnemyType::RED_FA:
-			if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
+			if (Game::GamecurrentTime > 1000 + enemyLastShootTime[enemies[i]]) {
 				enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 				enemies[i]->rndriceShoot(bullets, 4);
 			}
 			break;
 
 		case EnemyType::WHITE_FA:
-			if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
+			if (Game::GamecurrentTime > 1000 + enemyLastShootTime[enemies[i]]) {
 				enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 				enemies[i]->rndriceShoot(bullets, 3);
 			}
@@ -99,7 +99,7 @@ void EnemyLayout::EnemyShootCondition(std::vector<Enemy*>& enemies, std::vector<
 			}
 			break;
 		case EnemyType::SPARKLE:
-			if (Game::GamecurrentTime - enemyLastShootTime[enemies[i]] > 1000) {
+			if (Game::GamecurrentTime > 1000 + enemyLastShootTime[enemies[i]]) {
 				enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
 				enemies[i]->rndcircleShoot(bullets, 3);
 			}
@@ -121,7 +121,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 	double now = static_cast<double>(SDL_GetTicks64());							// Get the current time
 	double elapsed = now - initTime - aggregatedPauseTime;					    // Get the elapsed time
 	Game::GamecurrentTime = static_cast<Uint64>(elapsed);						// Update the current time
-	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;						    // rounding to 1 decimal place
+	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0 + 89.0;						    // rounding to 1 decimal place
 
 	//std::cout << "elapsed: " << elapsed << "sec" << endl;
 	//std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;

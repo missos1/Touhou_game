@@ -9,6 +9,7 @@
 #include "headers/Menu.hpp"
 #include "headers/Items.hpp"
 #include "headers/Boss.hpp"
+#include "headers/ScoreManager.hpp"
 #include <iostream>
 #define endl "\n"
 
@@ -23,6 +24,9 @@ TTF_Font* Game::font2 = nullptr; // Font for text rendering
 int Game::BGM_volume = 32; // Initial BGM volume
 int Game::SE_volume = 32; // Initial SE volume 
 
+double Game::PlayerPowerLV = 0.0;
+int Game::PlayerHP = 0;
+
 Uint64 Game::GameStartTime = 0; // Game start time
 //Uint64 Game::GamePauseTime
 Uint64 Game::GameExitTime = 0; // Game exit time
@@ -32,6 +36,7 @@ Uint64 Game::GamePauseTotalTime = 0; // Game pause total time
 Uint64 Game::GamecurrentTime = 0; // Game pause time
 
 int Game::PLAYSCORE = 0; // Player score
+int Game::HIGHSCORE = 0; // Player score
 
 SDL_Texture* Game::Misc_player_text = nullptr; // Declare textures
 SDL_Texture* Game::enemybullet_text = nullptr;
@@ -195,15 +200,20 @@ void Game::run() {
 void Game::stateHandling() {
     if (state == GameState::LOADING && SDL_GetTicks64() >= 2000) { // Transition from loading to menu state
         state = GameState::MENU;
+        ScoreManager::readScorefromfile("res/Score/Score.txt"); // Read high score from file
     }
 
     if (Game::prevState != GameState::MENU && Game::state == GameState::MENU) {
         SoundManager::PlayMusic("Mainmenu", -1, Game::BGM_volume); // Play menu music
+		ScoreManager::writeScoretofile("res/Score/Score.txt"); // Write score to file
+		ScoreManager::readScorefromfile("res/Score/Score.txt"); // Read high score from file
         resetObject();
     }
 
     if (Game::prevState == GameState::PLAYING && Game::state == GameState::RESTARTING) {
 		state = GameState::PLAYING; // Restart game
+        ScoreManager::writeScoretofile("res/Score/Score.txt"); // Write score to file
+        ScoreManager::readScorefromfile("res/Score/Score.txt"); // Read high score from file
         resetObject();
     }
 
@@ -293,6 +303,7 @@ void Game::ObjHandling() {
 
 void Game::update() {
     if (state == GameState::PLAYING) {
+
         //static int prevscore = 0;
         ////if (PLAYSCORE > prevscore) {
         ////    std::cout << "playscore: " << PLAYSCORE << endl; // Debug: print player score
@@ -305,6 +316,9 @@ void Game::update() {
         CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
         CollisionCheck::BossColli(player_bullets, boss, items); // Check collisions with boss
         CollisionCheck::DeleleOffScreen(enemy_bullets, player_bullets, enemies, items); // Deleting objects offscreen
+		if (Game::PLAYSCORE > Game::HIGHSCORE) {
+			Game::HIGHSCORE = Game::PLAYSCORE; // Update high score
+		}
     }
 }
 

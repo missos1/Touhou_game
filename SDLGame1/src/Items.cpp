@@ -2,6 +2,7 @@
 #include "headers/Player.hpp"
 #include "headers/Game.hpp"
 #include "headers/Enemy.hpp"
+#include "headers/Boss.hpp"
 #include <iostream>
 
 Item::Item(double x, double y, Itemtype type) :
@@ -85,7 +86,7 @@ void Item::render() {
 	SDL_RenderCopy(Game::Grenderer, item_text, &srcRect, &destRect); // Render item
 }
 
-void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
+void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items) {
 	SDL_Rect enemy_hitbox = enemy->getEnHitbox(); // Get enemy's hitbox
 	Itemtype type; // Item type
 
@@ -98,13 +99,13 @@ void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
 
 		switch (enemy->getType()) {
 		case EnemyType::RED_FA:
-			loop = 3; // Number of items to spawn
+			loop = 5; // Number of items to spawn
 			break;
 		case EnemyType::WHITE_FA:
-			loop = 10; // Number of items to spawn
+			loop = 12; // Number of items to spawn
 			break;
 		case EnemyType::BLUE_FA:
-			loop = 5; // Number of items to spawn
+			loop = 8; // Number of items to spawn
 			break;
 		}
 
@@ -129,7 +130,7 @@ void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
 
 	type = Itemtype::POINT; // Default item type
 
-	if (player->getPlayerpowerlv() < 5.0) { // Determine item type
+	if (Game::PlayerPowerLV < 5.0) { // Determine item type
 		if (countspawn % 31 == 0) {
 			type = Itemtype::POWER_L;
 			countspawn = 1;
@@ -144,5 +145,16 @@ void Item::enemy_drop(Enemy* enemy, std::vector<Item*>& items, Player* player) {
 }
 
 void Item::boss_drop(Boss* boss, std::vector<Item*>& items) {
-
+	SDL_Rect boss_hitbox = boss->getBossHitbox(); // Get boss's hitbox
+	Itemtype type; // Item type
+	for (int k = 0; k < 15; ++k) {
+		int randomX = randomspawn(251, -125, boss_hitbox.x);  // Random X offset between -125 and 125
+		int randomY = randomspawn(251, -125, boss_hitbox.y);  // Random Y offset between -125 and 125
+		type = Itemtype::POINT; // Default item type
+		if (Game::PlayerPowerLV < 5.0) {
+			if (rand() % 3 == 0) type = Itemtype::POWER_S; // Small power item
+			else if (rand() % 9 == 0) type = Itemtype::POWER_L; // Large power item
+		}
+		items.emplace_back(new Item(randomX, randomY, type));
+	}
 }
