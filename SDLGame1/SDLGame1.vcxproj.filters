@@ -54,6 +54,9 @@
     <ClCompile Include="src\Boss.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ScoreManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\headers\Game.hpp">
@@ -377,6 +380,9 @@
     <ClInclude Include="include\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\ScoreManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\player\Reimu_sprite.png">
@@ -605,6 +611,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\sound\Read me!.txt" />
+    <Text Include="res\Score\Score.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\DFPPOPCorn-W12.ttf" />

@@ -29,6 +29,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\ScoreManager.cpp" />
     <ClCompile Include="src\sidebar.cpp" />
     <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="src\headers\Items.hpp" />
     <ClInclude Include="src\headers\Menu.hpp" />
     <ClInclude Include="src\headers\Player.hpp" />
+    <ClInclude Include="src\headers\ScoreManager.hpp" />
     <ClInclude Include="src\headers\sidebar.hpp" />
     <ClInclude Include="src\headers\SoundManager.hpp" />
     <ClInclude Include="src\headers\TextureManager.hpp" />
@@ -238,6 +240,7 @@
     <Media Include="res\sound\timeout.wav" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="res\Score\Score.txt" />
     <Text Include="res\sound\Read me!.txt" />
   </ItemGroup>
   <ItemGroup>
