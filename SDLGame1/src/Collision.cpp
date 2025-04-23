@@ -10,7 +10,6 @@
 void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, std::vector<Item*>& items) {
     // Check collision between player and enemy bullets
     
-    
     for (int i = static_cast<int>(bullets.size() - 1); i >= 0; i--) { // Iterate through enemy bullets
         SDL_Rect player_grazebox = player->getGrazingBox(); // Get player's grazing box
         SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
@@ -42,7 +41,7 @@ void CollisionCheck::PlayerColli(std::vector<Bullet*>& bullets, Player* player, 
 
 
 void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy*>& enemies, std::vector<Item*>& items, Player* player) {
-    
+	PlayerEnemyColli(enemies, player); // Check collision between player and enemies
     for (int i = (int)bullets.size() - 1; i >= 0; i--) {
         for (int j = (int)enemies.size() - 1; j >= 0; j--) { // Iterate through enemies
             SDL_Rect bullet_hitbox = bullets[i]->getHitbox(); // Get bullet's hitbox
@@ -63,7 +62,7 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
 
             Game::PLAYSCORE += enemies[j]->getPoint(); // Gain point for every enemies eliminated
 
-			Item::enemy_drop(enemies[j], items, player); // Drop item from enemy
+			Item::enemy_drop(enemies[j], items); // Drop item from enemy
 
             delete enemies[j];  // Delete enemy
             enemies.erase(enemies.begin() + j); // Remove enemy from vector
@@ -73,6 +72,16 @@ void CollisionCheck::EnemyColli(std::vector<Bullet*>& bullets, std::vector<Enemy
             break;
         }
     }
+}
+
+void CollisionCheck::PlayerEnemyColli(std::vector<Enemy*>& enemies, Player* player) {
+	for (int i = (int)enemies.size() - 1; i >= 0; i--) { // Iterate through enemies
+		SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
+		SDL_Rect enemy_hitbox = enemies[i]->getEnHitbox(); // Get enemy's hitbox
+		if (!SDL_HasIntersection(&player_hitbox, &enemy_hitbox)) continue; // Check if player collides with enemy
+		player->updatePlayerhp(-1); // Decrease player's HP
+		SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
+	}
 }
 
 void CollisionCheck::ItemGetCalculation(std::vector<Item*>& items, Player* player) {

@@ -37,6 +37,7 @@ class Player;
 class Enemy;    
 class TextureManager;
 class SoundManager;
+class ScoreManager;
 class CollisionCheck;
 class Menu;
 class Item;
@@ -79,8 +80,12 @@ public:
 
 	static int BGM_volume;
 	static int SE_volume;
+
+    static double PlayerPowerLV;
+    static int PlayerHP;
     
     static int PLAYSCORE;
+    static int HIGHSCORE;
 
     bool init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
     void ObjHandling();

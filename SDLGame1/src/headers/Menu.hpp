@@ -46,7 +46,7 @@ private:
 	const int TITLE_X_1 = 120;
 	const int START_X_1 = 990;
 	const int OPTION_X_1 = 965;
-	const int QUIT_X_1 = 940;
+	const int QUIT_X_1 = 935;
 
 	const int BGM_X = 350;
 	const int SOUND_X = 350;

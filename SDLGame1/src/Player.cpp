@@ -69,6 +69,8 @@ void Player::handleInput(const Uint8* keys) {
 }
 
 void Player::update() {
+	Game::PlayerPowerLV = powerlv;
+	Game::PlayerHP = hp;
     animation();
     powerlvhandle();
 
