@@ -19,22 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Boss.cpp" />
-    <ClCompile Include="src\Collision.cpp" />
-    <ClCompile Include="src\Enemy.cpp" />
-    <ClCompile Include="src\Bullets.cpp" />
-    <ClCompile Include="src\EnemyLayout.cpp" />
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Items.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Menu.cpp" />
-    <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\ScoreManager.cpp" />
-    <ClCompile Include="src\sidebar.cpp" />
-    <ClCompile Include="src\SoundManager.cpp" />
-    <ClCompile Include="src\TextureManager.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="include\begin_code.h" />
     <ClInclude Include="include\close_code.h" />
     <ClInclude Include="include\json.hpp" />
@@ -131,9 +115,9 @@
     <ClInclude Include="include\SDL_video.h" />
     <ClInclude Include="include\SDL_vulkan.h" />
     <ClInclude Include="src\headers\Boss.hpp" />
+    <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\Collision.hpp" />
     <ClInclude Include="src\headers\Enemy.hpp" />
-    <ClInclude Include="src\headers\Bullets.hpp" />
     <ClInclude Include="src\headers\EnemyLayout.hpp" />
     <ClInclude Include="src\headers\Game.hpp" />
     <ClInclude Include="src\headers\Items.hpp" />
@@ -145,16 +129,31 @@
     <ClInclude Include="src\headers\TextureManager.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Preview\Boss_hud.png" />
+    <Image Include="Preview\change_vol.png" />
+    <Image Include="Preview\fullpower.png" />
+    <Image Include="Preview\heal.png" />
+    <Image Include="Preview\hitboxdes.png" />
+    <Image Include="Preview\hp_left.png" />
+    <Image Include="Preview\item.png" />
+    <Image Include="Preview\item_collect.png" />
+    <Image Include="Preview\Options.png" />
+    <Image Include="Preview\player_focus.png" />
+    <Image Include="Preview\player_normal.png" />
+    <Image Include="Preview\power.png" />
+    <Image Include="Preview\power_n_graze_meter.png" />
+    <Image Include="Preview\Score.png" />
+    <Image Include="Preview\spellcard_showcase.png" />
+    <Image Include="Preview\star.png" />
+    <Image Include="Preview\stardes.png" />
+    <Image Include="Preview\you_won.png" />
     <Image Include="res\bullets.png" />
     <Image Include="res\Enemy\Blue_fa.png" />
     <Image Include="res\Enemy\circle.png" />
     <Image Include="res\Enemy\Flandre.png" />
     <Image Include="res\Enemy\Flandre_SpellCard.png" />
     <Image Include="res\Enemy\Red_fa.png" />
-    <Image Include="res\Enemy\Sakuya_idle.png" />
-    <Image Include="res\Enemy\Sakuya_move.png" />
     <Image Include="res\Enemy\Sparkle.png" />
-    <Image Include="res\Enemy\SpellCardEffects.png" />
     <Image Include="res\Enemy\White_fa.png" />
     <Image Include="res\Menu\BGM.png" />
     <Image Include="res\Menu\BGM_unsl.png" />
@@ -169,8 +168,6 @@
     <Image Include="res\Menu\Sound_unsl.png" />
     <Image Include="res\Menu\Start.png" />
     <Image Include="res\Menu\Start_unsl.png" />
-    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png" />
-    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png" />
     <Image Include="res\player\hitbox.png" />
     <Image Include="res\player\Reimu_og.png" />
     <Image Include="res\player\Reimu_sprite(2).png" />
@@ -184,7 +181,6 @@
     <Image Include="res\Sidebar\SIDEBAR_PLAYER.png" />
     <Image Include="res\Sidebar\SIDEBAR_POWER.png" />
     <Image Include="res\Sidebar\SIDEBAR_TITLE.png" />
-    <Image Include="res\Sidebar\Titlescreens&amp;menus.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\SDL2.pdb" />
@@ -197,22 +193,8 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />
-    <Media Include="res\OST\A Soul as Red as a Ground Cherry.mp3" />
-    <Media Include="res\OST\An Eternity that is More Transient than Scarlet.mp3" />
-    <Media Include="res\OST\Apparitions Stalk the Night.mp3" />
-    <Media Include="res\OST\Crimson Tower ~ Eastern Dream....mp3" />
-    <Media Include="res\OST\Locked Girl ~ The Girl%27s Secret Room.mp3" />
-    <Media Include="res\OST\Lunar Clock ~ Luna Dial.mp3" />
-    <Media Include="res\OST\Lunate Elf.mp3" />
-    <Media Include="res\OST\Septette for the Dead Princess.mp3" />
-    <Media Include="res\OST\Shanghai Alice of Meiji 17.mp3" />
-    <Media Include="res\OST\Shanghai Teahouse ~ Chinese Tea.mp3" />
     <Media Include="res\OST\The Centennial Festival for Magical Girls.mp3" />
-    <Media Include="res\OST\The Maid and the Pocket Watch of Blood.mp3" />
-    <Media Include="res\OST\The Young Descendant of Tepes.mp3" />
-    <Media Include="res\OST\Tomboyish Girl in Love.mp3" />
     <Media Include="res\OST\U.N. Owen was Her.mp3" />
-    <Media Include="res\OST\Voile, the Magic Library.mp3" />
     <Media Include="res\sound\cancel00.wav" />
     <Media Include="res\sound\cat00.wav" />
     <Media Include="res\sound\damage00.wav" />
@@ -254,6 +236,22 @@
     <Library Include="lib\SDL2_image.lib" />
     <Library Include="lib\SDL2_mixer.lib" />
     <Library Include="lib\SDL2_ttf.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Boss.cpp" />
+    <ClCompile Include="src\Bullets.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyLayout.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Items.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\ScoreManager.cpp" />
+    <ClCompile Include="src\sidebar.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
+    <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

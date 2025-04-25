@@ -15,86 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bullets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sidebar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EnemyLayout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SoundManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Items.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Boss.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ScoreManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\headers\Game.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\TextureManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\sidebar.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Bullets.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Enemy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\EnemyLayout.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\SoundManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Collision.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Items.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\headers\Boss.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\begin_code.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -380,7 +300,43 @@
     <ClInclude Include="include\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\headers\Boss.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Bullets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Collision.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Enemy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\EnemyLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Game.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Items.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\Player.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\headers\ScoreManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\sidebar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\SoundManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\headers\TextureManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -391,19 +347,10 @@
     <Image Include="res\sidebar.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Enemies and Bosses.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Enemy\circle.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Enemy\Red_fa.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Enemy\Sakuya_idle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Enemy\Sakuya_move.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Enemy\White_fa.png">
@@ -436,9 +383,6 @@
     <Image Include="res\Enemy\Sparkle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\PC Computer - Touhou Koumakyou The Embodiment of Scarlet Devil - Font.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\player\hitbox.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -446,9 +390,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\player\Reimu_sprite(2).png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\Enemy\SpellCardEffects.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Enemy\Flandre_SpellCard.png">
@@ -499,10 +440,61 @@
     <Image Include="res\Sidebar\SIDEBAR_TITLE.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Sidebar\Titlescreens&amp;menus.png">
+    <Image Include="res\Sidebar\Score_screen.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\Sidebar\Score_screen.png">
+    <Image Include="Preview\Boss_hud.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\change_vol.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\fullpower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\heal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\hitboxdes.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\item.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\hp_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\item_collect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\Options.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\player_focus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\player_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\power.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\Score.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\power_n_graze_meter.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\spellcard_showcase.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\star.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\stardes.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Preview\you_won.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -595,22 +587,8 @@
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="res\OST\A Dream that is more Scarlet than Red.mp3" />
-    <Media Include="res\OST\A Soul as Red as a Ground Cherry.mp3" />
-    <Media Include="res\OST\An Eternity that is More Transient than Scarlet.mp3" />
-    <Media Include="res\OST\Apparitions Stalk the Night.mp3" />
-    <Media Include="res\OST\Crimson Tower ~ Eastern Dream....mp3" />
-    <Media Include="res\OST\Locked Girl ~ The Girl%27s Secret Room.mp3" />
-    <Media Include="res\OST\Lunar Clock ~ Luna Dial.mp3" />
-    <Media Include="res\OST\Lunate Elf.mp3" />
-    <Media Include="res\OST\Septette for the Dead Princess.mp3" />
-    <Media Include="res\OST\Shanghai Alice of Meiji 17.mp3" />
-    <Media Include="res\OST\Shanghai Teahouse ~ Chinese Tea.mp3" />
     <Media Include="res\OST\The Centennial Festival for Magical Girls.mp3" />
-    <Media Include="res\OST\The Maid and the Pocket Watch of Blood.mp3" />
-    <Media Include="res\OST\The Young Descendant of Tepes.mp3" />
-    <Media Include="res\OST\Tomboyish Girl in Love.mp3" />
     <Media Include="res\OST\U.N. Owen was Her.mp3" />
-    <Media Include="res\OST\Voile, the Magic Library.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\sound\Read me!.txt" />
@@ -626,5 +604,49 @@
     <Library Include="lib\SDL2_ttf.lib" />
     <Library Include="lib\SDL2main.lib" />
     <Library Include="lib\SDL2test.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bullets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Items.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScoreManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sidebar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
