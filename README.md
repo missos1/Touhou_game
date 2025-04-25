@@ -1,7 +1,8 @@
 # Touhou Touhou Koumakyou ~ The Embodiment of Scarlet Devil (HMD edition)
 
-Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing)
+Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing).
 
+Vid: [vid](https://youtu.be/wKH3GsBdyhg).
 ---
 
 # CÔNG NHẬN TÀI NGUYÊN SỬ DỤNG
