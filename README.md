@@ -1,5 +1,3 @@
-# Save the user's provided README content to a new file
-readme_content = """
 # Touhou Touhou Koumakyou ~ The Embodiment of Scarlet Devil (HMD edition)
 
 Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing)
@@ -62,9 +60,8 @@ Khi bắt đầu game, nhân vật của bạn sẽ có:
 
 - 4 HP tổng cộng – bao gồm:
 
-   + 1 HP hiện tại (đang dùng).
-
-   + 3 HP lưu trữ, sẽ được sử dụng dần khi bạn mất mạng.
+   * 1 HP hiện tại (đang dùng).
+   * 3 HP lưu trữ, sẽ được sử dụng dần khi bạn mất mạng.
 
 Hệ thống này khuyến khích người chơi giữ mạng càng lâu càng tốt để đạt điểm số cao, đồng thời tạo cơ hội hồi phục thông qua item Heal và các phần thưởng khác.
 Trong mode focus, nhân vật sẽ hiển thị hitbox  và di chuyển chậm rãi để dễ dàng né hơn.
@@ -88,7 +85,15 @@ Hiển thị hình ảnh nhân vật (HP, power v.v):
 # Một số cơ chế game
 
 ### **Graze**
-Khi đạn bay sát người chơi (nhưng không trúng), bạn sẽ nhận điểm hoặc tăng thanh năng lượng.  
+Khi đạn bay sát người chơi (nhưng không trúng), bạn sẽ được tăng graze.  
+Graze sễ làm tăng giá trị của Item bạn nhận được.
+Càng nhiều graze thì giá trị càng tăng;
+
+### **Hitbox nhỏ nên đừng sợ đạn**
+
+Tất cả viên đạn đều có hitbox nhỏ hơn nhiều so với sprite, nên bạn có thể né cực sát nếu tinh mắt và bình tĩnh.  
+![](SDLGame1/Preview/hitboxdes.png)
+
 ---
 
 ### **Các item**
@@ -107,13 +112,6 @@ Khi đạn bay sát người chơi (nhưng không trúng), bạn sẽ nhận đi
 
 Phía trên màn hình chơi có một vùng. Khi nhân vật bay vào đó, các item sẽ tự động bị hút về.  
 ![](SDLGame1/Preview/item_collect.png)
-
----
-
-### **Hitbox nhỏ nên đừng sợ đạn**
-
-Tất cả viên đạn đều có hitbox nhỏ hơn nhiều so với sprite, nên bạn có thể né cực sát nếu tinh mắt và bình tĩnh.  
-![](SDLGame1/Preview/hitboxdes.png)
 
 ---
 
