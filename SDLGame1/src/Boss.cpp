@@ -23,9 +23,9 @@ Boss::Boss(double x, double y)
 
 	phase_time_map[Phase::IDLE] = 9999999;
 	phase_time_map[Phase::PHASE0] = 30;
-	phase_time_map[Phase::PHASE0_SC] = 65;
+	phase_time_map[Phase::PHASE0_SC] = 55;
 	phase_time_map[Phase::PHASE1] = 35;
-	phase_time_map[Phase::PHASE1_SC] = 75;
+	phase_time_map[Phase::PHASE1_SC] = 65;
 	phase_time_map[Phase::PHASE2] = 50;
 	phase_time_map[Phase::PHASE2_SC] = 9999999;
 
@@ -34,7 +34,7 @@ Boss::Boss(double x, double y)
 	phaseHP[Phase::PHASE0_SC] = 2000;
 	phaseHP[Phase::PHASE1] = 1200;
 	phaseHP[Phase::PHASE1_SC] = 1500;
-	phaseHP[Phase::PHASE2] = 1000;
+	phaseHP[Phase::PHASE2] = 1300;
 	phaseHP[Phase::PHASE2_SC] = 2400;
 	phaseHP[Phase::DEAD] = 0;
 
@@ -426,7 +426,7 @@ void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
 void Boss::pattern0_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 	if (!pattern0_spellcard_initialized) {
 		pattern0_spellcard_lastshootTime_total = elapsed;
-		pattern0_spellcard_downTime = elapsed + 1.3;
+		pattern0_spellcard_downTime = elapsed - 3.0;
 		pattern0_spellcard_lastshootTime_0 = elapsed;
 		pattern0_spellcard_reversed = false;
 		pattern0_spellcard_shooting = false;

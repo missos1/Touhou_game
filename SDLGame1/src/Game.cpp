@@ -99,7 +99,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     boss = new Boss(BOSS_OG_X, BOSS_OG_Y);
 
-    Mix_AllocateChannels(16); // Allocate audio channels
+    Mix_AllocateChannels(32); // Allocate audio channels
 
     if (!initText() || !initSM()) { // Initialize textures and sound manager
         return false;
@@ -357,6 +357,8 @@ void Game::render() {
         for (Bullet* bullet : enemy_bullets) {
             bullet->render(); // Render enemy bullets
         }
+
+		player->render_hitbox(); // Render player hitbox above bullets for visibility
 
         sidebar->render(winW, winH, player, boss); // Render sidebar
     }

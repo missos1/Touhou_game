@@ -75,13 +75,18 @@ void Player::handleInput(const Uint8* keys, std::vector<Bullet*>& player_bullets
         lastShotTime = Game::GamecurrentTime;
     }
 
-    if (keys[SDL_SCANCODE_BACKSLASH]) hp++;
+    if (keys[SDL_SCANCODE_BACKSLASH]) {
+        hp++;
+        powerlv += 0.5;
+    }
 }
 
 void Player::update() {
 	if (hp >= 8) hp = 8; // limit max hp
+    if (powerlv >= 5.0) powerlv = 5.0;
 	Game::PlayerPowerLV = powerlv;
 	Game::PlayerHP = hp;
+    Game::PlayerGraze = graze;
     animation();
     powerlvhandle();
 
@@ -168,21 +173,6 @@ void Player::render() {
 
     SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect, &destRect, 0, nullptr, isFlipped ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
     
-    static int opacity = 0;
-
-    if (isFocusing) {
-        static int angle = 0;
-        if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
-        
-        SDL_SetTextureAlphaMod(hitbox_texture, opacity);
-        SDL_RenderCopyEx(Game::Grenderer, hitbox_texture, nullptr, &hitbox_destRect, angle, nullptr, SDL_FLIP_NONE);
-        if (opacity >= 255) opacity = 255;
-        else opacity += 5;
-    }
-    else {
-        opacity = 0;
-    }
-    
 
     if (powerlv >= 3) {
         //std::cout << angle << std::endl;
@@ -192,12 +182,30 @@ void Player::render() {
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_0, &destRect_amu_0, angle, nullptr, SDL_FLIP_NONE);
         SDL_RenderCopyEx(Game::Grenderer, texture, &srcRect_amu_1, &destRect_amu_1, -angle, nullptr, SDL_FLIP_NONE); // amulet
     }
-    SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
-    SDL_RenderFillRect(Game::Grenderer, &hitbox_ingame);
+    //SDL_SetRenderDrawColor(Game::Grenderer, 0, 255, 0, 255); // debug
+    //SDL_RenderFillRect(Game::Grenderer, &hitbox_ingame);
 }
 
+void Player::render_hitbox() {
+    static int opacity = 0;
+
+    if (isFocusing) {
+        static int angle = 0;
+        if (Game::state != GameState::PAUSE) angle = (angle + 1 + 360) % 360;
+
+        SDL_SetTextureAlphaMod(hitbox_texture, opacity);
+        SDL_RenderCopyEx(Game::Grenderer, hitbox_texture, nullptr, &hitbox_destRect, angle, nullptr, SDL_FLIP_NONE);
+        if (opacity >= 255) opacity = 255;
+        else opacity += 5;
+    }
+    else {
+        opacity = 0;
+    }
+}
+
+
 void Player::resetValue() {
-    powerlv = 5.00;
+    powerlv = 1.00;
     hp = 4;
     graze = 0;
     destRect.x = PLAYER_OG_X;

@@ -11,7 +11,7 @@
 
 using json = nlohmann::json;
 
-EnemyType EnemyLayout::getEnemyTypeEnum(const std::string& typeStr) {
+EnemyType EnemyLayout::getEnemyTypeEnum(const std::string& typeStr) { // Convert string to enum
 	if (typeStr == "SPARKLE") return EnemyType::SPARKLE;
 	if (typeStr == "WHITE_FA") return EnemyType::WHITE_FA;
 	if (typeStr == "BLUE_FA") return EnemyType::BLUE_FA;
@@ -20,7 +20,7 @@ EnemyType EnemyLayout::getEnemyTypeEnum(const std::string& typeStr) {
 	return EnemyType::SPARKLE; // Default fallback
 }
 
-MovementType EnemyLayout::getMovementTypeEnum(const std::string& moveStr) {
+MovementType EnemyLayout::getMovementTypeEnum(const std::string& moveStr) { // Convert string to enum
 	if (moveStr == "DiagonalNESW") return MovementType::DiagonalNESW;
 	if (moveStr == "DiagonalNWSE") return MovementType::DiagonalNWSE;
 	if (moveStr == "Lshape") return MovementType::Lshape;
@@ -38,19 +38,19 @@ void EnemyLayout::loadEnemyDatafromjson(const std::string& filename) {
 		return;
 	}
 
-	json data; file >> data;
+	json data; file >> data; // Parse the JSON data
 
 	for (const auto& entry : data.items()) {
 		double spawnTime = std::stod(entry.key()); // Get the spawnTime key (e.g., "5.0")
 
 		for (const auto& enemyEntry : entry.value()) {
 			EnemySpawnData enemyData;
-			enemyData.spawnTime = spawnTime;
-			enemyData.x = enemyEntry["x"];
-			enemyData.y = enemyEntry["y"];
-			enemyData.speed = enemyEntry["speed"];
-			enemyData.type = getEnemyTypeEnum((enemyEntry["type"]));
-			enemyData.movementType = static_cast<MovementType>(getMovementTypeEnum(enemyEntry["movementType"]));
+			enemyData.spawnTime = spawnTime; // Set the spawn time
+			enemyData.x = enemyEntry["x"]; // Get the x position
+			enemyData.y = enemyEntry["y"]; // Get the y position
+			enemyData.speed = enemyEntry["speed"]; // Get the speed
+			enemyData.type = getEnemyTypeEnum((enemyEntry["type"])); // Get the enemy type
+			enemyData.movementType = static_cast<MovementType>(getMovementTypeEnum(enemyEntry["movementType"])); // Get the movement type
 			enemySpawnDataList.push_back(enemyData);
 		}
 	}

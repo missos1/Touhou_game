@@ -24,6 +24,7 @@ public:
     void handleInput(const Uint8* keys, std::vector<Bullet*>& player_bullets);
     void update();
     void render();
+	void render_hitbox();
     void resetValue();
     void playerShoot(std::vector<Bullet*>& bullets) const;
     
