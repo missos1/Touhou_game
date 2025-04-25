@@ -71,7 +71,7 @@ void EnemyLayout::EnemyShootCondition(std::vector<Enemy*>& enemies, std::vector<
 			enemies[i]->getX() <= PLAY_AREA_X_MIN ||
 			enemies[i]->getY() >= PLAY_AREA_Y_MAX ||
 			enemies[i]->getY() <= PLAY_AREA_Y_MIN) {
-			enemyLastShootTime[enemies[i]] = Game::GamecurrentTime + rand() % 2000; // Reset the last shoot time if the enemy is off-screen
+			enemyLastShootTime[enemies[i]] = Game::GamecurrentTime + rand() % 500; // Reset the last shoot time if the enemy is off-screen
 			continue; // Skip the rest of the loop for this enemy
 		}
 
@@ -121,7 +121,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 	double now = static_cast<double>(SDL_GetTicks64());							// Get the current time
 	double elapsed = now - initTime - aggregatedPauseTime;					    // Get the elapsed time
 	Game::GamecurrentTime = static_cast<Uint64>(elapsed);						// Update the current time
-	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0 + 89.0;						    // rounding to 1 decimal place
+	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;						    // rounding to 1 decimal place
 
 	//std::cout << "elapsed: " << elapsed << "sec" << endl;
 	//std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;

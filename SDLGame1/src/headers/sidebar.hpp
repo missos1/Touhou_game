@@ -46,7 +46,7 @@ private:
 	int tileSize;
 
 	const int DIGIT_SIZE = 16;
-	const int SCORE_DIGITS = 9;
+	const int SCORE_DIGITS = 10;
 	const int BOSS_HPBAR_W = 550;
 
 	int selectedOption;

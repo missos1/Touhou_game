@@ -60,7 +60,6 @@ public:
 	bool isphase_spellcard() const { return (phase == Phase::PHASE0_SC || phase == Phase::PHASE1_SC || phase == Phase::PHASE2_SC); }
 
 	Phase getPhase() const { return phase; };
-	void checkforbonus(Player* player);
 	void takeDamage(int damage);
 	void clearScreen(std::vector<Bullet*>& bullets, std::vector<Item*>& items);
 	void getStage_elapsed(const double& elapsed);
@@ -114,9 +113,6 @@ private:
 	bool isIdle;
 	bool isMoving;
 	bool isFlipped;
-	bool Bonus;
-
-	int playerhp_track;
 
 	int currentFrame;
 	int currentFrameIdle;

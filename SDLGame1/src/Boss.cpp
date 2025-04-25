@@ -225,10 +225,6 @@ void Boss::takeDamage(int damage) {
 	}
 }
 
-void Boss::checkforbonus(Player* player) {
-	if (player->getPlayerhp() < playerhp_track) Bonus = false;
-}
-
 void Boss::clearScreen(std::vector<Bullet*>& bullets, std::vector<Item*>& items) {
 	for (int i = (int)bullets.size() - 1; i >= 0; i--) {
 		double bullet_xPos = bullets[i]->getX();
@@ -491,6 +487,20 @@ void Boss::pattern1_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 }
 
 void Boss::pattern2(std::vector<Bullet*>& bullets, Player* player) {
+	static Uint64 lastshootTime_0 = Game::GamecurrentTime - 2000;
+	static Uint64 interval = 3000;
+	static double speed = 3.0;
+	if (Game::GamecurrentTime >= interval + lastshootTime_0) {
+		rippleShoot(bullets, 70, Bullettype::ENEMY_RICE_BL, speed);
+		lastshootTime_0 = Game::GamecurrentTime;
+		speed += 0.02;
+		interval -= 50;
+		if (interval <= 500) interval = 500;
+		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
+	}
+}
+
+void Boss::pattern2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 	static Uint64 lastshootTime_0 = Game::GamecurrentTime + 700;
 	static Uint64 lastshootTime_1 = Game::GamecurrentTime + 700;
 	static Uint64 lastshootTime_2 = Game::GamecurrentTime + 700;
@@ -510,20 +520,6 @@ void Boss::pattern2(std::vector<Bullet*>& bullets, Player* player) {
 		circleroundShoot(bullets, 10, Bullettype::ENEMY_RICE_RD, 3.0);
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 		lastshootTime_2 = Game::GamecurrentTime;
-	}
-}
-
-void Boss::pattern2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime - 2000;
-	static Uint64 interval = 3000;
-	static double speed = 3.0;
-	if (Game::GamecurrentTime >= interval + lastshootTime_0) {
-		rippleShoot(bullets, 70, Bullettype::ENEMY_RICE_BL, speed);
-		lastshootTime_0 = Game::GamecurrentTime;
-		speed += 0.03;
-		interval -= 70;
-		if (interval <= 500) interval = 500;
-		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 }
 

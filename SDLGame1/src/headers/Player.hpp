@@ -57,7 +57,7 @@ private:
     double speed;
     double dx, dy;
     int hp = 5;
-    double powerlv = 5.0;
+    double powerlv;
     int graze;
     bool isFocusing;
     bool invince_flag;

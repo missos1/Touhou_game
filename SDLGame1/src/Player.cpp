@@ -7,7 +7,8 @@
 
 Player::Player(double x, double y)
     : dx(0), dy(0), speed(9), isFocusing(false), isMovingright(false),
-    isFlipped(false),  state(PlayerState::NORMAL), graze(0), invince_flag(true) {
+    isFlipped(false),  state(PlayerState::NORMAL), graze(0), invince_flag(true),
+    powerlv(1.0) {
 
     texture = TextureManager::LoadTexture("res/player/Reimu_sprite(2).png");
     hitbox_texture = TextureManager::LoadTexture("res/player/hitbox.png");
@@ -65,10 +66,11 @@ void Player::handleInput(const Uint8* keys) {
         if (keys[SDL_SCANCODE_A]) dx = -speed;
         if (keys[SDL_SCANCODE_D]) dx = speed;
     }
-	
+    if (keys[SDL_SCANCODE_BACKSLASH]) hp++;
 }
 
 void Player::update() {
+	if (hp >= 5) hp = 8; // limit max hp
 	Game::PlayerPowerLV = powerlv;
 	Game::PlayerHP = hp;
     animation();
@@ -186,7 +188,7 @@ void Player::render() {
 }
 
 void Player::resetValue() {
-    powerlv = 5.00;
+    powerlv = 1.00;
     hp = 4;
     graze = 0;
     destRect.x = PLAYER_OG_X;

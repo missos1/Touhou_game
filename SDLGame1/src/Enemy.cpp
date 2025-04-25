@@ -49,7 +49,7 @@ Enemy::Enemy(double x, double y, double speed, EnemyType type, MovementType Mtyp
 		Enemy_texture = Game::Enemy_texture_b;
 		spriteW = 32;
 		spriteH = 30;
-		hp = 30;
+		hp = 45;
 		hitbox = { static_cast<int>(x), static_cast<int>(y), L_HITBOX_SIZE, L_HITBOX_SIZE };
 		point = 8000;
 		break;

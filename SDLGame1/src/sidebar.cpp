@@ -163,8 +163,8 @@ void Sidebar::render_score(int score, int Highscore) {
 
     TextureManager::render_text("Score", Game::font0, light_gray, text_texture, 890, 136);
     TextureManager::render_text("Hi-Score", Game::font0, light_gray, text_texture, 890, 100);
-    TextureManager::render_text(scoreStr, Game::font1, white, text_texture, 1020, 136);
-    TextureManager::render_text(HighscoreStr, Game::font1, white, text_texture, 1020, 100);
+    TextureManager::render_text(scoreStr, Game::font1, white, text_texture, 1000, 136);
+    TextureManager::render_text(HighscoreStr, Game::font1, white, text_texture, 1000, 100);
 }
 
 void Sidebar::render_playerhp(Player* player) {
