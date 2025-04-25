@@ -121,7 +121,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 	double now = static_cast<double>(SDL_GetTicks64());							// Get the current time
 	double elapsed = now - initTime - aggregatedPauseTime;					    // Get the elapsed time
 	Game::GamecurrentTime = static_cast<Uint64>(elapsed);						// Update the current time
-	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;						    // rounding to 1 decimal place
+	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0 + 89.0;						    // rounding to 1 decimal place
 
 	//std::cout << "elapsed: " << elapsed << "sec" << endl;
 	//std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;

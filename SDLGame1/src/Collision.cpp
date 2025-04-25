@@ -79,7 +79,11 @@ void CollisionCheck::PlayerEnemyColli(std::vector<Enemy*>& enemies, Player* play
 		SDL_Rect player_hitbox = player->getHitbox(); // Get player's hitbox
 		SDL_Rect enemy_hitbox = enemies[i]->getEnHitbox(); // Get enemy's hitbox
 		if (!SDL_HasIntersection(&player_hitbox, &enemy_hitbox)) continue; // Check if player collides with enemy
-		player->updatePlayerhp(-1); // Decrease player's HP
+        if (player->getPlayerstate() == PlayerState::NORMAL) {
+            player->updatePlayerhp(-1); // Decrease player's HP
+            player->updatePlayerpower(-0.3); // Decrease player's power
+            SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
+        }
 		SoundManager::PlaySound("pldead", 0, Game::SE_volume / 2); // Play player hit sound
 	}
 }

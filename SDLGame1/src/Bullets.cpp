@@ -77,10 +77,10 @@ Bullet::Bullet(double x, double y, double velx, double vely, Bullettype type, in
 		hitbox = { static_cast<int>(y), static_cast<int>(x), M_HITBOX_SIZE , M_HITBOX_SIZE };
 		break;
 	case Bullettype::ENEMY_PEARL_RD: // Large Round bullet
-		spriteXpos = PEARL_X + XL_RED; spriteYpos = PEARL_Y; spriteW = 32; spriteH = 32;
+		spriteXpos = PEARL_X + XL_RED; spriteYpos = PEARL_Y; spriteW = 64; spriteH = 64;
 		srcRect = { spriteXpos, spriteYpos, spriteW, spriteH };
 		destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 };
-		hitbox = { static_cast<int>(y), static_cast<int>(x), S_HITBOX_SIZE , S_HITBOX_SIZE };
+		hitbox = { static_cast<int>(y), static_cast<int>(x), XL_HITBOX_SIZE , XL_HITBOX_SIZE };
 		break;
 	case Bullettype::ENEMY_PEARL_BL: // Large Round bullet
 		spriteXpos = PEARL_X + XL_BLUE; spriteYpos = PEARL_Y; spriteW = 64; spriteH = 64;

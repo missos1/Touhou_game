@@ -178,6 +178,7 @@
     <Image Include="res\sidebar.png" />
     <Image Include="res\Sidebar\Background.png" />
     <Image Include="res\Sidebar\FRAMETEXTURE.png" />
+    <Image Include="res\Sidebar\Score_screen.png" />
     <Image Include="res\Sidebar\SIDEBAR_BOSS_HP.png" />
     <Image Include="res\Sidebar\SIDEBAR_HP.png" />
     <Image Include="res\Sidebar\SIDEBAR_PLAYER.png" />

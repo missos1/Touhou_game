@@ -26,7 +26,7 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
     }
 
     //for (std::pair<const std::string, SDL_Texture*>& pair : texture_Map) {
-    //    std::cout << pair.first << endl; // Debug: print loaded texture IDs
+    //    std::cerr << pair.first << endl; // Debug: print loaded texture IDs
     //}
 
     return texture; // Return the loaded texture

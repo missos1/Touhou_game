@@ -40,7 +40,7 @@ Item::Item(double x, double y, Itemtype type) :
 	}
 	destRect = { static_cast<int>(x), static_cast<int>(y), spriteW * 2, spriteH * 2 }; // Set destination rectangle for rendering
 	hitbox = destRect; // Set hitbox
-	fallspeed = -5.0; // Set initial fall speed
+	fallspeed = -4.5; // Set initial fall speed
 }
 
 Item::~Item() {
@@ -50,7 +50,7 @@ Item::~Item() {
 void Item::update(Player* player) {
 	if ((player->getY() <= 250 || type == Itemtype::STAR) 
 		&& yPos <= PLAY_AREA_Y_MAX
-		&& yPos >= PLAY_AREA_Y_MIN - 100
+		&& yPos >= PLAY_AREA_Y_MIN - 300
 		&& xPos <= PLAY_AREA_X_MAX + 20
 		&& xPos >= PLAY_AREA_X_MIN - 20) TrackPlayer = true;
 

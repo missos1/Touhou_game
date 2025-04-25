@@ -502,6 +502,9 @@
     <Image Include="res\Sidebar\Titlescreens&amp;menus.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\Sidebar\Score_screen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="lib\SDL2.pdb" />

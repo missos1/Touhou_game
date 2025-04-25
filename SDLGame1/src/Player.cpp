@@ -44,7 +44,7 @@ Player::~Player() {
     }
 }
 
-void Player::handleInput(const Uint8* keys) {
+void Player::handleInput(const Uint8* keys, std::vector<Bullet*>& player_bullets) {
     dx = dy = 0;
     // keyboard movement
     if (keys[SDL_SCANCODE_LSHIFT]) { // hold shift to slow down
@@ -62,15 +62,24 @@ void Player::handleInput(const Uint8* keys) {
 
     if (keys[SDL_SCANCODE_W]) dy = -speed;
     if (keys[SDL_SCANCODE_S]) dy = speed;
-    if (keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_D]) {
-        if (keys[SDL_SCANCODE_A]) dx = -speed;
-        if (keys[SDL_SCANCODE_D]) dx = speed;
+
+    if (keys[SDL_SCANCODE_A]) dx = -speed;
+    if (keys[SDL_SCANCODE_D]) dx = speed;
+    
+
+    static Uint64 lastShotTime = 0;
+    if (keys[SDL_SCANCODE_SPACE] && Game::GamecurrentTime - lastShotTime > 90) { // Handle shooting
+        int powerlv = 0;
+        playerShoot(player_bullets);
+        //player->testshoot(player_bullets);
+        lastShotTime = Game::GamecurrentTime;
     }
+
     if (keys[SDL_SCANCODE_BACKSLASH]) hp++;
 }
 
 void Player::update() {
-	if (hp >= 5) hp = 8; // limit max hp
+	if (hp >= 8) hp = 8; // limit max hp
 	Game::PlayerPowerLV = powerlv;
 	Game::PlayerHP = hp;
     animation();
@@ -188,7 +197,7 @@ void Player::render() {
 }
 
 void Player::resetValue() {
-    powerlv = 1.00;
+    powerlv = 5.00;
     hp = 4;
     graze = 0;
     destRect.x = PLAYER_OG_X;

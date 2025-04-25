@@ -95,7 +95,36 @@ private:
 	int phase_duration;
 	int phase_time_left;
 	std::unordered_map<Phase, int> phase_time_map; // Time for each phase
-	int elapsed;
+
+	double elapsed;
+
+	double pattern0_lastshootTime_0 = 0;
+	double pattern0_lastshootTime_1 = 0;
+	bool pattern0_initialized = false;
+
+	double pattern0_spellcard_lastshootTime_total = 0;
+	double pattern0_spellcard_downTime = 0;
+	double pattern0_spellcard_lastshootTime_0 = 0;
+	bool pattern0_spellcard_reversed = false;
+	bool pattern0_spellcard_shooting = false;
+	bool pattern0_spellcard_initialized = false;
+
+	double pattern1_lastshootTime_0 = 0;
+	bool pattern1_initialized = false;
+
+	double pattern1_spellcard_lastshootTime_0 = 0;
+	double pattern1_spellcard_lastshootTime_1 = 0;
+	bool pattern1_spellcard_initialized = false;
+
+	double pattern2_lastshootTime_0 = 0;
+	double pattern2_interval = 3.0;
+	double pattern2_speed = 3.0;
+	bool pattern2_initialized = false;
+
+	double pattern2_spellcard_lastshootTime_0 = 0;
+	double pattern2_spellcard_lastshootTime_1 = 0;
+	double pattern2_spellcard_lastshootTime_2 = 0;
+	bool pattern2_spellcard_initialized = false;
 
 	int currentHP; // Current HP of the boss
 	std::unordered_map<Phase, int> phaseHP; // HP for each phase

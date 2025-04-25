@@ -151,6 +151,12 @@ void Sidebar::handleInputs_pausescreen(const SDL_Event& event) {
     }
 }
 
+void Sidebar::handleInputs_wonscreen(const SDL_Event& event) {
+    if (event.type != SDL_KEYDOWN) return;
+
+
+}
+
 // Private functions below
 
 void Sidebar::render_score(int score, int Highscore) {

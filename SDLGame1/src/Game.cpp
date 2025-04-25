@@ -98,7 +98,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
     boss = new Boss(BOSS_OG_X, BOSS_OG_Y);
 
-    Mix_AllocateChannels(32); // Allocate audio channels
+    Mix_AllocateChannels(16); // Allocate audio channels
 
     if (!initText() || !initSM()) { // Initialize textures and sound manager
         return false;
@@ -124,7 +124,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 }
 
 bool Game::initText() {
-    Misc_player_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); // Load player texture
+	Misc_player_text = TextureManager::LoadTexture("res/player/Reimu_sprite.png"); // Load player bullet texture
     if (!Misc_player_text) return false;
 
     enemybullet_text = TextureManager::LoadTexture("res/bullets.png"); // Load enemy bullet texture
@@ -212,7 +212,6 @@ void Game::stateHandling() {
 
     if (Game::prevState == GameState::PLAYING && Game::state == GameState::RESTARTING) {
 		state = GameState::PLAYING; // Restart game
-        ScoreManager::writeScoretofile("res/Score/Score.txt"); // Write score to file
         ScoreManager::readScorefromfile("res/Score/Score.txt"); // Read high score from file
         resetObject();
     }
@@ -253,16 +252,8 @@ void Game::handleEvents() {
 	const Uint8* keys = SDL_GetKeyboardState(nullptr); // Get the current state of the keyboard
 
     if (state == GameState::PLAYING) {
-        player->handleInput(keys); // Handle player input
+        player->handleInput(keys, player_bullets); // Handle player input
         //boss->debug_ani(keys); // debug boss animation
-
-        static Uint64 lastShotTime = 0;
-        if (keys[SDL_SCANCODE_SPACE] && Game::GamecurrentTime - lastShotTime > 90) { // Handle shooting
-            int powerlv = 0;
-            player->playerShoot(player_bullets);
-            //player->testshoot(player_bullets);
-            lastShotTime = Game::GamecurrentTime;
-        }
     }
 
     else if (state == GameState::EXIT && SDL_GetTicks64() - GameExitTime >= 200) isRunning = false; // Exit game

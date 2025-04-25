@@ -72,7 +72,7 @@ void Boss::update(std::vector<Bullet*>& bullets, std::vector<Item*>& items) {
 	hitbox.x = destRect.x + 16;
 	hitbox.y = destRect.y + 16;
 
-	phase_time_left = phase_duration - elapsed;
+	phase_time_left = phase_duration - static_cast<int>(elapsed);
 }
 
 void Boss::updatePhase(std::vector<Bullet*>& bullets, std::vector<Item*>& items) {
@@ -208,6 +208,15 @@ void Boss::resetValue() {
 	state = BossState::NORMAL;
 	spellcard_count = 3;
 	vx = vy = 0;
+
+	pattern0_initialized = false;
+	pattern0_spellcard_initialized = false;
+
+	pattern1_initialized = false;
+	pattern1_spellcard_initialized = false;
+
+	pattern2_initialized = false;
+	pattern2_spellcard_initialized = false;
 }
 
 void Boss::setPhase(Phase newPhase) {
@@ -241,7 +250,7 @@ void Boss::clearScreen(std::vector<Bullet*>& bullets, std::vector<Item*>& items)
 }
 
 void Boss::getStage_elapsed(const double& elapsed) {
-	this->elapsed = static_cast<int>(elapsed);
+	this->elapsed = elapsed;
 }
 
 void Boss::debug_ani(const Uint8* keys) {
@@ -253,7 +262,6 @@ void Boss::debug_ani(const Uint8* keys) {
 		if (keys[SDL_SCANCODE_RIGHT])  vx = 4;
 	}
 }
-
 
 // Boss' movement behaviors below
 
@@ -391,135 +399,148 @@ void Boss::phase2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
 // Boss shooting pattern below
 
 void Boss::pattern0(std::vector<Bullet*>& bullets, Player* player) {
-	//static bool reversed = false;
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime;
-	static Uint64 lastshootTime_1 = Game::GamecurrentTime;
+	if (!pattern0_initialized) {
+		pattern0_lastshootTime_0 = elapsed + 1.0;
+		pattern0_lastshootTime_1 = elapsed + 1.0;
+		pattern0_initialized = true;
+	}
+
 	int player_hitbox_x = player->getX();
 	int player_hitbox_y = player->getY();
 
-	if (Game::GamecurrentTime >= 700 + lastshootTime_0) {
-
+	if (elapsed >= 0.7 + pattern0_lastshootTime_0) {
 		circleroundShoot(bullets, 60, Bullettype::ENEMY_RICE_RD, 3.5);
-		lastshootTime_0 = Game::GamecurrentTime;
+		pattern0_lastshootTime_0 = elapsed;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 
-	if (Game::GamecurrentTime >= 3000 + lastshootTime_1) {
-
+	if (elapsed >= 3.0 + pattern0_lastshootTime_1) {
 		std::vector<double> spd = { 4.0, 4.5, 5.0, 5.5 };
-
 		for (const double& i : spd) {
 			aimedcircleroundShoot(bullets, 5, Bullettype::ENEMY_RICE_GR, player_hitbox_x, player_hitbox_y, i);
 		}
-
-		lastshootTime_1 = Game::GamecurrentTime;
-		//SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
+		pattern0_lastshootTime_1 = elapsed;
 	}
 }
 
 void Boss::pattern0_spellcard(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_total = Game::GamecurrentTime;
-	static Uint64 downTime = Game::GamecurrentTime + 4000;
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime;
-
-
-	static bool reversed = false;
-	static bool shooting = false;
-
-	if (!shooting && Game::GamecurrentTime >= 3000 + downTime) {
-		shooting = true;
-		lastshootTime_total = Game::GamecurrentTime;
-		downTime = Game::GamecurrentTime;
+	if (!pattern0_spellcard_initialized) {
+		pattern0_spellcard_lastshootTime_total = elapsed;
+		pattern0_spellcard_downTime = elapsed + 1.3;
+		pattern0_spellcard_lastshootTime_0 = elapsed;
+		pattern0_spellcard_reversed = false;
+		pattern0_spellcard_shooting = false;
+		pattern0_spellcard_initialized = true;
 	}
 
-	if (shooting && Game::GamecurrentTime >= 2000 + lastshootTime_total) {
-		shooting = false;
+	if (!pattern0_spellcard_shooting && elapsed >= 4.5 + pattern0_spellcard_downTime) {
+		pattern0_spellcard_shooting = true;
+		pattern0_spellcard_lastshootTime_total = elapsed;
+		pattern0_spellcard_downTime = elapsed;
 	}
 
-	if (Game::GamecurrentTime  >= 50 + lastshootTime_0 && shooting) {
-		spiralShoot(bullets, 10, Bullettype::ENEMY_KNIFE, 5.0, reversed);
-		lastshootTime_0 = Game::GamecurrentTime;
+	if (pattern0_spellcard_shooting && elapsed >= 2.0 + pattern0_spellcard_lastshootTime_total) {
+		pattern0_spellcard_shooting = false;
+	}
+
+	if (elapsed >= 0.05 + pattern0_spellcard_lastshootTime_0 && pattern0_spellcard_shooting) {
+		spiralShoot(bullets, 1, Bullettype::ENEMY_PEARL_RD, 3.0, pattern0_spellcard_reversed);
+		spiralShoot(bullets, 10, Bullettype::ENEMY_KNIFE, 4.3, pattern0_spellcard_reversed);
+		pattern0_spellcard_lastshootTime_0 = elapsed;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 }
 
 void Boss::pattern1(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime + 1200;
+	if (!pattern1_initialized) {
+		pattern1_lastshootTime_0 = elapsed + 1.2;
+		pattern1_initialized = true;
+	}
+
 	int player_hitbox_x = player->getX();
 	int player_hitbox_y = player->getY();
 
-	if (Game::GamecurrentTime >= 400 + lastshootTime_0) {
-
+	if (elapsed >= 0.4 + pattern1_lastshootTime_0) {
 		std::vector<double> spd = { 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 9.7, 10.0 };
-
 		for (const double& i : spd) {
 			aimedcircleroundShoot(bullets, 5, Bullettype::ENEMY_RICE_BL, player_hitbox_x, player_hitbox_y, i);
 		}
-
-		lastshootTime_0 = Game::GamecurrentTime;
+		pattern1_lastshootTime_0 = elapsed;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 }
 
 void Boss::pattern1_spellcard(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime;
-	static Uint64 lastshootTime_1 = Game::GamecurrentTime;
-	int player_hitbox_x = player->getX();
-	int player_hitbox_y = player->getY();
-	if (Game::GamecurrentTime >= 4000 + lastshootTime_1) {
+	if (!pattern1_spellcard_initialized) {
+		pattern1_spellcard_lastshootTime_0 = elapsed;
+		pattern1_spellcard_lastshootTime_1 = elapsed;
+		pattern1_spellcard_initialized = true;
+	}
+
+	int player_hitbox_x = player->getX() - 30;
+	int player_hitbox_y = player->getY() - 10;
+
+	if (elapsed >= 4.0 + pattern1_spellcard_lastshootTime_1) {
 		std::vector<double> speed = { 5.0, 6.0, 7.0 };
 		for (const double& spd : speed) {
-			aimedShoot(bullets, Bullettype::ENEMY_PEARL_BL, player->getX(), player->getY(), spd);
+			aimedShoot(bullets, Bullettype::ENEMY_PEARL_BL, player_hitbox_x, player_hitbox_y, spd);
 		}
-		lastshootTime_1 = Game::GamecurrentTime;
+		pattern1_spellcard_lastshootTime_1 = elapsed;
 		SoundManager::PlaySound("kira0", 0, Game::SE_volume);
 	}
 
-	if (Game::GamecurrentTime >= 2000 + lastshootTime_0) {
-
+	if (elapsed >= 2.0 + pattern1_spellcard_lastshootTime_0) {
 		rndShoot(bullets, 25, Bullettype::ENEMY_KUNAI_RD, 3.0);
 		rndShoot(bullets, 15, Bullettype::ENEMY_KUNAI_BL, 4.0);
 		rndShoot(bullets, 35, Bullettype::ENEMY_KUNAI_GR, 2.0);
 
-		lastshootTime_0 = Game::GamecurrentTime;
+		pattern1_spellcard_lastshootTime_0 = elapsed;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 }
 
 void Boss::pattern2(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime - 2000;
-	static Uint64 interval = 3000;
-	static double speed = 3.0;
-	if (Game::GamecurrentTime >= interval + lastshootTime_0) {
-		rippleShoot(bullets, 70, Bullettype::ENEMY_RICE_BL, speed);
-		lastshootTime_0 = Game::GamecurrentTime;
-		speed += 0.02;
-		interval -= 50;
-		if (interval <= 500) interval = 500;
+	if (!pattern2_initialized) {
+		pattern2_lastshootTime_0 = elapsed - 2.0;
+		pattern2_interval = 2.5;
+		pattern2_speed = 3.0;
+		pattern2_initialized = true;
+	}
+
+	if (elapsed >= pattern2_interval + pattern2_lastshootTime_0) {
+		rippleShoot(bullets, 70, Bullettype::ENEMY_RICE_BL, pattern2_speed);
+		pattern2_lastshootTime_0 = elapsed;
+		pattern2_speed += 0.04;
+		pattern2_interval -= 0.07;
+		if (pattern2_interval <= 0.8) pattern2_interval = 0.8;
+		if (pattern2_speed >= 8.0) pattern2_speed = 8.0;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 }
 
 void Boss::pattern2_spellcard(std::vector<Bullet*>& bullets, Player* player) {
-	static Uint64 lastshootTime_0 = Game::GamecurrentTime + 700;
-	static Uint64 lastshootTime_1 = Game::GamecurrentTime + 700;
-	static Uint64 lastshootTime_2 = Game::GamecurrentTime + 700;
+	if (!pattern2_spellcard_initialized) {
+		pattern2_spellcard_lastshootTime_0 = elapsed + 0.7;
+		pattern2_spellcard_lastshootTime_1 = elapsed + 0.7;
+		pattern2_spellcard_lastshootTime_2 = elapsed + 0.7;
+		pattern2_spellcard_initialized = true;
+	}
 
-	if (Game::GamecurrentTime >= 700 + lastshootTime_0) {
+	if (elapsed >= 0.7 + pattern2_spellcard_lastshootTime_0) {
 		circleroundShoot(bullets, 50, Bullettype::ENEMY_RICE_BL, 2.5);
-		lastshootTime_0 = Game::GamecurrentTime;
+		pattern2_spellcard_lastshootTime_0 = elapsed;
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
 	}
 
-	if (Game::GamecurrentTime >= 1400 + lastshootTime_1) {
-		rippleShoot(bullets, 10, Bullettype::ENEMY_RICE_GR, 3.5);
-		lastshootTime_1 = Game::GamecurrentTime;
+	if (elapsed >= 1.4 + pattern2_spellcard_lastshootTime_1) {
+		rippleShoot(bullets, 20, Bullettype::ENEMY_RICE_GR, 3.5);
+		pattern2_spellcard_lastshootTime_1 = elapsed;
 	}
 
-	if (Game::GamecurrentTime >= 880 + lastshootTime_2) {
+	if (elapsed >= 0.88 + pattern2_spellcard_lastshootTime_2) {
 		circleroundShoot(bullets, 10, Bullettype::ENEMY_RICE_RD, 3.0);
 		SoundManager::PlaySound("enshoot1", 0, Game::SE_volume / 2);
-		lastshootTime_2 = Game::GamecurrentTime;
+		pattern2_spellcard_lastshootTime_2 = elapsed;
 	}
 }
 

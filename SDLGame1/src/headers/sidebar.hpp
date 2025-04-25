@@ -17,8 +17,10 @@ public:
 	void render(int winW, int winH, Player* player, Boss* boss);
 	void render_background();
 	void handleInputs_pausescreen(const SDL_Event& event);
+	void handleInputs_wonscreen(const SDL_Event& event);
 
 private:
+	void render_wonscreen();
 	void render_boss_hud(Boss* boss);
 	void render_bosshp(Boss* boss);
 	void render_boss_name(Boss* boss);
@@ -29,6 +31,7 @@ private:
 	void render_pausescreen();
 
 	SDL_Texture* frame_texture;
+	SDL_Texture* score_calculate;
 	SDL_Texture* powerngraze_texture;
 	SDL_Texture* title_texture;
 	SDL_Texture* boss_HP_texture;
@@ -50,6 +53,8 @@ private:
 	const int BOSS_HPBAR_W = 550;
 
 	int selectedOption;
+
+	bool score_added;
 };
 
 #endif 

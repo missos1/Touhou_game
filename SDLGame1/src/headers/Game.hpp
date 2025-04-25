@@ -49,6 +49,8 @@ enum class GameState {
     PLAYING,
     PAUSE,
     RESTARTING,
+    GAMEOVER,
+    WIN,
     EXIT,
 };
 

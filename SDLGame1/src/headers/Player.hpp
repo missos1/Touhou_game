@@ -21,7 +21,7 @@ public:
     Player(double x, double y);
     ~Player();
 
-    void handleInput(const Uint8* keys);
+    void handleInput(const Uint8* keys, std::vector<Bullet*>& player_bullets);
     void update();
     void render();
     void resetValue();
