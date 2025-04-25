@@ -4,6 +4,28 @@ Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4
 
 ---
 
+# CÔNG NHẬN TÀI NGUYÊN SỬ DỤNG
+
+## 🎼 ÂM NHẠC
+Các bản nhạc sau thuộc bản quyền của **ZUN (Team Shanghai Alice)**, được sử dụng trong game với mục đích **phi thương mại**:
+- The Centennial Festival for Magical Girls - Touhou Koumakyou ~ The Embodiment of Scarlet Devil.
+- U.N. Owen Was Her? - Touhou Koumakyou ~ The Embodiment of Scarlet Devil.
+
+**Trang web chính thức**: [web](https://www16.big.or.jp/~zun/)
+
+## HÌNH ẢNH/NHÂN VẬT
+- Thiết kế nhân vật dựa trên Touhou Project (ZUN)  
+- Sprite link: [link](https://www.spriters-resource.com/pc_computer/touhoukoumakyoutheembodimentofscarletdevil/)
+
+---
+
+#  ĐIỀU KHOẢN SỬ DỤNG
+- Bạn **không được phép bán hay phân phối lại** sản phẩm này.  
+- Đây là project bài tập của sinh viên, không được dùng cho mục đính thương mại.
+- Tuân thủ [Hướng dẫn của ZUN cho fan-work](https://en.touhouwiki.net/wiki/ZUN%27s_guidelines_for_fan_works). 
+
+---
+
 # Giới thiệu game
 
 Đây là bản fanmade được lấy cảm hứng từ Touhou 6: The Embodiment of Scarlet Devil.  
@@ -53,7 +75,7 @@ Toàn bộ sẽ cộng vào score của bạn.
 - **Space**: Bắn  
 - **Shift**: Focus (Tập trung, di chuyển chậm, hiện hitbox)
 
-### So sánh Player thường và Focus:
+### So sánh giữa thường và Focus:
 Khi bắt đầu game, nhân vật của bạn sẽ có:
 
 - 1.00 Power – mức sức mạnh khởi điểm để bạn có thể tấn công cơ bản.
@@ -72,12 +94,13 @@ Trong mode focus, nhân vật sẽ hiển thị hitbox  và di chuyển chậm r
 
 ---
 
-# Sidebar
+# Thanh thông số
 
 Hiển thị hình ảnh nhân vật (HP, power v.v):  
-| Normal | Focus |
-|--------|-------|
-| ![](SDLGame1/Preview/hp_left.png) | ![](SDLGame1/Preview/power_n_graze_meter.png) |
+| ![](SDLGame1/Preview/power_n_graze_meter.png) | Sức mạnh và graze |
+|---|---|
+| ![](SDLGame1/Preview/hp_left.png) | Máu còn lại |
+| ![](SDLGame1/Preview/Score.png) | Kỉ lục và hiện tại |
 
 
 ---
@@ -117,7 +140,14 @@ Phía trên màn hình chơi có một vùng. Khi nhân vật bay vào đó, cá
 
 ### **Boss**
 
-Khi bạn phá xong một thanh máu của boss:
+#### Trong trận đấu boss, bạn sẽ thấy một thanh HUD hiển thị ở phía trên màn hình, bao gồm (từ trái sang phải):
+- 🏷️ Tên boss
+- ✴️ Số lượng Spellcard còn lại
+- ❤️ Thanh máu của boss
+- ⏱️ Thời gian còn lại 
+![](SDLGame1/Preview/Boss_hud.png)
+
+#### Khi bạn phá xong một thanh máu của boss:
 - Mọi đạn trên màn hình sẽ bị xóa.
 - Bạn sẽ nhận được một **Star Item** để tăng điểm cho mỗi viên đạn được xóa.  
 ![](SDLGame1/Preview/stardes.png)
