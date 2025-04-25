@@ -8,6 +8,7 @@ Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4
 
 ## 🎼 ÂM NHẠC
 Các bản nhạc sau thuộc bản quyền của **ZUN (Team Shanghai Alice)**, được sử dụng trong game với mục đích **phi thương mại**:
+- A Dream that is more Scarlet than Red - - Touhou Koumakyou ~ The Embodiment of Scarlet Devil.
 - The Centennial Festival for Magical Girls - Touhou Koumakyou ~ The Embodiment of Scarlet Devil.
 - U.N. Owen Was Her? - Touhou Koumakyou ~ The Embodiment of Scarlet Devil.
 
