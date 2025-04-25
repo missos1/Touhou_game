@@ -160,6 +160,12 @@ void Bullet::render() {
 	case Bullettype::ENEMY_PEARL_RD:
 	case Bullettype::ENEMY_PEARL_BL:
 		double angle = atan2(vy, vx) * 180 / M_PI; // Calculate angle for direction
+		if (type == Bullettype::ENEMY_PEARL_RD || type == Bullettype::ENEMY_PEARL_BL) {
+			SDL_SetTextureAlphaMod(enemybullet_text, 200); // Set transparency for large bullets
+		}
+		else {
+			SDL_SetTextureAlphaMod(enemybullet_text, 255); // Set transparency for large bullets
+		}
 		SDL_RenderCopyEx(Game::Grenderer, enemybullet_text, &srcRect, &destRect, angle - 90.0, nullptr, SDL_FLIP_NONE); // Render bullet with direction
 		break;
 	}

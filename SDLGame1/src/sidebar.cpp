@@ -20,6 +20,7 @@ Sidebar::Sidebar()
     player_texture = TextureManager::LoadTexture("res/Sidebar/SIDEBAR_PLAYER.png");
     background_texture = TextureManager::LoadTexture("res/Sidebar/Background.png");
 	boss_HP_texture = TextureManager::LoadTexture("res/Sidebar/SIDEBAR_BOSS_HP.png");
+    score_calculate = TextureManager::LoadTexture("res/Sidebar/Score_screen.png");
 }
 Sidebar::~Sidebar() {
     // Free the textures
@@ -47,6 +48,8 @@ Sidebar::~Sidebar() {
 }
 
 void Sidebar::render(int winW, int winH, Player* player, Boss* boss) {
+    render_wonscreen();
+    
     //render background
     int w, h;
     SDL_QueryTexture(frame_texture, nullptr, nullptr, &w, &h); // get texture info
@@ -154,7 +157,15 @@ void Sidebar::handleInputs_pausescreen(const SDL_Event& event) {
 void Sidebar::handleInputs_wonscreen(const SDL_Event& event) {
     if (event.type != SDL_KEYDOWN) return;
 
+    if (event.key.keysym.sym != SDLK_SPACE &&
+        event.key.keysym.sym != SDLK_ESCAPE &&
+        event.key.keysym.sym != SDLK_RETURN) return;
 
+    Game::state = GameState::MENU; // Goes back to menu
+    Game::prevState = GameState::WIN; // Set previous state to WIN
+    Game::GameStartTime = 0; // Reset time
+    Game::GamePauseTotalTime = 0; // Reset time
+    Game::PLAYSCORE = 0; // Reset score
 }
 
 // Private functions below
@@ -250,5 +261,31 @@ void Sidebar::render_pausescreen() {
     TextureManager::render_text("UNPAUSE", Game::font0, (selectedOption == 0) ? red : white, text_texture, 405, 440);
     TextureManager::render_text("RESTART", Game::font0, (selectedOption == 1) ? red : white, text_texture, 407, 470);
     TextureManager::render_text("EXIT", Game::font0, (selectedOption == 2) ? red : white, text_texture, 440, 500);
+}
+
+void Sidebar::render_wonscreen() {
+    static int y = 0;
+    if (Game::state != GameState::WIN) {
+        get_bonus = false;
+        return;
+    }
+    
+    if (!get_bonus) {
+        y = -150;
+        hp_bonus = Game::PlayerHP * 1000000;
+		graze_bonus = Game::PlayerGraze * 100;
+		Game::PLAYSCORE += hp_bonus + graze_bonus; // Add bonus to score
+        ScoreManager::writeScoretofile("res/Score/Score.txt");
+		get_bonus = true;
+    }
+
+	TextureManager::render_from_texture(score_calculate, SCORESCREEN_BG_X, ((y >= SCORESCREEN_BG_Y) ? SCORESCREEN_BG_Y : y += 5), 4, 0, SDL_FLIP_NONE);
+
+	TextureManager::render_text("YOU WON", Game::font2, red, text_texture, 350, 290);
+
+	TextureManager::render_text("Hp bonus * 100000 =", Game::font1, light_gray, text_texture, 100, 440);
+	TextureManager::render_text(std::to_string(hp_bonus), Game::font1, pink, text_texture, 600, 440);
+	TextureManager::render_text("Graze bonus * 100 =", Game::font1, light_gray, text_texture, 100, 490);
+	TextureManager::render_text(std::to_string(graze_bonus), Game::font1, pink, text_texture, 600, 490);
 }
 

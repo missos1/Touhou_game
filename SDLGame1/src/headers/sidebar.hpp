@@ -2,6 +2,7 @@
 #define SIDEBAR_HPP
 
 #include "TextureManager.hpp"
+#include "ScoreManager.hpp"
 #include <SDL_ttf.h>
 
 class Game;
@@ -51,8 +52,15 @@ private:
 	const int DIGIT_SIZE = 16;
 	const int SCORE_DIGITS = 10;
 	const int BOSS_HPBAR_W = 550;
+	const int SCORESCREEN_BG_X = 10;
+	const int SCORESCREEN_BG_Y = 30;
 
 	int selectedOption;
+
+	int hp_bonus;
+	int graze_bonus;
+
+	bool get_bonus;
 
 	bool score_added;
 };

@@ -121,7 +121,7 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 	double now = static_cast<double>(SDL_GetTicks64());							// Get the current time
 	double elapsed = now - initTime - aggregatedPauseTime;					    // Get the elapsed time
 	Game::GamecurrentTime = static_cast<Uint64>(elapsed);						// Update the current time
-	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0 + 89.0;						    // rounding to 1 decimal place
+	elapsed = round((elapsed / 1000.0) * 10.0) / 10.0;						    // rounding to 1 decimal place
 
 	//std::cout << "elapsed: " << elapsed << "sec" << endl;
 	//std::cout << "currentTime (Game): " << Game::GamecurrentTime << " ms" << endl;
@@ -182,6 +182,19 @@ void EnemyLayout::stage(std::vector<Enemy*>& enemies, std::vector<Bullet*>& bull
 			break;
 		}
 		//std::cout << boss->getBosshp() << endl;
+	}
+
+	static bool death_flag = false;
+	static double boss_death_time = 0.0; // Time to wait before transitioning to the win screen
+
+	if (boss->getPhase() == Phase::DEAD && !death_flag) {
+		boss_death_time = elapsed + 3.0;
+		death_flag = true;
+	}
+
+	if (elapsed >= boss_death_time && death_flag) {
+		Game::state = GameState::WIN;
+		death_flag = false;
 	}
 }
 

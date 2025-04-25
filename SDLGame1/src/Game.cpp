@@ -26,6 +26,7 @@ int Game::SE_volume = 32; // Initial SE volume
 
 double Game::PlayerPowerLV = 0.0;
 int Game::PlayerHP = 0;
+int Game::PlayerGraze = 0;
 
 Uint64 Game::GameStartTime = 0; // Game start time
 //Uint64 Game::GamePauseTime
@@ -247,6 +248,9 @@ void Game::handleEvents() {
         else if (state == GameState::PAUSE) {
             sidebar->handleInputs_pausescreen(event);
         }
+        else if (state == GameState::WIN) {
+            sidebar->handleInputs_wonscreen(event);
+        }
     }
 
 	const Uint8* keys = SDL_GetKeyboardState(nullptr); // Get the current state of the keyboard
@@ -293,13 +297,14 @@ void Game::ObjHandling() {
 }
 
 void Game::update() {
-    if (state == GameState::PLAYING) {
+    if (state == GameState::PLAYING || state == GameState::WIN) {
 
-        //static int prevscore = 0;
-        ////if (PLAYSCORE > prevscore) {
-        ////    std::cout << "playscore: " << PLAYSCORE << endl; // Debug: print player score
-        ////    prevscore = PLAYSCORE;
-        ////}
+		if (Game::PLAYSCORE > Game::HIGHSCORE) {
+			Game::HIGHSCORE = Game::PLAYSCORE; // Update high score
+		}
+
+        if (state == GameState::WIN) return; // Don't run functions below if the won
+
         boss->update(enemy_bullets, items);
         player->update(); // Update player
         ObjHandling(); // Update game objects
@@ -307,9 +312,6 @@ void Game::update() {
         CollisionCheck::PlayerColli(enemy_bullets, player, items); // Check collisions with player
         CollisionCheck::BossColli(player_bullets, boss, items); // Check collisions with boss
         CollisionCheck::DeleleOffScreen(enemy_bullets, player_bullets, enemies, items); // Deleting objects offscreen
-		if (Game::PLAYSCORE > Game::HIGHSCORE) {
-			Game::HIGHSCORE = Game::PLAYSCORE; // Update high score
-		}
     }
 }
 
@@ -356,6 +358,9 @@ void Game::render() {
             bullet->render(); // Render enemy bullets
         }
 
+        sidebar->render(winW, winH, player, boss); // Render sidebar
+    }
+    else if (state == GameState::WIN) {
         sidebar->render(winW, winH, player, boss); // Render sidebar
     }
 

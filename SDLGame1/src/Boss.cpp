@@ -31,11 +31,11 @@ Boss::Boss(double x, double y)
 
 	phaseHP[Phase::IDLE] = 0;
 	phaseHP[Phase::PHASE0] = 1000;
-	phaseHP[Phase::PHASE0_SC] = 2300;
+	phaseHP[Phase::PHASE0_SC] = 2000;
 	phaseHP[Phase::PHASE1] = 1200;
 	phaseHP[Phase::PHASE1_SC] = 1500;
-	phaseHP[Phase::PHASE2] = 1200;
-	phaseHP[Phase::PHASE2_SC] = 2800;
+	phaseHP[Phase::PHASE2] = 1000;
+	phaseHP[Phase::PHASE2_SC] = 2400;
 	phaseHP[Phase::DEAD] = 0;
 
 	srcRect = { 0, 0, spriteW, spriteH };

@@ -30,7 +30,7 @@ const SDL_Color very_light_gray = { 230, 230, 230 };
 const SDL_Color gray = { 128, 128, 128 };
 const SDL_Color dark_gray = { 50, 50, 50 };
 const SDL_Color yellow = { 255, 255, 0 };
-const SDL_Color pink = { 255, 100, 100 };
+const SDL_Color pink = { 255, 150, 150 };
 
 class Bullet;
 class Player;
@@ -85,6 +85,7 @@ public:
 
     static double PlayerPowerLV;
     static int PlayerHP;
+    static int PlayerGraze;
     
     static int PLAYSCORE;
     static int HIGHSCORE;
