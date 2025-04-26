@@ -25,7 +25,7 @@ Các bản nhạc sau thuộc bản quyền của **ZUN (Team Shanghai Alice)**,
 
 Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing).
 
-Vid: [vid](https://youtu.be/wKH3GsBdyhg).
+Video demo & tóm tắt logic và mã nguồn: [vid](https://www.youtube.com/watch?v=gxmoxCmi5UI).
 ---
 
 # Giới thiệu game
