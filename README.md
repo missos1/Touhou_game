@@ -1,10 +1,3 @@
-# Touhou Touhou Koumakyou ~ The Embodiment of Scarlet Devil (HMD edition)
-
-Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing).
-
-Vid: [vid](https://youtu.be/wKH3GsBdyhg).
----
-
 # CÔNG NHẬN TÀI NGUYÊN SỬ DỤNG
 
 ## ÂM NHẠC
@@ -26,6 +19,13 @@ Các bản nhạc sau thuộc bản quyền của **ZUN (Team Shanghai Alice)**,
 - Đây là project bài tập của sinh viên, không được dùng cho mục đính thương mại.
 - Tuân thủ [Hướng dẫn của ZUN cho fan-work](https://en.touhouwiki.net/wiki/ZUN%27s_guidelines_for_fan_works). 
 
+---
+
+# Touhou Touhou Koumakyou ~ The Embodiment of Scarlet Devil (HMD edition)
+
+Download link: [Tải tại đây](https://drive.google.com/drive/folders/1WGBy4llzN4hkpyrL9SvCHxuKzkXIuGa9?usp=sharing).
+
+Vid: [vid](https://youtu.be/wKH3GsBdyhg).
 ---
 
 # Giới thiệu game
