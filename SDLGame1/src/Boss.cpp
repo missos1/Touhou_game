@@ -222,7 +222,7 @@ void Boss::resetValue() {
 void Boss::setPhase(Phase newPhase) {
 	phase = newPhase;
 	currentHP = phaseHP[phase]; // Update HP for the new phase
-	phase_duration = phase_time_map[phase] + elapsed; // Update phase time
+	phase_duration = phase_time_map[phase] + static_cast<int>(elapsed); // Update phase time
 }
 
 void Boss::takeDamage(int damage) {
@@ -269,7 +269,7 @@ void Boss::moveinscreen() {
 	if (xPos >= 380 && yPos == 120) {
 		phase = Phase::PHASE0;
 		currentHP = phaseHP[Phase::PHASE0];
-		phase_duration = phase_time_map[Phase::PHASE0] + elapsed; // Update phase time
+		phase_duration = phase_time_map[Phase::PHASE0] + static_cast<int>(elapsed); // Update phase time
 		
 		vx = 0;
 		vy = 0;

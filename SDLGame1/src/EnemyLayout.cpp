@@ -79,7 +79,7 @@ void EnemyLayout::EnemyShootCondition(std::vector<Enemy*>& enemies, std::vector<
 		case EnemyType::RED_FA:
 			if (Game::GamecurrentTime > 1000 + enemyLastShootTime[enemies[i]]) {
 				enemyLastShootTime[enemies[i]] = Game::GamecurrentTime;
-				enemies[i]->rndriceShoot(bullets, 4);
+				enemies[i]->rndriceShoot(bullets, 7);
 			}
 			break;
 
