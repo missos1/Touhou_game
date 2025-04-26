@@ -159,6 +159,108 @@ Phía trên màn hình chơi có một vùng. Khi nhân vật bay vào đó, cá
 + Boss sẽ sử dụng **Spellcard** – những đòn tấn công đặc biệt có giới hạn thời gian.  
 + Nếu bạn tiêu diệt boss **trong thời gian quy định**, bạn nhận thêm **điểm thưởng lớn**.  
 + Nếu hết giờ mà chưa tiêu diệt xong thì chỉ chuyển pha, không có bonus.
-
 ![](SDLGame1/Preview/spellcard_showcase.png)
+
 ---
+
+## 📁 Tệp mã nguồn
+
+#### `1. Game.cpp`
+- **Mục đích:** Quản lý vòng lặp chính của trò chơi.
+- **Chức năng chính:**
+  - Khởi tạo SDL, texture và âm thanh.
+  - Quản lý các đối tượng như người chơi, kẻ địch, đạn và vật phẩm.
+  - Xử lý chuyển trạng thái: `LOADING`, `MENU`, `PLAYING`, `PAUSE`, `EXIT`.
+
+#### `2. Player.cpp`
+- **Mục đích:** Triển khai hành vi của nhân vật người chơi.
+- **Chức năng chính:**
+  - Xử lý đầu vào (di chuyển, bắn).
+  - Cập nhật vị trí, hoạt ảnh, và vùng va chạm.
+  - Quản lý máu, cấp sức mạnh, và đếm số lần tránh đạn.
+
+#### `3. Enemy.cpp`
+- **Mục đích:** Định nghĩa hành vi và hiển thị của kẻ địch.
+- **Chức năng chính:**
+  - Di chuyển theo mẫu định sẵn.
+  - Bắn theo các kiểu: ngẫu nhiên, nhắm, vòng tròn.
+  - Quản lý máu và loại kẻ địch.
+
+#### `4. Boss.cpp`
+- **Mục đích:** Quản lý hành vi và giai đoạn của trùm.
+- **Chức năng chính:**
+  - Di chuyển, hoạt ảnh và mẫu bắn.
+  - Quản lý giai đoạn thường và spellcard.
+  - Cập nhật máu và chuyển giai đoạn.
+
+#### `5. EnemyLayout.cpp`
+- **Mục đích:** Sinh và bố trí kẻ địch theo tiến trình màn chơi.
+- **Chức năng chính:**
+  - Sinh địch tại thời điểm và vị trí cụ thể.
+  - Xử lý bắn và tương tác với người chơi.
+  - Chuyển sang trận đấu trùm.
+
+#### `6. Bullets.cpp`
+- **Mục đích:** Quản lý hành vi của đạn.
+- **Chức năng chính:**
+  - Cập nhật vị trí và kiểm tra va chạm.
+  - Quản lý tốc độ, hướng, loại đạn.
+
+#### `7. Items.cpp`
+- **Mục đích:** Xử lý các vật phẩm có thể thu thập.
+- **Chức năng chính:**
+  - Cập nhật vị trí và va chạm với người chơi.
+  - Quản lý loại và hiệu ứng vật phẩm.
+
+#### `8. Collision.cpp`
+- **Mục đích:** Kiểm tra va chạm giữa các đối tượng.
+- **Chức năng chính:**
+  - Xử lý va chạm giữa đạn, kẻ địch, người chơi, vật phẩm.
+  - Cập nhật trạng thái dựa trên kết quả va chạm.
+
+#### `9. Menu.cpp`
+- **Mục đích:** Triển khai menu chính và giao diện người dùng.
+- **Chức năng chính:**
+  - Điều hướng menu, nhận input.
+  - Hiển thị menu và chuyển trạng thái trò chơi.
+
+#### `10. Sidebar.cpp`
+- **Mục đích:** Hiển thị thông tin người chơi khi đang chơi.
+- **Chức năng chính:**
+  - Hiển thị máu, điểm, sức mạnh.
+  - Cập nhật động theo trạng thái trò chơi.
+
+#### `11. ScoreManager.cpp`
+- **Mục đích:** Quản lý điểm số và điểm cao.
+- **Chức năng chính:**
+  - Cập nhật điểm hiện tại.
+  - Đọc/ghi điểm cao từ tệp.
+
+#### `12. TextureManager.cpp`
+- **Mục đích:** Tải và hiển thị texture.
+- **Chức năng chính:**
+  - Tải từ tệp, dọn dẹp.
+  - Cung cấp hàm hỗ trợ để hiển thị texture lên màn hình.
+
+---
+
+### 📁 Tệp tiêu đề (Header Files)
+
+| Tệp               | Mục đích                                                                 |
+|--------------------|-------------------------------------------------------------------------|
+| `Game.hpp`         | Khai báo lớp Game, định nghĩa trạng thái và logic chính.              |
+| `Player.hpp`       | Khai báo lớp Player và các phương thức của nó.                        |
+| `Enemy.hpp`        | Khai báo lớp Enemy và các thuộc tính/phương thức.                     |
+| `Boss.hpp`         | Khai báo lớp Boss và điều khiển giai đoạn.                            |
+| `EnemyLayout.hpp`  | Khai báo lớp quản lý bố trí kẻ địch.                                   |
+| `Bullets.hpp`      | Khai báo lớp Bullet.                                                   |
+| `Items.hpp`        | Khai báo lớp Item.                                                     |
+| `Collision.hpp`    | Khai báo lớp CollisionCheck cho việc kiểm tra va chạm.                |
+| `Menu.hpp`         | Khai báo lớp Menu cho giao diện chính.                                |
+| `Sidebar.hpp`      | Khai báo lớp Sidebar hiển thị thông tin người chơi.                   |
+| `ScoreManager.hpp` | Khai báo lớp quản lý điểm số và điểm cao.                             |
+| `TextureManager.hpp`| Khai báo lớp TextureManager xử lý việc tải/hiển thị texture.         |
+
+---
+
+
